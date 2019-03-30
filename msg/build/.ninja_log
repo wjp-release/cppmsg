@@ -1,0 +1,8 @@
+# ninja log v5
+1	123	1553934101	src/CMakeFiles/msg.dir/endpoint/async_svr.cc.o	6097068ae91926f3
+5	131	1553934101	src/CMakeFiles/msg.dir/posix/tcp/binder.cc.o	98a1f98a017d3e11
+9	137	1553934101	src/CMakeFiles/msg.dir/posix/tcp/caller.cc.o	71ef9f63e3f891e7
+19	138	1553934101	src/CMakeFiles/msg.dir/posix/tcp/conn.cc.o	6bf88015b2376da9
+139	289	1553934101	src/libmsg.a	725d483648604c9f
+23	2512	1553934103	samples/CMakeFiles/sample.dir/main.cc.o	7412215e484c67f
+2514	2680	1553934103	samples/sample	4922069eb3e4a447
