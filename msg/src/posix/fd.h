@@ -13,6 +13,9 @@ void     efd_recv(int efd);
 int      signalfd_open(int* signals, int n);
 bool     signalfd_read(int signalfd, int* signo);
 // timerfd
+int      timerfd_open();
+
+
 
 
 

@@ -1,13 +1,11 @@
 #pragma once
 
-
+#include "reactor.h"
 
 namespace msg{
 namespace posix{
 
-
-
-enum event_type : uint8_t{
+enum event_type : uint32_t{
     SOCK_EV     = 0, //socket
     TIMER_EV    = 1, //timer
     USER_EV     = 2, //user-defined 

@@ -1,4 +1,3 @@
-#include "epollfd.h"
 #include <sys/timerfd.h>
 #include <sys/time.h>
 #include <time.h>
@@ -10,6 +9,12 @@
 #include <fcntl.h>
 #include <sys/event.h>
 #include <sys/socket.h>
+#include <string.h>
+#include <exception>
+#include <stdexcept>
+
+#include "epollfd.h"
+#include "clock.h"
 
 namespace msg{ namespace posix{
 
@@ -65,6 +70,32 @@ bool signalfd_read(int signalfd, int* signo){
     signo=info.ssi_signo;
     return true;
 }
+
+int timerfd_open(){
+  return timerfd_create(CLOCK_MONOTONIC, TFD_NONBLOCK | TFD_CLOEXEC);
+}
+
+// read over timerfd returns an uint64_t containing the number of expirations that have occurred
+uint64_t timerfd_read(int timerfd)
+{
+  uint64_t duh;
+  ssize_t n = ::read(timerfd, &duh, sizeof duh);
+  if (n != sizeof duh) throw std::runtime_error("timer fd read bytes n!=8");
+  return duh; // normally it should be 1
+}
+
+//itimerspec{it_interval, it_value}  interval, initial expiration 
+void timerfd_reset(int timerfd, uint64_t expiration_time)
+{
+  struct itimerspec newValue;
+  struct itimerspec oldValue;
+  memset(&newValue, 0, sizeof newValue);
+  memset(&oldValue, 0, sizeof oldValue);
+  newValue.it_value = parse_ms(expiration_time-now());
+  int ret = timerfd_settime(timerfd, 0, &newValue, &oldValue); 
+  if (ret) throw std::runtime_error("timerfd_settime failed");
+}
+
 
 
 }}
