@@ -4,7 +4,6 @@ namespace msg{namespace posix{
 
 // settings
 void     set_nonblock(int fd);
-void     ignore_sigpipe(int fd);
 // eventfd
 int      efd_open();
 void     efd_send(int efd);

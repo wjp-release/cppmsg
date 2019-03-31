@@ -1,9 +1,8 @@
 #pragma once
 
-namespace msg{
-namespace posix{
+namespace msg{ namespace posix{
 
 
 
-}
-}
+
+}}

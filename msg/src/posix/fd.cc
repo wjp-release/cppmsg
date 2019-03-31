@@ -7,13 +7,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <sys/event.h>
 #include <sys/socket.h>
 #include <string.h>
 #include <exception>
 #include <stdexcept>
 
-#include "epollfd.h"
+#include "fd.h"
 #include "clock.h"
 
 namespace msg{ namespace posix{
@@ -21,11 +20,6 @@ namespace msg{ namespace posix{
 void set_nonblock(int fd){
     fcntl(fd, F_SETFD, FD_CLOEXEC);
 	fcntl(fd, F_SETFL, O_NONBLOCK);
-}
-
-void ignore_sigpipe(int fd){
-    int one = 1;
-	setsockopt(fd, SOL_SOCKET, SO_NOSIGPIPE, &one, sizeof(one)); 
 }
 
 int efd_open(){
@@ -64,10 +58,8 @@ int signalfd_open(int* signals, int n){
 bool signalfd_read(int signalfd, int* signo){
     struct signalfd_siginfo info;
     ssize_t nr = read(signalfd, &info, sizeof(info));
-    if (nr != sizeof(info)) {
-        return false;
-    }
-    signo=info.ssi_signo;
+    if (nr != sizeof(info)) return false;
+    *signo=info.ssi_signo;
     return true;
 }
 

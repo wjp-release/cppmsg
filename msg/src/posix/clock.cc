@@ -37,9 +37,14 @@ struct timespec timespec_elapsed(uint64_t start_time){
     return parse_ms(now()-start_time);
 }
 
-uint64_t        ms_elapsed(uint64_t start_time){
+uint64_t ms_elapsed(uint64_t start_time){
     return now()-start_time;
 }
+
+uint64_t future(uint64_t ms_from_now){
+    return ms_from_now+now();
+}
+
 
 
 }}
