@@ -43,12 +43,16 @@ public:
         close(timerfd);
     }
     // must be called by user threads, let reactor run push(t) in its eventloop 
-    void please_push(const timeout& t){ 
-        
+    void please_push(timeout t){ 
+        reactor::instance().run([this,t]{
+            push(t);
+        });
     }
     // must be called by user threads 
-    void please_push(const std::function<void(void)>& cb, uint64_t expire, uint32_t interval=0){
-
+    void please_push(func cb, uint64_t expire, uint32_t interval=0){
+        reactor::instance().run([this,=]{
+            push(cb, expire, interval);
+        });
     }
     // must be called by reactor in its eventloop
     void on_timerfd_event(){  
