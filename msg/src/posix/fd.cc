@@ -19,7 +19,7 @@ namespace msg{ namespace posix{
 
 void set_nonblock(int fd){
     fcntl(fd, F_SETFD, FD_CLOEXEC);
-	fcntl(fd, F_SETFL, O_NONBLOCK);
+	  fcntl(fd, F_SETFL, O_NONBLOCK);
 }
 
 int efd_open(){

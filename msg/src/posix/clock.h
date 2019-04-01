@@ -1,7 +1,6 @@
 #pragma once
 
-#include <stdint.h>
-#include <time.h>
+#include "def.h"
 
 namespace msg{namespace posix{
 

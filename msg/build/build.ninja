@@ -102,6 +102,12 @@ build src/CMakeFiles/msg.dir/posix/fd.cc.o: CXX_COMPILER__msg ../src/posix/fd.cc
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/posix
+build src/CMakeFiles/msg.dir/posix/timer.cc.o: CXX_COMPILER__msg ../src/posix/timer.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/posix/timer.cc.o.d
+  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++11
+  INCLUDES = -I.././include -I.././src
+  OBJECT_DIR = src/CMakeFiles/msg.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/posix
 build src/CMakeFiles/msg.dir/endpoint/async_svr.cc.o: CXX_COMPILER__msg ../src/endpoint/async_svr.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/endpoint/async_svr.cc.o.d
   FLAGS = -std=c++11 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++11
@@ -134,7 +140,7 @@ build src/CMakeFiles/msg.dir/posix/tcp/conn.cc.o: CXX_COMPILER__msg ../src/posix
 #############################################
 # Link the static library src/libmsg.a
 
-build src/libmsg.a: CXX_STATIC_LIBRARY_LINKER__msg src/CMakeFiles/msg.dir/posix/clock.cc.o src/CMakeFiles/msg.dir/posix/fd.cc.o src/CMakeFiles/msg.dir/endpoint/async_svr.cc.o src/CMakeFiles/msg.dir/posix/tcp/binder.cc.o src/CMakeFiles/msg.dir/posix/tcp/caller.cc.o src/CMakeFiles/msg.dir/posix/tcp/conn.cc.o
+build src/libmsg.a: CXX_STATIC_LIBRARY_LINKER__msg src/CMakeFiles/msg.dir/posix/clock.cc.o src/CMakeFiles/msg.dir/posix/fd.cc.o src/CMakeFiles/msg.dir/posix/timer.cc.o src/CMakeFiles/msg.dir/endpoint/async_svr.cc.o src/CMakeFiles/msg.dir/posix/tcp/binder.cc.o src/CMakeFiles/msg.dir/posix/tcp/caller.cc.o src/CMakeFiles/msg.dir/posix/tcp/conn.cc.o
   LANGUAGE_COMPILE_FLAGS = -std=c++11 -fPIC -Wno-reorder  -O0 -Wall -g2
   OBJECT_DIR = src/CMakeFiles/msg.dir
   POST_BUILD = :
