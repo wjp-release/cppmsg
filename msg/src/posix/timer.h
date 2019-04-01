@@ -5,10 +5,10 @@
 #include <stdint.h>
 #include <functional>
 #include <vector>
+#include <unistd.h> // close
 
 #include "clock.h"
 #include "fd.h"
-#include <unistd.h> // close
 
 // timeout: encapsulation of when, and what to do 
 // timer: a compact and fast timerfd-based timer
@@ -42,18 +42,11 @@ public:
     ~timer(){
         close(timerfd);
     }
+    int get_timerfd(){return timerfd;}
     // must be called by user threads, let reactor run push(t) in its eventloop 
-    void please_push(timeout t){ 
-        reactor::instance().run([this,t]{
-            push(t);
-        });
-    }
+    void please_push(timeout t);
     // must be called by user threads 
-    void please_push(func cb, uint64_t expire, uint32_t interval=0){
-        reactor::instance().run([this,=]{
-            push(cb, expire, interval);
-        });
-    }
+    void please_push(func cb, uint64_t expire, uint32_t interval=0);
     // must be called by reactor in its eventloop
     void on_timerfd_event(){  
         timerfd_read(timerfd);

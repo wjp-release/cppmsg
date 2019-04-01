@@ -23,7 +23,7 @@ enum event_type : uint8_t{
 
     Plan B saves size of mutex space for each event. Considering user code probably won't modify evflag or cb of existing events too often, compromising certain degree of parallelism to me is acceptable. 
 
-    Methods with 'please_' prefix must be called by user threads. They will return immediately and actually been run in the eventloop.
+    Methods with prefix 'please_' must be called by user threads. They will return immediately and actually been run in the eventloop.
 */
 
 class event{
@@ -35,11 +35,13 @@ public:
     ~event(){
         close(fd);
     }
-    void            please_set_cb(func);// let eventloop run set_cb 
-    bool            please_submit(int evflag); // let eventloop run submit 
-    func            consume(int evflag); // called by eventloop
+    void            please_set_cb(func);// must be called by user thread; let eventloop run set_cb 
+    void            please_submit(int evflag); // must be called by user thread; let eventloop run submit 
+    func            consume(int evflag); // must be called by eventloop
+    bool            submit_no_oneshot(int evflag);  // must be called by eventloop; timerfd, eventfd & signalfd
 private:
-    bool            submit(int evflag);  
+    bool            submit(int evflag); 
+    bool            epoll_mod_no_oneshot();
     bool            epoll_add();
     bool            epoll_del();
     bool            epoll_mod();

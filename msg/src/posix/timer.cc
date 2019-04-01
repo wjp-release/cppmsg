@@ -1,4 +1,5 @@
 #include "timer.h"
+#include "reactor.h"
 
 namespace msg{ namespace posix{
 
@@ -34,5 +35,17 @@ void timer::handle_expired_timeouts(){
         }
     }
 } 
+
+void timer::please_push(timeout t){ 
+    reactor::instance().run([this,t]{
+        push(t);
+    });
+}
+// must be called by user threads 
+void timer::please_push(func cb, uint64_t expire, uint32_t interval){
+    reactor::instance().run([this, cb, expire, interval]{
+        push(cb, expire, interval);
+    });
+}
 
 }}
