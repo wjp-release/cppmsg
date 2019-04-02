@@ -68,26 +68,13 @@ bool reactor::in_eventloop(){
 }
 
 void reactor::eventloop(){
-    std::cout<<"eventloop starts"<<std::endl;
     eventfd_event->submit_without_oneshot(EPOLLIN);
     timerfd_event->submit_without_oneshot(EPOLLIN);
     signalfd_event->submit_without_oneshot(EPOLLIN);
-    
-    // test only!
-    int tick=0;
-    timerfd_timer.push([&]{
-        std::cout<<"tick="<<tick++<<std::endl;
-    }, future(2000), 1000);
-
-    timerfd_timer.push([]{
-        std::cout<<"*";
-    }, future(5000), 200);
-
 	while(!closing){
 		struct epoll_event events[max_events];
 		int n = epoll_wait(epollfd,events,max_events,-1);
 		if(n<0 && errno==EBADF) std::cerr<<"epoll_wait failed!\n"; 
-        std::cout<<"event captured: ";
 		for(int j=0; j<n; j++){
 			consume(&events[j]);
 		}
@@ -100,7 +87,6 @@ void reactor::eventloop(){
             cb();
         }
 	}
-    std::cout<<"eventloop terminates"<<std::endl;
 }
 
 void reactor::start_eventloop(){

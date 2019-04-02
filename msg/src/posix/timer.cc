@@ -31,7 +31,6 @@ timeout timer::pop(){ // worst: O(logn)
 void timer::on_timerfd_event(){  
     timerfd_read(timerfd);
     handle_expired_timeouts();
-    std::cout<<"timerfd_event handled!\n\n";
 }
 
 void timer::handle_expired_timeouts(){
