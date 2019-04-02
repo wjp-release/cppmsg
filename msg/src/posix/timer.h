@@ -42,16 +42,14 @@ public:
     ~timer(){
         close(timerfd);
     }
+    void reset_timerfd();
     int get_timerfd(){return timerfd;}
     // must be called by user threads, let reactor run push(t) in its eventloop 
     void please_push(timeout t);
     // must be called by user threads 
     void please_push(func cb, uint64_t expire, uint32_t interval=0);
     // must be called by reactor in its eventloop
-    void on_timerfd_event(){  
-        timerfd_read(timerfd);
-        handle_expired_timeouts();
-    }
+    void on_timerfd_event();
     /*
         Despite being thread-unsafe, following functions will only be run in eventloop sequentially. 
     */
@@ -64,9 +62,6 @@ public:
         return timeoutq.size();
     }
     timeout pop(); // worst: O(logn)
-    uint64_t earliest_expire(){
-        return timeoutq.top().expire;
-    }
     void handle_expired_timeouts();
 private:
     std::priority_queue<timeout, std::vector<timeout>, timeout_comp> timeoutq;

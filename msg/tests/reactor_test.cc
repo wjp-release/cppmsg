@@ -5,7 +5,7 @@
 #include <exception>
 
 using namespace msg::posix;
-
+using namespace std;
 class reactor_test : public ::testing::Test {
 protected:
 	reactor_test() {}
@@ -17,9 +17,7 @@ protected:
 };
 
 TEST_F(reactor_test, basic) {
-	
-	
-
+	//see sample/main.cc
 }
 
 

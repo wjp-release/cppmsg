@@ -3,17 +3,21 @@
 
 namespace msg{ namespace posix{
 
+void timer::reset_timerfd(){
+    timerfd_reset(timerfd, timeoutq.top().expire);
+}
+
 void timer::push(const timeout& t){ //worst: O(logn)
     timeoutq.push(t);
-    if (timeoutq.top().expire==t.expire){ 
-        timerfd_reset(timerfd, t.expire);
+    if(t.expire==timeoutq.top().expire){ //auto reset
+        reset_timerfd(); 
     }
 }
 
 void timer::push(const std::function<void(void)>& cb, uint64_t expire, uint32_t interval){
     timeoutq.emplace(cb, expire, interval);
-    if (timeoutq.top().expire==expire){ 
-        timerfd_reset(timerfd, expire);
+    if(expire==timeoutq.top().expire){
+        reset_timerfd();
     }
 }
 
@@ -24,9 +28,17 @@ timeout timer::pop(){ // worst: O(logn)
     return p;
 }
 
+void timer::on_timerfd_event(){  
+    timerfd_read(timerfd);
+    handle_expired_timeouts();
+    std::cout<<"timerfd_event handled!\n\n";
+}
+
 void timer::handle_expired_timeouts(){
-    uint64_t ckpt=now();
-    while(ckpt>earliest_expire()){
+    if(timeoutq.empty()) return;
+    while(!timeoutq.empty()){
+        uint64_t ckpt=now();
+        if(ckpt<timeoutq.top().expire) break;
         timeout t=pop();
         t.cb(); 
         if(t.is_periodic()){ 
@@ -34,6 +46,7 @@ void timer::handle_expired_timeouts(){
             push(t); 
         }
     }
+    reset_timerfd(); // set next timerfd event's expire
 } 
 
 void timer::please_push(timeout t){ 

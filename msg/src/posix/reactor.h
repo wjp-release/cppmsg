@@ -21,13 +21,13 @@ public:
         return r;
     }
     void            start_eventloop(); 
+    void            eventloop(); // the eventloop
     // queue it, wake event loop immediately
     void            run(const func& cb);
     // queue it, run in next loop
     void            run_later(const func& cb);
 protected:
     reactor();
-    void            eventloop(); // the eventloop
     void            wake(); // via sending eventfd
     void            consume(const struct epoll_event* ev);
     bool            in_eventloop();

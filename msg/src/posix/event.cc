@@ -6,47 +6,47 @@
 
 namespace msg{ namespace posix{
 
-bool event::epoll_add(){
+event::event(int epollfd, int fd, uint8_t type, const func& cb):cb(cb),fd(fd),type(type){
+    set_nonblock(fd);
     ::epoll_event ee;
     ee.events=0;
     ee.data.ptr=this;
-    return epoll_ctl(reactor::instance().epollfd, EPOLL_CTL_ADD, fd, &ee)==0;
+    if(epoll_ctl(epollfd, EPOLL_CTL_ADD, fd, &ee)!=0)
+        throw std::runtime_error("can't create epollfd");
+}
+event::~event(){
+    ::epoll_event ee; //unused
+    epoll_ctl(reactor::instance().epollfd, EPOLL_CTL_DEL, fd, &ee);
+    close(fd);
 }
 
-bool event::epoll_del(){
-    ::epoll_event ee;
-    return epoll_ctl(reactor::instance().epollfd, EPOLL_CTL_DEL, fd, &ee)==0;
-}
-
-bool event::epoll_mod(){
-    ::epoll_event ee;
-    ee.events=evmask|EPOLLONESHOT|EPOLLERR;
-    ee.data.ptr=this;
-    return epoll_ctl(reactor::instance().epollfd, EPOLL_CTL_MOD, fd, &ee)==0;
-}
-
-bool event::epoll_mod_no_oneshot(){
+bool event::submit_without_oneshot(int evflag){
+    if (closing) return false; 
+	this->evmask |= evflag; 
     ::epoll_event ee;
     ee.events=evmask|EPOLLERR;
     ee.data.ptr=this;
     return epoll_ctl(reactor::instance().epollfd, EPOLL_CTL_MOD, fd, &ee)==0;
 }
 
-bool event::submit_no_oneshot(int evflag){
-    if (closing) return false; 
-	this->evmask |= evflag; 
-    return epoll_mod_no_oneshot();
-}
-
 bool event::submit(int evflag){
     if (closing) return false; 
 	this->evmask |= evflag; 
-    return epoll_mod();
+    ::epoll_event ee;
+    ee.events=evmask|EPOLLONESHOT|EPOLLERR;
+    ee.data.ptr=this;
+    return epoll_ctl(reactor::instance().epollfd, EPOLL_CTL_MOD, fd, &ee)==0;
 }
 
-func event::consume(int evflag){
+void event::consume(int evflag){
     this->evmask &= ~evflag;
-    return cb;
+    if(cb) cb();
+}
+
+void event::please_destroy_me(){
+    reactor::instance().run([this]{
+        delete this; // safely deleted in eventloop
+    });
 }
 
 void event::please_set_cb(func cb_){

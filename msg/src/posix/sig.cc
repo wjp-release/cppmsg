@@ -19,13 +19,13 @@ static int create_signalfd(){
     return signalfd;
 }
 
-event* create_signalfd_event(){
+event* create_signalfd_event(int epollfd){
     if(signalfd==-1) create_signalfd();
     if(signalfd==-1) throw std::runtime_error("fail to create signalfd!");
-    return new event(signalfd, SIG_EV, []{
+    return new event(epollfd, signalfd, SIG_EV, []{
         int signo;
         signalfd_read(signalfd, &signo);
-        std::cerr<<"got signal "<<signo<<std::endl; 
+        std::cerr<<std::endl<<"got signal "<<signo<<"\nbye~"<<std::endl; 
         exit(-1);
     });
 }
