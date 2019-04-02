@@ -43,7 +43,7 @@ void timer::handle_expired_timeouts(){
         t.cb(); 
         if(t.is_periodic()){ 
             t.refresh(ckpt);
-            push(t); 
+            timeoutq.push(t); // note that we don't use push here to avoid additional resets
         }
     }
     reset_timerfd(); // set next timerfd event's expire
