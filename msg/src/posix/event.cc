@@ -6,7 +6,7 @@
 
 namespace msg{ namespace posix{
 
-event::event(int epollfd, int fd, uint8_t type, const func& cb):cb(cb),fd(fd),type(type){
+event::event(int epollfd, int fd, const event_cb& cb):cb(cb),fd(fd){
     set_nonblock(fd);
     ::epoll_event ee;
     ee.events=0;
@@ -22,6 +22,7 @@ event::~event(){
 
 bool event::submit_without_oneshot(int evflag){
     if (closing) return false; 
+    std::lock_guard<std::mutex> lk(mtx);
 	this->evmask |= evflag; 
     ::epoll_event ee;
     ee.events=evmask|EPOLLERR;
@@ -31,6 +32,7 @@ bool event::submit_without_oneshot(int evflag){
 
 bool event::submit(int evflag){
     if (closing) return false; 
+    std::lock_guard<std::mutex> lk(mtx);
 	this->evmask |= evflag; 
     ::epoll_event ee;
     ee.events=evmask|EPOLLONESHOT|EPOLLERR;
@@ -39,26 +41,21 @@ bool event::submit(int evflag){
 }
 
 void event::consume(int evflag){
+    std::lock_guard<std::mutex> lk(mtx);
     this->evmask &= ~evflag;
-    if(cb) cb();
+    if(cb) cb(evflag);
 }
 
+// (mtx won't work) we have to submit delete operation to the eventloop to make sure the deleted event won't be captured by eventloop at the same time.
 void event::please_destroy_me(){
     reactor::instance().run([this]{
         delete this; // safely deleted in eventloop
     });
 }
 
-void event::please_set_cb(func cb_){
-    reactor::instance().run([this, cb_]{
-        this->cb=cb_;
-    });
-}
-
-void event::please_submit(int evflag){
-    reactor::instance().run([this, evflag]{
-        submit(evflag);
-    });
+void event::set_cb(event_cb cb_){
+    std::lock_guard<std::mutex> lk(mtx);
+    this->cb=cb_;
 }
 
 }}

@@ -16,16 +16,16 @@
 namespace msg{ namespace posix{
 
 struct timeout{
-    timeout(const std::function<void(void)>& cb, uint64_t expire, uint32_t interval):cb(cb), expire(expire), interval(interval){}
-    void                        refresh(uint64_t baseline){
+    timeout(const timer_cb& cb, uint64_t expire, uint32_t interval):cb(cb), expire(expire), interval(interval){}
+    void        refresh(uint64_t baseline){
         expire=baseline+interval;
     }
-    bool                        is_periodic(){
+    bool        is_periodic(){
         return interval>0;
     }
-    std::function<void(void)>   cb; // cb must finish very fast or run in a background thread
-    uint64_t                    expire; // when to expire 
-    uint32_t                    interval; // <=0 denotes oneshot
+    timer_cb        cb; // cb must finish very fast or run in a background thread
+    uint64_t    expire; // when to expire 
+    uint32_t    interval; // <=0 denotes oneshot
 };
 
 struct timeout_comp{
@@ -47,14 +47,14 @@ public:
     // must be called by user threads, let reactor run push(t) in its eventloop 
     void please_push(timeout t);
     // must be called by user threads 
-    void please_push(func cb, uint64_t expire, uint32_t interval=0);
+    void please_push(timer_cb cb, uint64_t expire, uint32_t interval=0);
     // must be called by reactor in its eventloop
     void on_timerfd_event();
     /*
         Despite being thread-unsafe, following functions will only be run in eventloop sequentially. 
     */
     void push(const timeout& t); //worst: O(logn)
-    void push(const std::function<void(void)>& cb, uint64_t expire, uint32_t interval=0);
+    void push(const timer_cb& cb, uint64_t expire, uint32_t interval=0);
     bool empty() const{
         return timeoutq.empty();
     }

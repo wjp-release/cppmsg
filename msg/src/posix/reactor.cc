@@ -18,10 +18,10 @@ namespace msg{namespace posix{
 reactor::reactor(){
     epollfd=epoll_create1(EPOLL_CLOEXEC);
     eventfd=efd_open();
-    eventfd_event=new event(epollfd, eventfd, USER_EV, [this]{
+    eventfd_event=new event(epollfd, eventfd, [this](int evflag){
         efd_recv(eventfd);
     });
-    timerfd_event=new event(epollfd,timerfd_timer.get_timerfd(), TIMER_EV, [this]{
+    timerfd_event=new event(epollfd,timerfd_timer.get_timerfd(), [this](int evflag){
         timerfd_timer.on_timerfd_event();
     });
     signalfd_event=create_signalfd_event(epollfd);
@@ -42,16 +42,16 @@ void reactor::wake(){
     efd_send(eventfd);
 }
 
-void reactor::run(const func& cb){
+void reactor::run(const please_cb& cb){
     enqueue(cb);
     wake();
 }
 
-void reactor::run_later(const func& cb){
+void reactor::run_later(const please_cb& cb){
     enqueue(cb);
 }
 
-void reactor::enqueue(const func& cb){
+void reactor::enqueue(const please_cb& cb){
     std::lock_guard<std::mutex> lk(mtx);
     cbq.emplace_back(cb);
 }
@@ -75,17 +75,13 @@ void reactor::eventloop(){
 		struct epoll_event events[max_events];
 		int n = epoll_wait(epollfd,events,max_events,-1);
 		if(n<0 && errno==EBADF) std::cerr<<"epoll_wait failed!\n"; 
-		for(int j=0; j<n; j++){
-			consume(&events[j]);
-		}
-        std::vector<func> tmp;
+		for(int j=0; j<n; j++) consume(&events[j]);
+        std::vector<please_cb> tmp;
         {
             std::lock_guard<std::mutex> lk(mtx);
             cbq.swap(tmp);
         }
-        for(auto& cb: tmp){
-            cb();
-        }
+        for(auto& cb: tmp) cb();
 	}
 }
 

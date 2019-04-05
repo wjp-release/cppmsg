@@ -23,20 +23,20 @@ public:
     void            start_eventloop(); 
     void            eventloop(); // the eventloop
     // queue it, wake event loop immediately
-    void            run(const func& cb);
+    void            run(const please_cb& cb);
     // queue it, run in next loop
-    void            run_later(const func& cb);
+    void            run_later(const please_cb& cb);
 protected:
     reactor();
     void            wake(); // via sending eventfd
     void            consume(const struct epoll_event* ev);
     bool            in_eventloop();
-    void            enqueue(const func& cb);
+    void            enqueue(const please_cb& cb);
 private:
     int             eventfd; // used to wake up eventloop
     event*          eventfd_event; // wake up event
     std::thread     background_thread;   
-    std::vector<func> cbq; // callbacks to run in next loop
+    std::vector<please_cb> cbq; // callbacks to run in next loop
     std::mutex      mtx; // protect cbq
     timer           timerfd_timer; // timerfd-based timer
     event*          timerfd_event; 

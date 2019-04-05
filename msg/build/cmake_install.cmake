@@ -41,8 +41,6 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/mnt/d/projects/cppmsg/msg/build/src/cmake_install.cmake")
   include("/mnt/d/projects/cppmsg/msg/build/samples/cmake_install.cmake")
-  include("/mnt/d/projects/cppmsg/msg/build/googletest/cmake_install.cmake")
-  include("/mnt/d/projects/cppmsg/msg/build/tests/cmake_install.cmake")
 
 endif()
 

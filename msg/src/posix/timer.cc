@@ -14,7 +14,7 @@ void timer::push(const timeout& t){ //worst: O(logn)
     }
 }
 
-void timer::push(const std::function<void(void)>& cb, uint64_t expire, uint32_t interval){
+void timer::push(const timer_cb& cb, uint64_t expire, uint32_t interval){
     timeoutq.emplace(cb, expire, interval);
     if(expire==timeoutq.top().expire){
         reset_timerfd();
@@ -54,7 +54,7 @@ void timer::please_push(timeout t){
     });
 }
 // must be called by user threads 
-void timer::please_push(func cb, uint64_t expire, uint32_t interval){
+void timer::please_push(timer_cb cb, uint64_t expire, uint32_t interval){
     reactor::instance().run([this, cb, expire, interval]{
         push(cb, expire, interval);
     });

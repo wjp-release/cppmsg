@@ -6,5 +6,9 @@
 #include <exception>
 #include <stdexcept>
 #include <iostream>
+#include <memory>
 
-using func=std::function<void(void)>;
+using event_cb=std::function<void(int)>;
+using please_cb=std::function<void(void)>;
+using timer_cb=std::function<void(void)>;
+using task_cb=std::function<void(void)>;
