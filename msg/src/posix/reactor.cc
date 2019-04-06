@@ -42,18 +42,13 @@ void reactor::wake(){
     efd_send(eventfd);
 }
 
-void reactor::run(const please_cb& cb){
-    enqueue(cb);
+void reactor::submit(const please_cb& cb){
+    cbq.enqueue(cb); 
+}
+
+void reactor::submit_and_wake(const please_cb& cb){
+    cbq.enqueue(cb); 
     wake();
-}
-
-void reactor::run_later(const please_cb& cb){
-    enqueue(cb);
-}
-
-void reactor::enqueue(const please_cb& cb){
-    std::lock_guard<std::mutex> lk(mtx);
-    cbq.emplace_back(cb);
 }
 
 void reactor::consume(const struct epoll_event* ev){
@@ -67,6 +62,11 @@ bool reactor::in_eventloop(){
     return false;
 }
 
+// fixme: replace iostream with your logging tools or just exit
+void reactor::bad_epollwait(){
+    std::cerr<<"epoll_wait failed!\n"; 
+}
+
 void reactor::eventloop(){
     eventfd_event->submit_without_oneshot(EPOLLIN);
     timerfd_event->submit_without_oneshot(EPOLLIN);
@@ -74,14 +74,10 @@ void reactor::eventloop(){
 	while(!closing){
 		struct epoll_event events[max_events];
 		int n = epoll_wait(epollfd,events,max_events,-1);
-		if(n<0 && errno==EBADF) std::cerr<<"epoll_wait failed!\n"; 
+		if(n<0 && errno==EBADF) bad_epollwait(); 
 		for(int j=0; j<n; j++) consume(&events[j]);
-        std::vector<please_cb> tmp;
-        {
-            std::lock_guard<std::mutex> lk(mtx);
-            cbq.swap(tmp);
-        }
-        for(auto& cb: tmp) cb();
+        please_cb cb; 
+        while (cbq.try_dequeue(cb)) cb();
 	}
 }
 

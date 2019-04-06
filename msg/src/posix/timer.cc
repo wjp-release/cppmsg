@@ -1,5 +1,6 @@
 #include "timer.h"
 #include "reactor.h"
+#include "taskpool.h"
 
 namespace msg{ namespace posix{
 
@@ -39,9 +40,9 @@ void timer::handle_expired_timeouts(){
         uint64_t ckpt=now();
         if(ckpt<timeoutq.top().expire) break;
         timeout t=pop();
-        t.cb(); 
+        taskpool::instance().execute(t.cb);
         if(t.is_periodic()){ 
-            t.refresh(ckpt);
+            t.refresh(ckpt); 
             timeoutq.push(t); // note that we don't use push here to avoid additional resets
         }
     }
@@ -49,13 +50,13 @@ void timer::handle_expired_timeouts(){
 } 
 
 void timer::please_push(timeout t){ 
-    reactor::instance().run([this,t]{
+    reactor::instance().submit_and_wake([this,t]{
         push(t);
     });
 }
 // must be called by user threads 
 void timer::please_push(timer_cb cb, uint64_t expire, uint32_t interval){
-    reactor::instance().run([this, cb, expire, interval]{
+    reactor::instance().submit_and_wake([this, cb, expire, interval]{
         push(cb, expire, interval);
     });
 }

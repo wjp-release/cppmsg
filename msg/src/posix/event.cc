@@ -48,7 +48,7 @@ void event::consume(int evflag){
 
 // (mtx won't work) we have to submit delete operation to the eventloop to make sure the deleted event won't be captured by eventloop at the same time.
 void event::please_destroy_me(){
-    reactor::instance().run([this]{
+    reactor::instance().submit_and_wake([this]{
         delete this; // safely deleted in eventloop
     });
 }

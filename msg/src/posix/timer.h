@@ -20,6 +20,9 @@ struct timeout{
     void        refresh(uint64_t baseline){
         expire=baseline+interval;
     }
+    void        refresh_now(){
+        expire=now()+interval;
+    }
     bool        is_periodic(){
         return interval>0;
     }
@@ -45,14 +48,14 @@ public:
     void reset_timerfd();
     int get_timerfd(){return timerfd;}
     // must be called by user threads, let reactor run push(t) in its eventloop 
+    // Why don't we just use a mtx to protect the timer against race conditions? 
+    // One reason is that mtx could potentially delay the execution of on_timerfd_event, which might be crucial if time accuracy matters.
+    // Another reason is that push operations will be guranteed to finish before next epoll_wait call, hence even though it could be slower than concurrent modification with mtx, it's more stable.
     void please_push(timeout t);
     // must be called by user threads 
     void please_push(timer_cb cb, uint64_t expire, uint32_t interval=0);
     // must be called by reactor in its eventloop
     void on_timerfd_event();
-    /*
-        Despite being thread-unsafe, following functions will only be run in eventloop sequentially. 
-    */
     void push(const timeout& t); //worst: O(logn)
     void push(const timer_cb& cb, uint64_t expire, uint32_t interval=0);
     bool empty() const{
@@ -64,7 +67,7 @@ public:
     timeout pop(); // worst: O(logn)
     void handle_expired_timeouts();
 private:
-    std::priority_queue<timeout, std::vector<timeout>, timeout_comp> timeoutq;
+    std::priority_queue<timeout, std::vector<timeout>, timeout_comp> timeoutq; 
     int timerfd;
 };
 

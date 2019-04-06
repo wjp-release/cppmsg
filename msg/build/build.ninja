@@ -137,8 +137,8 @@ build src/CMakeFiles/msg.dir/posix/tcp/conn.cc.o: CXX_COMPILER__msg ../src/posix
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/posix/tcp
-build src/CMakeFiles/msg.dir/posix/tcp/msg.cc.o: CXX_COMPILER__msg ../src/posix/tcp/msg.cc || cmake_object_order_depends_target_msg
-  DEP_FILE = src/CMakeFiles/msg.dir/posix/tcp/msg.cc.o.d
+build src/CMakeFiles/msg.dir/posix/tcp/msgbuf.cc.o: CXX_COMPILER__msg ../src/posix/tcp/msgbuf.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/posix/tcp/msgbuf.cc.o.d
   FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
@@ -151,7 +151,7 @@ build src/CMakeFiles/msg.dir/posix/tcp/msg.cc.o: CXX_COMPILER__msg ../src/posix/
 #############################################
 # Link the static library src/libmsg.a
 
-build src/libmsg.a: CXX_STATIC_LIBRARY_LINKER__msg src/CMakeFiles/msg.dir/posix/clock.cc.o src/CMakeFiles/msg.dir/posix/event.cc.o src/CMakeFiles/msg.dir/posix/fd.cc.o src/CMakeFiles/msg.dir/posix/reactor.cc.o src/CMakeFiles/msg.dir/posix/sig.cc.o src/CMakeFiles/msg.dir/posix/timer.cc.o src/CMakeFiles/msg.dir/endpoint/async_svr.cc.o src/CMakeFiles/msg.dir/taskpool.cc.o src/CMakeFiles/msg.dir/posix/tcp/binder.cc.o src/CMakeFiles/msg.dir/posix/tcp/caller.cc.o src/CMakeFiles/msg.dir/posix/tcp/conn.cc.o src/CMakeFiles/msg.dir/posix/tcp/msg.cc.o
+build src/libmsg.a: CXX_STATIC_LIBRARY_LINKER__msg src/CMakeFiles/msg.dir/posix/clock.cc.o src/CMakeFiles/msg.dir/posix/event.cc.o src/CMakeFiles/msg.dir/posix/fd.cc.o src/CMakeFiles/msg.dir/posix/reactor.cc.o src/CMakeFiles/msg.dir/posix/sig.cc.o src/CMakeFiles/msg.dir/posix/timer.cc.o src/CMakeFiles/msg.dir/endpoint/async_svr.cc.o src/CMakeFiles/msg.dir/taskpool.cc.o src/CMakeFiles/msg.dir/posix/tcp/binder.cc.o src/CMakeFiles/msg.dir/posix/tcp/caller.cc.o src/CMakeFiles/msg.dir/posix/tcp/conn.cc.o src/CMakeFiles/msg.dir/posix/tcp/msgbuf.cc.o
   LANGUAGE_COMPILE_FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall
   OBJECT_DIR = src/CMakeFiles/msg.dir
   POST_BUILD = :

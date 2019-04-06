@@ -22,22 +22,22 @@ public:
     }
     void            start_eventloop(); 
     void            eventloop(); // the eventloop
-    // queue it, wake event loop immediately
-    void            run(const please_cb& cb);
-    // queue it, run in next loop
-    void            run_later(const please_cb& cb);
+    // Submit a task and run in the eventloop
+    // Do not abuse this feature. We do not intend to design the eventloop as a task pool.
+    // The cbq is designed for destroying events and handling timer updates, as these two operations deserve careful synchronization with epoll_waits. 
+    void            submit_and_wake(const please_cb& cb);
+    void            submit(const please_cb& cb);
+    void            wake(); // via sending eventfd
 protected:
     reactor();
-    void            wake(); // via sending eventfd
+    void            bad_epollwait();
     void            consume(const struct epoll_event* ev);
     bool            in_eventloop();
-    void            enqueue(const please_cb& cb);
 private:
     int             eventfd; // used to wake up eventloop
     event*          eventfd_event; // wake up event
     std::thread     background_thread;   
-    std::vector<please_cb> cbq; // callbacks to run in next loop
-    std::mutex      mtx; // protect cbq
+    cq<please_cb>   cbq; // callbacks to run in next loop 
     timer           timerfd_timer; // timerfd-based timer
     event*          timerfd_event; 
     event*          signalfd_event; 
