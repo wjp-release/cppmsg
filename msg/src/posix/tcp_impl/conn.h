@@ -2,13 +2,13 @@
 
 #include "def.h"
 #include "posix/event.h"
-#include "msgbuf.h"
+#include "posix/msgbuf.h"
 #include <mutex>
 #include "taskpool.h"
 #include <sys/epoll.h> //evflags
 #include <list>
 
-namespace msg{namespace posix{namespace tcp{
+namespace msg{namespace posix{namespace tcpimpl{
 
 class conn{
 public:
@@ -31,6 +31,7 @@ public:
         std::lock_guard<std::mutex> lk(mtx);
         if(closed) return;
         writes.push_back(m);
+        // list::size takes constant time since c++11
         if(writes.size()==1) write(), resubmit_write(); 
     }
     void                close(){
@@ -72,18 +73,18 @@ protected:
         if(!writes.empty()) e->submit(EPOLLOUT);
     }
     void                read(){
-        if (closed) return;
+        if(closed) return;
         while(!reads.empty()) {
             auto& cur=reads.front();
-            if(!cur.try_gather_read(e->fd)) return; 
+            if(!cur.try_scatter_input(e->fd)) return; 
             else reads.pop_front();
         }
     }
     void                write(){
-        if (closed) return;
+        if(closed) return;
         while(!writes.empty()) {
             auto& cur=writes.front();
-            if(!cur.try_scatter_write(e->fd)) return;
+            if(!cur.try_gather_output(e->fd)) return;
             else writes.pop_front();
         }
     }
