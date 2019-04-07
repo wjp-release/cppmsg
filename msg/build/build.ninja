@@ -172,6 +172,77 @@ build src/edit_cache: phony src/CMakeFiles/edit_cache.util
 # /mnt/d/projects/cppmsg/msg/CMakeLists.txt
 # =============================================================================
 
+# =============================================================================
+# Object build statements for EXECUTABLE target client
+
+
+#############################################
+# Order-only phony target for client
+
+build cmake_object_order_depends_target_client: phony || cmake_object_order_depends_target_msg
+build samples/CMakeFiles/client.dir/client.cc.o: CXX_COMPILER__client ../samples/client.cc || cmake_object_order_depends_target_client
+  DEP_FILE = samples/CMakeFiles/client.dir/client.cc.o.d
+  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
+  INCLUDES = -I.././include -I.././src
+  OBJECT_DIR = samples/CMakeFiles/client.dir
+  OBJECT_FILE_DIR = samples/CMakeFiles/client.dir
+
+# =============================================================================
+# Link build statements for EXECUTABLE target client
+
+
+#############################################
+# Link the executable samples/client
+
+build samples/client: CXX_EXECUTABLE_LINKER__client samples/CMakeFiles/client.dir/client.cc.o | src/libmsg.a || src/libmsg.a
+  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall
+  LINK_LIBRARIES = -Wl,-rpath,/mnt/d/projects/cppmsg/msg/./src src/libmsg.a -lpthread
+  LINK_PATH = -L/mnt/d/projects/cppmsg/msg/./src
+  OBJECT_DIR = samples/CMakeFiles/client.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = samples/client
+  TARGET_PDB = client.dbg
+
+#############################################
+# Utility command for edit_cache
+
+build samples/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /mnt/d/projects/cppmsg/msg/build/samples && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+build samples/edit_cache: phony samples/CMakeFiles/edit_cache.util
+# =============================================================================
+# Object build statements for EXECUTABLE target basic
+
+
+#############################################
+# Order-only phony target for basic
+
+build cmake_object_order_depends_target_basic: phony || cmake_object_order_depends_target_msg
+build samples/CMakeFiles/basic.dir/basic.cc.o: CXX_COMPILER__basic ../samples/basic.cc || cmake_object_order_depends_target_basic
+  DEP_FILE = samples/CMakeFiles/basic.dir/basic.cc.o.d
+  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
+  INCLUDES = -I.././include -I.././src
+  OBJECT_DIR = samples/CMakeFiles/basic.dir
+  OBJECT_FILE_DIR = samples/CMakeFiles/basic.dir
+
+# =============================================================================
+# Link build statements for EXECUTABLE target basic
+
+
+#############################################
+# Link the executable samples/basic
+
+build samples/basic: CXX_EXECUTABLE_LINKER__basic samples/CMakeFiles/basic.dir/basic.cc.o | src/libmsg.a || src/libmsg.a
+  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall
+  LINK_LIBRARIES = -Wl,-rpath,/mnt/d/projects/cppmsg/msg/./src src/libmsg.a -lpthread
+  LINK_PATH = -L/mnt/d/projects/cppmsg/msg/./src
+  OBJECT_DIR = samples/CMakeFiles/basic.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = samples/basic
+  TARGET_PDB = basic.dbg
 
 #############################################
 # Utility command for rebuild_cache
@@ -183,51 +254,44 @@ build samples/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
   restat = 1
 build samples/rebuild_cache: phony samples/CMakeFiles/rebuild_cache.util
 # =============================================================================
-# Object build statements for EXECUTABLE target sample
+# Object build statements for EXECUTABLE target server
 
 
 #############################################
-# Order-only phony target for sample
+# Order-only phony target for server
 
-build cmake_object_order_depends_target_sample: phony || cmake_object_order_depends_target_msg
-build samples/CMakeFiles/sample.dir/main.cc.o: CXX_COMPILER__sample ../samples/main.cc || cmake_object_order_depends_target_sample
-  DEP_FILE = samples/CMakeFiles/sample.dir/main.cc.o.d
+build cmake_object_order_depends_target_server: phony || cmake_object_order_depends_target_msg
+build samples/CMakeFiles/server.dir/server.cc.o: CXX_COMPILER__server ../samples/server.cc || cmake_object_order_depends_target_server
+  DEP_FILE = samples/CMakeFiles/server.dir/server.cc.o.d
   FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
   INCLUDES = -I.././include -I.././src
-  OBJECT_DIR = samples/CMakeFiles/sample.dir
-  OBJECT_FILE_DIR = samples/CMakeFiles/sample.dir
+  OBJECT_DIR = samples/CMakeFiles/server.dir
+  OBJECT_FILE_DIR = samples/CMakeFiles/server.dir
 
 # =============================================================================
-# Link build statements for EXECUTABLE target sample
+# Link build statements for EXECUTABLE target server
 
 
 #############################################
-# Link the executable samples/sample
+# Link the executable samples/server
 
-build samples/sample: CXX_EXECUTABLE_LINKER__sample samples/CMakeFiles/sample.dir/main.cc.o | src/libmsg.a || src/libmsg.a
+build samples/server: CXX_EXECUTABLE_LINKER__server samples/CMakeFiles/server.dir/server.cc.o | src/libmsg.a || src/libmsg.a
   FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall
   LINK_LIBRARIES = -Wl,-rpath,/mnt/d/projects/cppmsg/msg/./src src/libmsg.a -lpthread
   LINK_PATH = -L/mnt/d/projects/cppmsg/msg/./src
-  OBJECT_DIR = samples/CMakeFiles/sample.dir
+  OBJECT_DIR = samples/CMakeFiles/server.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = samples/sample
-  TARGET_PDB = sample.dbg
-
-#############################################
-# Utility command for edit_cache
-
-build samples/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /mnt/d/projects/cppmsg/msg/build/samples && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-  DESC = No interactive CMake dialog available...
-  restat = 1
-build samples/edit_cache: phony samples/CMakeFiles/edit_cache.util
+  TARGET_FILE = samples/server
+  TARGET_PDB = server.dbg
 # =============================================================================
 # Target aliases.
 
+build basic: phony samples/basic
+build client: phony samples/client
 build libmsg.a: phony src/libmsg.a
 build msg: phony src/libmsg.a
-build sample: phony samples/sample
+build server: phony samples/server
 # =============================================================================
 # Folder targets.
 
@@ -237,7 +301,7 @@ build sample: phony samples/sample
 #############################################
 # Folder: /mnt/d/projects/cppmsg/msg/build/samples
 
-build  samples/all: phony sample
+build  samples/all: phony client basic server
 # =============================================================================
 
 #############################################
@@ -251,7 +315,7 @@ build  src/all: phony msg
 #############################################
 # The main all target.
 
-build all: phony src/libmsg.a samples/sample
+build all: phony src/libmsg.a samples/client samples/basic samples/server
 
 #############################################
 # Make the all target the default.

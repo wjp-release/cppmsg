@@ -29,16 +29,16 @@ public:
     void        add_iov(void* addr, size_t len){
         iovs.push_back({addr, len});
     }
-    void        on_transferred(){
+    void        on_transferred(int n){
         if(tcb){
-            taskpool::instance().execute([this]{
-                tcb(iovs);
+            taskpool::instance().execute([this, n]{
+                tcb(n, iovs);
             });
         }
     }
     void        on_failure(int what){
         if(fcb){
-            taskpool::instance().execute([this,what]{
+            taskpool::instance().execute([this, what]{
                 fcb(what, iovs);
             });
         }
@@ -48,7 +48,7 @@ public:
         while(true){
             int n=readv(fd, iovs.data(), iovs.size());
             if(n>0){ // iov is fully transferred
-                on_transferred();
+                on_transferred(n);
                 return true;
             }else if(n==0){
                 on_failure(peer_closed);
@@ -71,7 +71,7 @@ public:
         while(true){
             int n=writev(fd, iovs.data(), iovs.size());
             if(n>0){ // iov is fully transferred
-                on_transferred();
+                on_transferred(n);
                 return true;
             }else if(n==0){
                 on_failure(peer_closed);
@@ -98,21 +98,24 @@ private:
 } // detail
 
 msgbuf::msgbuf(const transferred_cb& tcb, const failure_cb& fcb, int nr_iov) : mptr(std::make_shared<detail::msgbuf_impl>(tcb, fcb, nr_iov)){}
+
 msgbuf& msgbuf::operator=(const msgbuf& other) noexcept{
     mptr=other.mptr;
     return *this;
 }
-void msgbuf::on_transferred(){
-    if(mptr) mptr->on_transferred();
+void msgbuf::on_transferred(int n){
+    if(mptr) mptr->on_transferred(n);
 }
 void msgbuf::on_failure(int what){
     if(mptr) mptr->on_failure(what);
 }
 bool msgbuf::try_scatter_input(int fd){
-    if(mptr) mptr->try_scatter_input(fd);
+    if(mptr) return mptr->try_scatter_input(fd);
+    return false;
 }
 bool msgbuf::try_gather_output(int fd){
-    if(mptr) mptr->try_gather_output(fd);
+    if(mptr) return mptr->try_gather_output(fd);
+    return false;
 }
 void msgbuf::add_iov(void* addr, size_t len){
     if(mptr) mptr->add_iov(addr, len);

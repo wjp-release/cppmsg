@@ -18,11 +18,12 @@ namespace detail{ class msgbuf_impl; }
 class msgbuf{
 public:
     msgbuf(){} // default ctor, mptr==nullptr   
-    ~msgbuf(){}                      
+    ~msgbuf(){}    
+    //msgbuf(transferred_cb tcb, failure_cb fcb, int nr_iov);
     msgbuf(const transferred_cb& tcb, const failure_cb& fcb, int nr_iov);
     msgbuf(const msgbuf& m) : mptr(m.mptr){}
     msgbuf& operator=(const msgbuf& other) noexcept;
-    void    on_transferred();
+    void    on_transferred(int n);
     void    on_failure(int what);
     bool    try_scatter_input(int fd);
     bool    try_gather_output(int fd);

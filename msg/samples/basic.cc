@@ -3,7 +3,10 @@
 #include <vector>
 #include <algorithm>
 #include "posix/reactor.h"
+#include "sample.h"
+
 using namespace std;
+using namespace msg::sample;
 
 void eventloop_test(){
     int duh=0;

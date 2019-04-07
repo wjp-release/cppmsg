@@ -74,7 +74,7 @@ uint64_t timerfd_read(int timerfd)
   uint64_t duh; 
   ssize_t n = ::read(timerfd, &duh, sizeof duh);
   if (n != sizeof duh) throw std::runtime_error("timer fd read bytes n!=8");
-  std::cout<<"timerfd read "<<n<<"bytes\n";
+  //std::cout<<"timerfd read "<<n<<"bytes\n";
   return duh; // normally it should be 1
 }
 
@@ -86,7 +86,7 @@ void timerfd_reset(int timerfd, uint64_t expiration_time)
   memset(&newValue, 0, sizeof newValue);
   memset(&oldValue, 0, sizeof oldValue);
   newValue.it_value = parse_ms(expiration_time-now());
-  std::cout<<"timerfd reset to "<<(expiration_time-now())<<" later"<<std::endl;
+  //std::cout<<"timerfd reset to "<<(expiration_time-now())<<" later"<<std::endl;
   int ret = timerfd_settime(timerfd, 0, &newValue, &oldValue); 
   if (ret) throw std::runtime_error("timerfd_settime failed");
 }

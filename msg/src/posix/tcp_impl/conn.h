@@ -16,6 +16,8 @@ public:
         e = new event(reactor::instance().epollfd, fd, 
             [this](int evflag){conn_cb(evflag);}
         );
+        // conn's e does not submit on construction
+        // add_read/add_write/conn_cb could trigger submit though
     }
     ~conn(){
         if(!closed) close();
@@ -73,6 +75,7 @@ protected:
         if(!writes.empty()) e->submit(EPOLLOUT);
     }
     void                read(){
+        std::cout<<"read event over conn!\n";
         if(closed) return;
         while(!reads.empty()) {
             auto& cur=reads.front();
@@ -81,6 +84,7 @@ protected:
         }
     }
     void                write(){
+        std::cout<<"read event over conn!\n";
         if(closed) return;
         while(!writes.empty()) {
             auto& cur=writes.front();

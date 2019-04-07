@@ -28,6 +28,9 @@ public:
     void            submit_and_wake(const please_cb& cb);
     void            submit(const please_cb& cb);
     void            wake(); // via sending eventfd
+    timer&          get_timer()noexcept{
+        return timerfd_timer;
+    }
 protected:
     reactor();
     void            bad_epollwait();
