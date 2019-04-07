@@ -2,34 +2,34 @@
 
 #include "def.h"
 #include "posix/event.h"
-#include "posix/msgbuf.h"
+#include "posix/iotask.h"
 #include <mutex>
 #include "taskpool.h"
 #include <sys/epoll.h> //evflags
 #include <list>
 
-namespace msg{namespace posix{namespace tcpimpl{
+namespace msg{namespace posix{
 
+// Class conn is an abstraction of an established 2-way connection
 class conn{
 public:
+    using write_sp=std::shared_ptr<write_task>;
+    using read_sp=std::shared_ptr<read_task>;
     conn(int fd){
         e = new event(reactor::instance().epollfd, fd, 
             [this](int evflag){conn_cb(evflag);}
         );
-        // conn's e does not submit on construction
-        // add_read/add_write/conn_cb could trigger submit though
     }
     ~conn(){
         if(!closed) close();
     }
-    void                add_read(const msgbuf& m){
+    void                add_read(const read_sp& m){
         std::lock_guard<std::mutex> lk(mtx);
         if(closed) return;
         reads.push_back(m);
         if(reads.size()==1) read(), resubmit_read(); 
-
     }
-    void                add_write(const msgbuf& m){
+    void                add_write(const write_sp& m){
         std::lock_guard<std::mutex> lk(mtx);
         if(closed) return;
         writes.push_back(m);
@@ -41,8 +41,8 @@ public:
         if (!closed) {
             closed = true;
             //trigger on_failure callbacks of pending reads/writes
-            for(auto& wr:writes) wr.on_failure(conn_closed);
-            for(auto& rd:reads) rd.on_failure(conn_closed);
+            for(auto& wr:writes) wr->on_failure(conn_closed);
+            for(auto& rd:reads) rd->on_failure(conn_closed);
             e->please_destroy_me();
         }
     }
@@ -79,7 +79,7 @@ protected:
         if(closed) return;
         while(!reads.empty()) {
             auto& cur=reads.front();
-            if(!cur.try_scatter_input(e->fd)) return; 
+            if(!cur->try_scatter_input(e->fd)) return; 
             else reads.pop_front();
         }
     }
@@ -88,16 +88,16 @@ protected:
         if(closed) return;
         while(!writes.empty()) {
             auto& cur=writes.front();
-            if(!cur.try_gather_output(e->fd)) return;
+            if(!cur->try_gather_output(e->fd)) return;
             else writes.pop_front();
         }
     }
 private:
-    event*              e; // tcp connection event  
-    bool                closed = false; 
-    std::list<msgbuf>   writes;
-    std::list<msgbuf>   reads; 
-    std::mutex          mtx;
+    event*                e; 
+    bool                  closed = false; 
+    std::list<write_sp>    writes;
+    std::list<read_sp>     reads; 
+    std::mutex            mtx;
 };
 
-}}} 
+}} 
