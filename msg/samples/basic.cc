@@ -2,7 +2,8 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include "posix/reactor.h"
+#include "reactor/reactor.h"
+#include "common/clock.h"
 #include "sample.h"
 
 using namespace std;
@@ -10,32 +11,32 @@ using namespace msg::sample;
 
 void eventloop_test(){
     int duh=0;
-    msg::posix::reactor::instance().start_eventloop();
-    msg::posix::reactor::instance().submit([&]{
+    msg::reactor::reactor::instance().start_eventloop();
+    msg::reactor::reactor::instance().submit([&]{
         cout<<"duh"<<duh++<<endl;
     });
-    msg::posix::reactor::instance().submit([&]{
+    msg::reactor::reactor::instance().submit([&]{
         cout<<"boo"<<duh++<<endl;
     });
-    msg::posix::sleep(100);
-    msg::posix::reactor::instance().submit([&]{
+    msg::common::sleep(100);
+    msg::reactor::reactor::instance().submit([&]{
         cout<<"fww"<<duh++<<endl;
     });
-    msg::posix::reactor::instance().submit([&]{
+    msg::reactor::reactor::instance().submit([&]{
         cout<<"xxx"<<duh++<<endl;
     });
-    msg::posix::sleep(100);
-    msg::posix::reactor::instance().submit_and_wake([&]{
+    msg::common::sleep(100);
+    msg::reactor::reactor::instance().submit_and_wake([&]{
         cout<<"run"<<endl;
     }); 
 }
 
 void signalfd_test(){
-    msg::posix::reactor::instance().start_eventloop();
+    msg::reactor::reactor::instance().start_eventloop();
 }
 
 void timer_test(){
-    msg::posix::reactor::instance().eventloop();
+    msg::reactor::reactor::instance().eventloop();
 }
 
 void tcp_test(){

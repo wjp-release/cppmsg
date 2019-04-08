@@ -2,16 +2,16 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include "posix/reactor.h"
-#include "posix/timer.h"
-#include "posix/clock.h"
-#include "posix/conn.h"
+#include "reactor/reactor.h"
+#include "reactor/timer.h"
+#include "common/clock.h"
+#include "transport/conn.h"
 #include "sample.h"
 #include <functional>
 
 using namespace std;
 using namespace msg::sample;
-using namespace msg::posix;
+using namespace msg;
 
 // server
 // unix domain socket event
@@ -20,12 +20,12 @@ using namespace msg::posix;
 #define readbuf_size 1024
 
 void tcpconn_server(){
-    reactor::instance().start_eventloop();
-    reactor::instance().get_timer().please_push([]{
+    reactor::reactor::instance().start_eventloop();
+    reactor::reactor::instance().get_timer().please_push([]{
         cout<<"timeout~"<<endl;
-    }, future(1000), 3000);
+    }, common::future(1000), 3000);
     int connfd=ipc_bind(server_uds_path);
-    conn c(connfd);
+    transport::conn c(connfd);
 
 }
 

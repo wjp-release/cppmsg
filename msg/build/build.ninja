@@ -71,72 +71,60 @@ build src/rebuild_cache: phony src/CMakeFiles/rebuild_cache.util
 # Order-only phony target for msg
 
 build cmake_object_order_depends_target_msg: phony
-build src/CMakeFiles/msg.dir/posix/clock.cc.o: CXX_COMPILER__msg ../src/posix/clock.cc || cmake_object_order_depends_target_msg
-  DEP_FILE = src/CMakeFiles/msg.dir/posix/clock.cc.o.d
+build src/CMakeFiles/msg.dir/transport/conn.cc.o: CXX_COMPILER__msg ../src/transport/conn.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/transport/conn.cc.o.d
   FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
-  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/posix
-build src/CMakeFiles/msg.dir/posix/conn.cc.o: CXX_COMPILER__msg ../src/posix/conn.cc || cmake_object_order_depends_target_msg
-  DEP_FILE = src/CMakeFiles/msg.dir/posix/conn.cc.o.d
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/transport
+build src/CMakeFiles/msg.dir/transport/iotask.cc.o: CXX_COMPILER__msg ../src/transport/iotask.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/transport/iotask.cc.o.d
   FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
-  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/posix
-build src/CMakeFiles/msg.dir/posix/event.cc.o: CXX_COMPILER__msg ../src/posix/event.cc || cmake_object_order_depends_target_msg
-  DEP_FILE = src/CMakeFiles/msg.dir/posix/event.cc.o.d
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/transport
+build src/CMakeFiles/msg.dir/reactor/event.cc.o: CXX_COMPILER__msg ../src/reactor/event.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/reactor/event.cc.o.d
   FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
-  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/posix
-build src/CMakeFiles/msg.dir/posix/fd.cc.o: CXX_COMPILER__msg ../src/posix/fd.cc || cmake_object_order_depends_target_msg
-  DEP_FILE = src/CMakeFiles/msg.dir/posix/fd.cc.o.d
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/reactor
+build src/CMakeFiles/msg.dir/reactor/reactor.cc.o: CXX_COMPILER__msg ../src/reactor/reactor.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/reactor/reactor.cc.o.d
   FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
-  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/posix
-build src/CMakeFiles/msg.dir/posix/iotask.cc.o: CXX_COMPILER__msg ../src/posix/iotask.cc || cmake_object_order_depends_target_msg
-  DEP_FILE = src/CMakeFiles/msg.dir/posix/iotask.cc.o.d
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/reactor
+build src/CMakeFiles/msg.dir/reactor/sig.cc.o: CXX_COMPILER__msg ../src/reactor/sig.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/reactor/sig.cc.o.d
   FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
-  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/posix
-build src/CMakeFiles/msg.dir/posix/msgbuf.cc.o: CXX_COMPILER__msg ../src/posix/msgbuf.cc || cmake_object_order_depends_target_msg
-  DEP_FILE = src/CMakeFiles/msg.dir/posix/msgbuf.cc.o.d
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/reactor
+build src/CMakeFiles/msg.dir/reactor/timer.cc.o: CXX_COMPILER__msg ../src/reactor/timer.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/reactor/timer.cc.o.d
   FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
-  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/posix
-build src/CMakeFiles/msg.dir/posix/reactor.cc.o: CXX_COMPILER__msg ../src/posix/reactor.cc || cmake_object_order_depends_target_msg
-  DEP_FILE = src/CMakeFiles/msg.dir/posix/reactor.cc.o.d
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/reactor
+build src/CMakeFiles/msg.dir/common/clock.cc.o: CXX_COMPILER__msg ../src/common/clock.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/common/clock.cc.o.d
   FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
-  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/posix
-build src/CMakeFiles/msg.dir/posix/sig.cc.o: CXX_COMPILER__msg ../src/posix/sig.cc || cmake_object_order_depends_target_msg
-  DEP_FILE = src/CMakeFiles/msg.dir/posix/sig.cc.o.d
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/common
+build src/CMakeFiles/msg.dir/common/fd.cc.o: CXX_COMPILER__msg ../src/common/fd.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/common/fd.cc.o.d
   FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
-  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/posix
-build src/CMakeFiles/msg.dir/posix/timer.cc.o: CXX_COMPILER__msg ../src/posix/timer.cc || cmake_object_order_depends_target_msg
-  DEP_FILE = src/CMakeFiles/msg.dir/posix/timer.cc.o.d
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/common
+build src/CMakeFiles/msg.dir/common/taskpool.cc.o: CXX_COMPILER__msg ../src/common/taskpool.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/common/taskpool.cc.o.d
   FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
-  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/posix
-build src/CMakeFiles/msg.dir/endpoint/async_svr.cc.o: CXX_COMPILER__msg ../src/endpoint/async_svr.cc || cmake_object_order_depends_target_msg
-  DEP_FILE = src/CMakeFiles/msg.dir/endpoint/async_svr.cc.o.d
-  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
-  INCLUDES = -I.././include -I.././src
-  OBJECT_DIR = src/CMakeFiles/msg.dir
-  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/endpoint
-build src/CMakeFiles/msg.dir/taskpool.cc.o: CXX_COMPILER__msg ../src/taskpool.cc || cmake_object_order_depends_target_msg
-  DEP_FILE = src/CMakeFiles/msg.dir/taskpool.cc.o.d
-  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
-  INCLUDES = -I.././include -I.././src
-  OBJECT_DIR = src/CMakeFiles/msg.dir
-  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/common
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target msg
@@ -145,7 +133,7 @@ build src/CMakeFiles/msg.dir/taskpool.cc.o: CXX_COMPILER__msg ../src/taskpool.cc
 #############################################
 # Link the static library src/libmsg.a
 
-build src/libmsg.a: CXX_STATIC_LIBRARY_LINKER__msg src/CMakeFiles/msg.dir/posix/clock.cc.o src/CMakeFiles/msg.dir/posix/conn.cc.o src/CMakeFiles/msg.dir/posix/event.cc.o src/CMakeFiles/msg.dir/posix/fd.cc.o src/CMakeFiles/msg.dir/posix/iotask.cc.o src/CMakeFiles/msg.dir/posix/msgbuf.cc.o src/CMakeFiles/msg.dir/posix/reactor.cc.o src/CMakeFiles/msg.dir/posix/sig.cc.o src/CMakeFiles/msg.dir/posix/timer.cc.o src/CMakeFiles/msg.dir/endpoint/async_svr.cc.o src/CMakeFiles/msg.dir/taskpool.cc.o
+build src/libmsg.a: CXX_STATIC_LIBRARY_LINKER__msg src/CMakeFiles/msg.dir/transport/conn.cc.o src/CMakeFiles/msg.dir/transport/iotask.cc.o src/CMakeFiles/msg.dir/reactor/event.cc.o src/CMakeFiles/msg.dir/reactor/reactor.cc.o src/CMakeFiles/msg.dir/reactor/sig.cc.o src/CMakeFiles/msg.dir/reactor/timer.cc.o src/CMakeFiles/msg.dir/common/clock.cc.o src/CMakeFiles/msg.dir/common/fd.cc.o src/CMakeFiles/msg.dir/common/taskpool.cc.o
   LANGUAGE_COMPILE_FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall
   OBJECT_DIR = src/CMakeFiles/msg.dir
   POST_BUILD = :
