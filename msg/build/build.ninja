@@ -77,8 +77,26 @@ build src/CMakeFiles/msg.dir/transport/conn.cc.o: CXX_COMPILER__msg ../src/trans
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/transport
+build src/CMakeFiles/msg.dir/transport/connector.cc.o: CXX_COMPILER__msg ../src/transport/connector.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/transport/connector.cc.o.d
+  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
+  INCLUDES = -I.././include -I.././src
+  OBJECT_DIR = src/CMakeFiles/msg.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/transport
+build src/CMakeFiles/msg.dir/transport/ctltask.cc.o: CXX_COMPILER__msg ../src/transport/ctltask.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/transport/ctltask.cc.o.d
+  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
+  INCLUDES = -I.././include -I.././src
+  OBJECT_DIR = src/CMakeFiles/msg.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/transport
 build src/CMakeFiles/msg.dir/transport/iotask.cc.o: CXX_COMPILER__msg ../src/transport/iotask.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/transport/iotask.cc.o.d
+  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
+  INCLUDES = -I.././include -I.././src
+  OBJECT_DIR = src/CMakeFiles/msg.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/transport
+build src/CMakeFiles/msg.dir/transport/listener.cc.o: CXX_COMPILER__msg ../src/transport/listener.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/transport/listener.cc.o.d
   FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
@@ -133,7 +151,7 @@ build src/CMakeFiles/msg.dir/common/taskpool.cc.o: CXX_COMPILER__msg ../src/comm
 #############################################
 # Link the static library src/libmsg.a
 
-build src/libmsg.a: CXX_STATIC_LIBRARY_LINKER__msg src/CMakeFiles/msg.dir/transport/conn.cc.o src/CMakeFiles/msg.dir/transport/iotask.cc.o src/CMakeFiles/msg.dir/reactor/event.cc.o src/CMakeFiles/msg.dir/reactor/reactor.cc.o src/CMakeFiles/msg.dir/reactor/sig.cc.o src/CMakeFiles/msg.dir/reactor/timer.cc.o src/CMakeFiles/msg.dir/common/clock.cc.o src/CMakeFiles/msg.dir/common/fd.cc.o src/CMakeFiles/msg.dir/common/taskpool.cc.o
+build src/libmsg.a: CXX_STATIC_LIBRARY_LINKER__msg src/CMakeFiles/msg.dir/transport/conn.cc.o src/CMakeFiles/msg.dir/transport/connector.cc.o src/CMakeFiles/msg.dir/transport/ctltask.cc.o src/CMakeFiles/msg.dir/transport/iotask.cc.o src/CMakeFiles/msg.dir/transport/listener.cc.o src/CMakeFiles/msg.dir/reactor/event.cc.o src/CMakeFiles/msg.dir/reactor/reactor.cc.o src/CMakeFiles/msg.dir/reactor/sig.cc.o src/CMakeFiles/msg.dir/reactor/timer.cc.o src/CMakeFiles/msg.dir/common/clock.cc.o src/CMakeFiles/msg.dir/common/fd.cc.o src/CMakeFiles/msg.dir/common/taskpool.cc.o
   LANGUAGE_COMPILE_FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall
   OBJECT_DIR = src/CMakeFiles/msg.dir
   POST_BUILD = :

@@ -12,11 +12,27 @@
 #include <exception>
 #include <stdexcept>
 #include <iostream>
+#include <sys/types.h>
 
 #include "fd.h"
 #include "clock.h"
 
 namespace msg{ namespace common{
+
+// SO_REUSEADDR allows the server to bind to an address which is in a TIME_WAIT state.
+// Without SO_REUSEADDR, the bind() call in the restarted program's new instance will fail if there were connections open to the previous instance when you killed it. Those connections will hold the TCP port in the TIME_WAIT state for 30-120 seconds.
+void set_sockfd_reuse_addr(int fd){
+    int duh = 1;
+    (void) setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &duh, sizeof(duh));
+}
+
+// The result of an asynchronous connect can only be extracted via getsockopt.
+int get_sockfd_err(int fd){
+    int result;
+    socklen_t resultlen = sizeof(result);
+    if (getsockopt(fd, SOL_SOCKET, SO_ERROR, &result, &resultlen) < 0) result = errno;
+    return result;
+}
 
 void set_nonblock(int fd){
     fcntl(fd, F_SETFD, FD_CLOEXEC);
@@ -30,14 +46,16 @@ int efd_open(){
     return fd;
 }
 
-void efd_send(int efd){
+uint64_t efd_send(int efd){
     uint64_t one=1;
-    write(efd,&one,sizeof(one));
+    if(write(efd,&one,sizeof(one))<0) throw std::runtime_error("efd write failed");
+    return one;
 }
 
-void efd_recv(int efd){
+uint64_t efd_recv(int efd){
     uint64_t duh;
-    read(efd, &duh, sizeof(duh));
+    if(read(efd, &duh, sizeof(duh))<0) throw std::runtime_error("efd read failed");
+    return duh;
 }
 
 static void block_all_signals(){

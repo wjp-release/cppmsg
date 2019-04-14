@@ -19,7 +19,7 @@ bool read_task::try_scatter_input(int fd){
             case EAGAIN: // can't proceed
                 return false; // finish current run
             default: 
-                on_failure(other); 
+                on_failure(bad_but_recoverable); 
                 return false; 
             }
         }
@@ -42,8 +42,8 @@ bool write_task::try_gather_output(int fd){
                 continue; // try again
             case EAGAIN: // can't proceed
                 return false; // finish current run
-            default: // fd is bad
-                on_failure(other); 
+            default: 
+                on_failure(bad_but_recoverable); 
                 return false; 
             }
         }

@@ -8,6 +8,8 @@
 #include <stdexcept>
 #include <iostream>
 #include <memory>
+#include <mutex>
+#include <list>
 #include <vector>
 #include <sys/uio.h> //struct iovec
 #include "common/concurrentq.h"
@@ -25,3 +27,4 @@ using cq=moodycamel::ConcurrentQueue<T>; // todo: use token feature to further s
 //protocol template parameter
 static const int tcp=1;
 static const int ipc=0;
+

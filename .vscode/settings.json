@@ -7,6 +7,8 @@
         "new": "cpp",
         "type_traits": "cpp",
         "xstddef": "cpp",
-        "xtr1common": "cpp"
+        "xtr1common": "cpp",
+        "map": "cpp",
+        "mutex": "cpp"
     }
 }

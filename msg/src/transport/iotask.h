@@ -5,6 +5,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <cstring>
+#include "task_interface.h"
 
 /*
     struct iovec {
@@ -15,24 +16,15 @@
 
 namespace msg{namespace transport{
 
-enum task_failure_type : uint8_t{
-    peer_closed = 1,
-    fatal = 2, 
-    conn_closed =3,
-    other =4,
-};
-
 // Zero application-level copy could be achieved by setting addresses in read/write tasks without copying data into a buffer. 
 // The read_tasks or write_tasks are not responsible for releasing data. User must implement their own subclasses of read_task/write_task with overloaded on_success/on_failure callback functions.
 
-struct io_task{
+struct io_task : public task_interface{
     io_task(int nr_addrs, uint64_t header=0):iovs(nr_addrs+1), header(header){
         iovs[0].iov_base=reinterpret_cast<void*>(&header);
         iovs[0].iov_len=8;
     }
     virtual ~io_task(){}
-    virtual void    on_success(int bytes)=0;
-    virtual void    on_failure(int err)=0;
     std::vector<iovec> iovs;
     uint64_t        header; //msglen
 };
