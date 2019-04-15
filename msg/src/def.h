@@ -13,6 +13,7 @@
 #include <vector>
 #include <sys/uio.h> //struct iovec
 #include "common/concurrentq.h"
+#include <string.h>
 
 using event_cb=std::function<void(int)>;
 using please_cb=std::function<void(void)>;

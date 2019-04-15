@@ -1,11 +1,14 @@
 #pragma once
 
 #include "def.h"
+#include "transport/conn.h"
 
 namespace msg{ namespace protocol{
 
-template <int protocol> 
-class listener{ 
+class endpoint{ 
+public:
+
+private:
 
 
 };
