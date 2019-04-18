@@ -9,7 +9,7 @@ class endpoint{
 public:
 
 private:
-
+    // connectors, listeners, connecetions in different stages
 
 };
 

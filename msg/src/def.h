@@ -15,6 +15,7 @@
 #include "common/concurrentq.h"
 #include <string.h>
 
+using async_cb=std::function<void(int)>;
 using event_cb=std::function<void(int)>;
 using please_cb=std::function<void(void)>;
 using timer_cb=std::function<void(void)>;
