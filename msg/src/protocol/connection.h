@@ -18,7 +18,7 @@ private:
     connection& c; 
     message& msg;
 public:
-    recv_msghdr_task(connection& c, message& msg) : transport::oneiov_read_task(reinterpret_cast<void*>(&hdr), 8), c(c), msg(msg){}
+    recv_msghdr_task(connection& c, message& msg);
     virtual void on_success(int bytes);
     virtual void on_failure(int err);
 };
@@ -27,21 +27,16 @@ class recv_msgbody_task : public transport::oneiov_read_task{
 private:
     std::shared_ptr<common::blockable> user_task;
 public:
-    recv_msgbody_task(int size, message& msg, std::shared_ptr<common::blockable> user_task): 
-    transport::oneiov_read_task(msg.alloc(size), size),
-    user_task(user_task){}
+    recv_msgbody_task(int size, message& msg, std::shared_ptr<common::blockable> user_task);
     virtual ~recv_msgbody_task(){}
-    // Now we have filled the msg, wake up user.
     virtual void on_success(int bytes);
     virtual void on_failure(int err);
 };
 
 class send_msg_task : public transport::vector_write_task, public common::blockable{
 public:
+    send_msg_task(const message& msg);
     virtual ~send_msg_task(){}
-    send_msg_task(const message& msg) : transport::vector_write_task(msg.nr_chunks()+1, msg.size()){
-        msg.append_iov(iovs); 
-    }
     virtual void on_success(int bytes);
     virtual void on_failure(int err);
 };
@@ -50,9 +45,7 @@ public:
 class connection {
 public:
     using native_conn=std::unique_ptr<msg::transport::conn>;
-    connection(endpoint& ep, int fd):owner(ep), conn(std::make_unique<msg::transport::conn>(fd)){
-
-    }
+    connection(endpoint& ep, int fd);
     ~connection(){
         close();
     }
