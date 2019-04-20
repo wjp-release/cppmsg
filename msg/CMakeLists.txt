@@ -7,10 +7,10 @@ option(bench "Build benchmarks." OFF)
 
 project(msg)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
 if(UNIX)
-	set(CMAKE_CXX_FLAGS "-std=c++11 -fPIC -Wno-reorder")
+	set(CMAKE_CXX_FLAGS "-std=c++14 -fPIC -Wno-reorder")
 	SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2")
 	SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O2 -Wall")
 endif()
@@ -55,7 +55,7 @@ function(message)
 endfunction()
 
 if(MSVC)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++11")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++14")
 	set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)  # gtest option on msvc
 	set(CMAKE_CXX_FLAGS "/W4 /EHsc")
 endif()

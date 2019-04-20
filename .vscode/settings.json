@@ -9,6 +9,7 @@
         "xstddef": "cpp",
         "xtr1common": "cpp",
         "map": "cpp",
-        "mutex": "cpp"
+        "mutex": "cpp",
+        "memory": "cpp"
     }
 }

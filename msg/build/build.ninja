@@ -71,75 +71,105 @@ build src/rebuild_cache: phony src/CMakeFiles/rebuild_cache.util
 # Order-only phony target for msg
 
 build cmake_object_order_depends_target_msg: phony
+build src/CMakeFiles/msg.dir/protocol/connection.cc.o: CXX_COMPILER__msg ../src/protocol/connection.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/protocol/connection.cc.o.d
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  INCLUDES = -I.././include -I.././src
+  OBJECT_DIR = src/CMakeFiles/msg.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/protocol
+build src/CMakeFiles/msg.dir/protocol/endpoint.cc.o: CXX_COMPILER__msg ../src/protocol/endpoint.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/protocol/endpoint.cc.o.d
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  INCLUDES = -I.././include -I.././src
+  OBJECT_DIR = src/CMakeFiles/msg.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/protocol
+build src/CMakeFiles/msg.dir/protocol/message.cc.o: CXX_COMPILER__msg ../src/protocol/message.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/protocol/message.cc.o.d
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  INCLUDES = -I.././include -I.././src
+  OBJECT_DIR = src/CMakeFiles/msg.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/protocol
+build src/CMakeFiles/msg.dir/protocol/reconnector.cc.o: CXX_COMPILER__msg ../src/protocol/reconnector.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/protocol/reconnector.cc.o.d
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  INCLUDES = -I.././include -I.././src
+  OBJECT_DIR = src/CMakeFiles/msg.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/protocol
+build src/CMakeFiles/msg.dir/protocol/relistener.cc.o: CXX_COMPILER__msg ../src/protocol/relistener.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/protocol/relistener.cc.o.d
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  INCLUDES = -I.././include -I.././src
+  OBJECT_DIR = src/CMakeFiles/msg.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/protocol
 build src/CMakeFiles/msg.dir/transport/conn.cc.o: CXX_COMPILER__msg ../src/transport/conn.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/transport/conn.cc.o.d
-  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/transport
 build src/CMakeFiles/msg.dir/transport/connector.cc.o: CXX_COMPILER__msg ../src/transport/connector.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/transport/connector.cc.o.d
-  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/transport
 build src/CMakeFiles/msg.dir/transport/ctltask.cc.o: CXX_COMPILER__msg ../src/transport/ctltask.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/transport/ctltask.cc.o.d
-  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/transport
 build src/CMakeFiles/msg.dir/transport/iotask.cc.o: CXX_COMPILER__msg ../src/transport/iotask.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/transport/iotask.cc.o.d
-  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/transport
 build src/CMakeFiles/msg.dir/transport/listener.cc.o: CXX_COMPILER__msg ../src/transport/listener.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/transport/listener.cc.o.d
-  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/transport
 build src/CMakeFiles/msg.dir/reactor/event.cc.o: CXX_COMPILER__msg ../src/reactor/event.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/reactor/event.cc.o.d
-  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/reactor
 build src/CMakeFiles/msg.dir/reactor/reactor.cc.o: CXX_COMPILER__msg ../src/reactor/reactor.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/reactor/reactor.cc.o.d
-  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/reactor
 build src/CMakeFiles/msg.dir/reactor/sig.cc.o: CXX_COMPILER__msg ../src/reactor/sig.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/reactor/sig.cc.o.d
-  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/reactor
 build src/CMakeFiles/msg.dir/reactor/timer.cc.o: CXX_COMPILER__msg ../src/reactor/timer.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/reactor/timer.cc.o.d
-  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/reactor
 build src/CMakeFiles/msg.dir/common/clock.cc.o: CXX_COMPILER__msg ../src/common/clock.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/common/clock.cc.o.d
-  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/common
 build src/CMakeFiles/msg.dir/common/fd.cc.o: CXX_COMPILER__msg ../src/common/fd.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/common/fd.cc.o.d
-  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/common
 build src/CMakeFiles/msg.dir/common/taskpool.cc.o: CXX_COMPILER__msg ../src/common/taskpool.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/common/taskpool.cc.o.d
-  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/common
@@ -151,8 +181,8 @@ build src/CMakeFiles/msg.dir/common/taskpool.cc.o: CXX_COMPILER__msg ../src/comm
 #############################################
 # Link the static library src/libmsg.a
 
-build src/libmsg.a: CXX_STATIC_LIBRARY_LINKER__msg src/CMakeFiles/msg.dir/transport/conn.cc.o src/CMakeFiles/msg.dir/transport/connector.cc.o src/CMakeFiles/msg.dir/transport/ctltask.cc.o src/CMakeFiles/msg.dir/transport/iotask.cc.o src/CMakeFiles/msg.dir/transport/listener.cc.o src/CMakeFiles/msg.dir/reactor/event.cc.o src/CMakeFiles/msg.dir/reactor/reactor.cc.o src/CMakeFiles/msg.dir/reactor/sig.cc.o src/CMakeFiles/msg.dir/reactor/timer.cc.o src/CMakeFiles/msg.dir/common/clock.cc.o src/CMakeFiles/msg.dir/common/fd.cc.o src/CMakeFiles/msg.dir/common/taskpool.cc.o
-  LANGUAGE_COMPILE_FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall
+build src/libmsg.a: CXX_STATIC_LIBRARY_LINKER__msg src/CMakeFiles/msg.dir/protocol/connection.cc.o src/CMakeFiles/msg.dir/protocol/endpoint.cc.o src/CMakeFiles/msg.dir/protocol/message.cc.o src/CMakeFiles/msg.dir/protocol/reconnector.cc.o src/CMakeFiles/msg.dir/protocol/relistener.cc.o src/CMakeFiles/msg.dir/transport/conn.cc.o src/CMakeFiles/msg.dir/transport/connector.cc.o src/CMakeFiles/msg.dir/transport/ctltask.cc.o src/CMakeFiles/msg.dir/transport/iotask.cc.o src/CMakeFiles/msg.dir/transport/listener.cc.o src/CMakeFiles/msg.dir/reactor/event.cc.o src/CMakeFiles/msg.dir/reactor/reactor.cc.o src/CMakeFiles/msg.dir/reactor/sig.cc.o src/CMakeFiles/msg.dir/reactor/timer.cc.o src/CMakeFiles/msg.dir/common/clock.cc.o src/CMakeFiles/msg.dir/common/fd.cc.o src/CMakeFiles/msg.dir/common/taskpool.cc.o
+  LANGUAGE_COMPILE_FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall
   OBJECT_DIR = src/CMakeFiles/msg.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -182,7 +212,7 @@ build src/edit_cache: phony src/CMakeFiles/edit_cache.util
 build cmake_object_order_depends_target_client: phony || cmake_object_order_depends_target_msg
 build samples/CMakeFiles/client.dir/client.cc.o: CXX_COMPILER__client ../samples/client.cc || cmake_object_order_depends_target_client
   DEP_FILE = samples/CMakeFiles/client.dir/client.cc.o.d
-  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = samples/CMakeFiles/client.dir
   OBJECT_FILE_DIR = samples/CMakeFiles/client.dir
@@ -195,7 +225,7 @@ build samples/CMakeFiles/client.dir/client.cc.o: CXX_COMPILER__client ../samples
 # Link the executable samples/client
 
 build samples/client: CXX_EXECUTABLE_LINKER__client samples/CMakeFiles/client.dir/client.cc.o | src/libmsg.a || src/libmsg.a
-  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall
   LINK_LIBRARIES = -Wl,-rpath,/mnt/d/projects/cppmsg/msg/./src src/libmsg.a -lpthread
   LINK_PATH = -L/mnt/d/projects/cppmsg/msg/./src
   OBJECT_DIR = samples/CMakeFiles/client.dir
@@ -222,7 +252,7 @@ build samples/edit_cache: phony samples/CMakeFiles/edit_cache.util
 build cmake_object_order_depends_target_basic: phony || cmake_object_order_depends_target_msg
 build samples/CMakeFiles/basic.dir/basic.cc.o: CXX_COMPILER__basic ../samples/basic.cc || cmake_object_order_depends_target_basic
   DEP_FILE = samples/CMakeFiles/basic.dir/basic.cc.o.d
-  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = samples/CMakeFiles/basic.dir
   OBJECT_FILE_DIR = samples/CMakeFiles/basic.dir
@@ -235,7 +265,7 @@ build samples/CMakeFiles/basic.dir/basic.cc.o: CXX_COMPILER__basic ../samples/ba
 # Link the executable samples/basic
 
 build samples/basic: CXX_EXECUTABLE_LINKER__basic samples/CMakeFiles/basic.dir/basic.cc.o | src/libmsg.a || src/libmsg.a
-  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall
   LINK_LIBRARIES = -Wl,-rpath,/mnt/d/projects/cppmsg/msg/./src src/libmsg.a -lpthread
   LINK_PATH = -L/mnt/d/projects/cppmsg/msg/./src
   OBJECT_DIR = samples/CMakeFiles/basic.dir
@@ -263,7 +293,7 @@ build samples/rebuild_cache: phony samples/CMakeFiles/rebuild_cache.util
 build cmake_object_order_depends_target_server: phony || cmake_object_order_depends_target_msg
 build samples/CMakeFiles/server.dir/server.cc.o: CXX_COMPILER__server ../samples/server.cc || cmake_object_order_depends_target_server
   DEP_FILE = samples/CMakeFiles/server.dir/server.cc.o.d
-  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++11
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = samples/CMakeFiles/server.dir
   OBJECT_FILE_DIR = samples/CMakeFiles/server.dir
@@ -276,7 +306,7 @@ build samples/CMakeFiles/server.dir/server.cc.o: CXX_COMPILER__server ../samples
 # Link the executable samples/server
 
 build samples/server: CXX_EXECUTABLE_LINKER__server samples/CMakeFiles/server.dir/server.cc.o | src/libmsg.a || src/libmsg.a
-  FLAGS = -std=c++11 -fPIC -Wno-reorder  -O2 -Wall
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall
   LINK_LIBRARIES = -Wl,-rpath,/mnt/d/projects/cppmsg/msg/./src src/libmsg.a -lpthread
   LINK_PATH = -L/mnt/d/projects/cppmsg/msg/./src
   OBJECT_DIR = samples/CMakeFiles/server.dir

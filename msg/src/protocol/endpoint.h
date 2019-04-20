@@ -5,12 +5,12 @@
 
 namespace msg{ namespace protocol{
 
+// An endpoint maintains multiple reconnectors, relisteners, and connections. 
 class endpoint{ 
 public:
 
 private:
-    // connectors, listeners, connecetions in different stages
-
+    
 };
 
 
