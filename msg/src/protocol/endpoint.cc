@@ -13,6 +13,17 @@ void endpoint::create_message_connection(int fd){
     connections.push_back(std::make_shared<message_connection>(fd));
 }
 
+void endpoint::create_reliable_connection(int fd){
+    connections.push_back(std::make_shared<reliable_connection>(fd));
+}
+
+void endpoint::create_very_reliable_connection(int fd){
+    connections.push_back(std::make_shared<very_reliable_connection>(fd));
+}
+
+void endpoint::create_direct_connection(int fd){
+    connections.push_back(std::make_shared<create_direct_connection>(fd));
+}
 
 
 }}

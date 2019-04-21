@@ -85,6 +85,8 @@ private:
 // recvmsg sends back an ack on a successful message_connection::recvmsg.
 class reliable_connection : public message_connection{
 public:
+    reliable_connection(int fd):connection(fd){}
+    virtual ~reliable_connection(){}
 
 private:
 
@@ -98,11 +100,17 @@ private:
 // recvmsg sends back an ack after checksum the msg.
 // sendmsg sends a msg with checksum info.
 class very_reliable_connection : public message_connection{
+public:
+    reliable_connection(int fd):connection(fd){}
+    virtual ~reliable_connection(){}
 
 };
 
 // zero copy interface
 class direct_connection : public connection{
+public:
+    direct_connection(int fd):connection(fd){}
+    virtual ~direct_connection(){}
 
 };
 
