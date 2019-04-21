@@ -5,83 +5,99 @@
 #include "message.h"
 #include "transport/iotask.h"
 #include "common/blockable.h"
-
 namespace msg{ namespace protocol{
-class endpoint;
-class connection;
 
-//Note that recvmsg(and the tasks it creates) cannot exlpoit the strength of readv to recv all msg parts in one task since we cannot know the size of msg body before reading the msg header.  
-//Too fully exploit the strength of readv/writev, you need to use the tranport layer zero-copy I/O interface directly.
-class recv_msghdr_task : public transport::oneiov_read_task, public common::blockable{
-private:
-    uint64_t hdr=0;
-    connection& c; 
-    message& msg;
-public:
-    recv_msghdr_task(connection& c, message& msg);
-    virtual void on_success(int bytes);
-    virtual void on_failure(int err);
-};
-
-class recv_msgbody_task : public transport::oneiov_read_task{
-private:
-    std::shared_ptr<common::blockable> user_task;
-public:
-    recv_msgbody_task(int size, message& msg, std::shared_ptr<common::blockable> user_task);
-    virtual ~recv_msgbody_task(){}
-    virtual void on_success(int bytes);
-    virtual void on_failure(int err);
-};
-
-class send_msg_task : public transport::vector_write_task, public common::blockable{
-public:
-    send_msg_task(const message& msg);
-    virtual ~send_msg_task(){}
-    virtual void on_success(int bytes);
-    virtual void on_failure(int err);
-};
-
-// msg protocol level connection, owned by endpoints
-class connection {
+class connection{
+protected:
+    native_conn     conn;  // thread-safe
 public:
     using native_conn=std::unique_ptr<msg::transport::conn>;
-    connection(endpoint& ep, int fd);
-    ~connection(){
+    connection(int fd);
+    virtual ~connection(){
         close();
-    }
-    // blocking method
-    void            sendmsg(const message& msg){
-        std::unique_lock<std::mutex> lk(mtx);
-        auto task=std::make_shared<send_msg_task>(msg);
-        conn->add_write(task);
-        task->wait();
-    }
-    // blocking method
-    void            recvmsg(message& msg){
-        std::unique_lock<std::mutex> lk(mtx);
-        auto task=std::make_shared<recv_msghdr_task>(*this, msg);
-        conn->add_read(task);
-        task->wait();
-    }
-    // nonblocking method, cb will be executed in threadpool
-    void            sendmsg_async(const message& msg, const async_cb& cb){
-        //todo 
-    }
-    // zero copy
-    void            recv_direct(){
-        //todo
     }
     // close of a connection will trigger on_failure(conn_close) of all its io_tasks
     void            close(){
         conn->close();
     }
-    native_conn     conn;  // thread-safe
+};
+
+// msg protocol level connection, owned by endpoints
+class message_connection : public connection {
+public:
+    //Note that recvmsg(and the tasks it creates) cannot exlpoit the strength of readv to recv all msg parts in one task since we cannot know the size of msg body before reading the msg header.  
+    //Too fully exploit the strength of readv/writev, you need to use the tranport layer zero-copy I/O interface directly.
+    class recv_msghdr_task : public transport::oneiov_read_task, public common::blockable{
+    private:
+        uint64_t hdr=0;
+        connection& c; 
+        message& msg;
+    public:
+        recv_msghdr_task(connection& c, message& msg);
+        virtual void on_success(int bytes);
+        virtual void on_failure(int err);
+    };
+
+    class recv_msgbody_task : public transport::oneiov_read_task{
+    private:
+        std::shared_ptr<common::blockable> user_task;
+    public:
+        recv_msgbody_task(int size, message& msg, std::shared_ptr<common::blockable> user_task);
+        virtual ~recv_msgbody_task(){}
+        virtual void on_success(int bytes);
+        virtual void on_failure(int err);
+    };
+
+    class send_msg_task : public transport::vector_write_task, public common::blockable{
+    public:
+        send_msg_task(const message& msg);
+        virtual ~send_msg_task(){}
+        virtual void on_success(int bytes);
+        virtual void on_failure(int err);
+    };
+
+    // block until writev succeeds
+    virtual void    sendmsg(const message& msg);
+    // return immediately; cb will be executed in threadpool on writev success
+    virtual void    sendmsg_async(const message& msg, const async_cb& cb=nullptr){
+        //todo 
+    }
+
+    // block until readv succeeds
+    virtual void    recvmsg(message& msg);
+    // return immediately; cb will be executed in threadpool on readv success
+    virtual void    recvmsg_async(const message& msg, const async_cb& cb=nullptr){
+        //todo 
+    }
 private:
-    uint8_t         head_read_buffer[8]; // an 8-bytes read_task buffer for reading msg headers
-    uint8_t         header_writer_buffer[8]; // an 8-bytes write_task buffer for writing msg headers
-    endpoint&       owner; 
-    std::mutex      mtx;
-    std::condition_variable cv;
+    // todo: options like open/close nagle, send/recv timeouts, etc
+    // todo: heartbeats 
+};
+
+// Success of sendmsg is defined as receving an ack from the receiver. 
+// sendmsg tries to recv an ack after message_connection::sendmsg.
+// recvmsg sends back an ack on a successful message_connection::recvmsg.
+class reliable_connection : public message_connection{
+public:
+
+private:
+
+};
+
+/*
+    Application level checksum:  
+    In practice, the checksum is being asked to detect an error every few thousand packets. After eliminating those errors that the checksum always catches, the data suggests that, on average, between one packet in 10 billion and one packet in a few millions will have an error that goes undetected. The exact range depends on the type of data transferred and the path being traversed. While these odds seem large, they do not encourage complacency. In every trace, one or two 'bad apple' hosts or paths are responsible for a huge proportion of the errors. For applications which stumble across one of the `bad-apple' hosts, the expected time until a corrupted data is accepted could be as low as a few minutes. When compared to undetected error rates for local I/O (e.g., disk drives), these rates are disturbing. Our conclusion is that vital applications should strongly consider augmenting the TCP checksum with an application sum.
+*/
+
+// recvmsg sends back an ack after checksum the msg.
+// sendmsg sends a msg with checksum info.
+class very_reliable_connection : public message_connection{
+
+};
+
+// zero copy interface
+class direct_connection : public connection{
+
 };
 
 

@@ -1,0 +1,19 @@
+#pragma once
+
+namespace msg{namespace common{
+
+//intrusive list node
+class inode{
+public:
+protected:
+
+};
+
+//intrusive list
+template <class T>
+class ilist{
+
+};
+
+
+}}

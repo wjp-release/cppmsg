@@ -2,7 +2,11 @@
 
 namespace msg{namespace protocol{
 
-void message::append(uint8_t* data, uint32_t size){
+message::message(const std::string& data){
+    append((const uint8_t*)data.data(), data.size());
+}
+
+void message::append(const uint8_t* data, uint32_t size){
     total_size+=size;
     chunks.emplace_back(data,size);
 }

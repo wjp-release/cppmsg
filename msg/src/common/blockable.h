@@ -1,7 +1,6 @@
 #pragma once
-#include <mutex>
-#include <condition_variable>
 #include "def.h"
+#include <condition_variable>
 
 namespace msg{namespace common{
 
