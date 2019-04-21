@@ -3,7 +3,7 @@
 
 namespace msg{namespace protocol{
 
-class reconnector{
+class relistener{
 
 };
 

@@ -9,8 +9,8 @@ void endpoint::remove_connection(const connptr& c){
     }
 }
 
-void endpoint::create_connection(int fd){
-    connections.push_back(std::make_shared<connection>(fd));
+void endpoint::create_message_connection(int fd){
+    connections.push_back(std::make_shared<message_connection>(fd));
 }
 
 

@@ -26,11 +26,11 @@ void simple_msgconn_server(){
         cout<<"timeout~"<<endl;
     }, common::future(1000), 3000);
     int connfd=ipc_bind(server_uds_path);
-    protocol::connection c(connfd);
+    protocol::message_connection c(connfd);
     protocol::message what;
     for(int i=0;i<100;i++){
-        c.recvmsg(&what);
-        message.print();
+        c.recvmsg(what);
+        what.print();
         c.sendmsg("Server response <"+std::to_string(i)+">");
     }
 }

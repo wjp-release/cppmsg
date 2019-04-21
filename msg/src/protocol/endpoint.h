@@ -18,7 +18,7 @@ public:
         return ep;
     }
     void remove_connection(const connptr& c);
-    void create_connection(int fd);
+    void create_message_connection(int fd);
 private:
     endpoint(){}
     std::list<reconnptr>    reconnectors; // try to connect

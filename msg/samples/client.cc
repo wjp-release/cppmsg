@@ -23,12 +23,12 @@ using namespace msg;
 void simple_msgconn_client(){
     reactor::reactor::instance().start_eventloop();
     int connfd=ipc_connect(server_uds_path);
-    protocol::connection c(connfd);
+    protocol::message_connection c(connfd);
     protocol::message what;
     for(int i=0;i<10;i++){
         c.sendmsg("Client request <"+std::to_string(i)+">");
-        c.recvmsg(&what);
-        message.print();
+        c.recvmsg(what);
+        what.print();
     }
 }
 

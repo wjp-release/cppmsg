@@ -8,32 +8,38 @@
 namespace msg{ namespace protocol{
 
 class connection{
-protected:
-    native_conn     conn;  // thread-safe
-public:
     using native_conn=std::unique_ptr<msg::transport::conn>;
+protected:
+    native_conn     c;  // thread-safe
+public:
     connection(int fd);
     virtual ~connection(){
         close();
     }
     // close of a connection will trigger on_failure(conn_close) of all its io_tasks
     void            close(){
-        conn->close();
+        c->close();
     }
+    virtual void    sendmsg(const message& msg)=0;
+    virtual void    sendmsg_async(const message& msg, const async_cb& cb=nullptr)=0;
+    virtual void    recvmsg(message& msg)=0;
+    virtual void    recvmsg_async(const message& msg, const async_cb& cb=nullptr)=0;
 };
 
 // msg protocol level connection, owned by endpoints
 class message_connection : public connection {
 public:
+    message_connection(int fd):connection(fd){}
+    virtual ~message_connection(){}
     //Note that recvmsg(and the tasks it creates) cannot exlpoit the strength of readv to recv all msg parts in one task since we cannot know the size of msg body before reading the msg header.  
     //Too fully exploit the strength of readv/writev, you need to use the tranport layer zero-copy I/O interface directly.
     class recv_msghdr_task : public transport::oneiov_read_task, public common::blockable{
     private:
         uint64_t hdr=0;
-        connection& c; 
+        message_connection& c; 
         message& msg;
     public:
-        recv_msghdr_task(connection& c, message& msg);
+        recv_msghdr_task(message_connection& c, message& msg);
         virtual void on_success(int bytes);
         virtual void on_failure(int err);
     };
