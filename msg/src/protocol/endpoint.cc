@@ -20,9 +20,9 @@ void endpoint::create_reliable_connection(int fd){
 void endpoint::create_very_reliable_connection(int fd){
     connections.push_back(std::make_shared<very_reliable_connection>(fd));
 }
-
+    
 void endpoint::create_direct_connection(int fd){
-    connections.push_back(std::make_shared<create_direct_connection>(fd));
+    connections.push_back(std::make_shared<direct_connection>(fd));
 }
 
 

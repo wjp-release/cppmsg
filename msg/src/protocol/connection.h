@@ -85,7 +85,7 @@ private:
 // recvmsg sends back an ack on a successful message_connection::recvmsg.
 class reliable_connection : public message_connection{
 public:
-    reliable_connection(int fd):connection(fd){}
+    reliable_connection(int fd):message_connection(fd){}
     virtual ~reliable_connection(){}
 
 private:
@@ -101,8 +101,8 @@ private:
 // sendmsg sends a msg with checksum info.
 class very_reliable_connection : public message_connection{
 public:
-    reliable_connection(int fd):connection(fd){}
-    virtual ~reliable_connection(){}
+    very_reliable_connection(int fd):message_connection(fd){}
+    virtual ~very_reliable_connection(){}
 
 };
 
@@ -111,7 +111,18 @@ class direct_connection : public connection{
 public:
     direct_connection(int fd):connection(fd){}
     virtual ~direct_connection(){}
+    virtual void    sendmsg(const message& msg){
+        
+    }
+    virtual void    sendmsg_async(const message& msg, const async_cb& cb=nullptr){
 
+    }
+    virtual void    recvmsg(message& msg){
+
+    }
+    virtual void    recvmsg_async(const message& msg, const async_cb& cb=nullptr){
+
+    }
 };
 
 

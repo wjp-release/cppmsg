@@ -21,6 +21,7 @@ public:
     void create_message_connection(int fd);
     void create_reliable_connection(int fd);
     void create_very_reliable_connection(int fd);
+    void create_direct_connection(int fd);
 private:
     endpoint(){}
     std::list<reconnptr>    reconnectors; // try to connect
