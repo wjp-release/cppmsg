@@ -15,6 +15,7 @@
 #include "common/concurrentq.h"
 #include <string.h>
 #include <algorithm>
+#include <cassert>
 
 using async_cb=std::function<void(int)>;
 using event_cb=std::function<void(int)>;

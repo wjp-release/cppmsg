@@ -26,8 +26,12 @@ void simple_msgconn_client(){
     protocol::message_connection c(connfd);
     protocol::message what;
     for(int i=0;i<10;i++){
+        std::cout<<"try to send msg"<<i<<std::endl;
         c.sendmsg("Client request <"+std::to_string(i)+">");
+        std::cout<<"msg"<<i<<" sent!"<<std::endl;
+        std::cout<<"try to recv msg"<<i<<"'s reply"<<std::endl;
         c.recvmsg(what);
+        std::cout<<"msg"<<i<<"'s reply recved!"<<std::endl;
         what.print();
     }
 }

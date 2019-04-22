@@ -64,8 +64,9 @@ static void block_all_signals(){
     sigprocmask(SIG_SETMASK,&all,NULL);
 }
 
+// fixme: signalfd doesn't work as expected if eventloop run in a background thread. 
 int signalfd_open(int* signals, int n){
-    block_all_signals();
+    // block_all_signals(); 
     sigset_t tmp;
     sigemptyset(&tmp);
     for(int i=0; i <n ; i++){

@@ -3,7 +3,6 @@
 #include "def.h"
 
 namespace msg{ namespace protocol{
-
 // A message_chunk a single unit of message data container.
 struct message_chunk{
     message_chunk(){}
@@ -25,6 +24,7 @@ struct message_chunk{
 // A message consists of multiple message_chunks. It is not thread-safe.
 class message{
 public:
+    static const int MaxSize=1024*1024*64; //64MB
     message(){}
     message(const std::string& data);
     void append(const uint8_t* data, uint32_t size);

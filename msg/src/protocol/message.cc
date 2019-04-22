@@ -7,11 +7,13 @@ message::message(const std::string& data){
 }
 
 void message::append(const uint8_t* data, uint32_t size){
+    assert(size<=MaxSize);
     total_size+=size;
     chunks.emplace_back(data,size);
 }
 
 void* message::alloc(uint32_t size){
+    assert(size<=MaxSize);
     total_size+=size;
     chunks.emplace_back(size);
     return reinterpret_cast<void*>(chunks.back().data);

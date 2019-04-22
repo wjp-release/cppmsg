@@ -8,6 +8,10 @@ message_connection::recv_msghdr_task::recv_msghdr_task(message_connection& c, me
 // msghdr contains msglen, which allows creation of recv_msgbody_task
 void message_connection::recv_msghdr_task::on_success(int bytes){
     std::cout<<"hdr: msglen="<<hdr<<std::endl;
+    if(hdr>message::MaxSize){
+        signal(); //obviously illegal, discard it 
+        return;
+    }
     c.c->add_read(std::make_shared<recv_msgbody_task>(hdr, msg, shared_from_this()));
 }
 

@@ -61,3 +61,13 @@
 2806	3073	1555860078	samples/basic	aea242795ee137c8
 2810	3075	1555860078	samples/server	b95a2016c0794adf
 2802	3079	1555860078	samples/client	747f3bca795fc9fb
+91	3868	1555935868	src/CMakeFiles/msg.dir/common/fd.cc.o	ab471c52d14643c1
+3870	4244	1555935869	src/libmsg.a	b07ea84f52ab300
+97	4606	1555935869	samples/CMakeFiles/server.dir/server.cc.o	f77f34b345c99708
+4250	4900	1555935869	samples/basic	aea242795ee137c8
+4244	4907	1555935869	samples/client	747f3bca795fc9fb
+4606	4936	1555935869	samples/server	b95a2016c0794adf
+13	1857	1555936143	samples/CMakeFiles/client.dir/client.cc.o	ce192d99a026bfea
+13	350	1555936163	samples/client	747f3bca795fc9fb
+22	1923	1555936165	samples/CMakeFiles/server.dir/server.cc.o	f77f34b345c99708
+1924	2244	1555936165	samples/server	b95a2016c0794adf
