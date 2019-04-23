@@ -7,7 +7,8 @@ message_connection::recv_msghdr_task::recv_msghdr_task(message_connection& c, me
 
 // msghdr contains msglen, which allows creation of recv_msgbody_task
 void message_connection::recv_msghdr_task::on_success(int bytes){
-    std::cout<<"hdr: msglen="<<hdr<<std::endl;
+    
+    std::cout<<bytes<<" read, "<<"hdr: msglen="<<hdr<<std::endl;
     if(hdr>message::MaxSize){
         signal(); //obviously illegal, discard it 
         return;
@@ -16,6 +17,7 @@ void message_connection::recv_msghdr_task::on_success(int bytes){
 }
 
 void message_connection::recv_msghdr_task::on_failure(int err){
+    std::cerr<<"recv msghdr failed, err="<<err<<std::endl;
     if(err==msg::transport::peer_closed){
         //todo: replace iostream with a logger
         std::cerr<<"recv_msghdr_task peer closed"<<std::endl;
@@ -28,10 +30,12 @@ message_connection::recv_msgbody_task::recv_msgbody_task(int size, message& msg,
 
 // Now we have filled the msg, wake up user.
 void message_connection::recv_msgbody_task::on_success(int bytes){
+    std::cout<<bytes<<" bytes read"<<std::endl;
     user_task->signal(); 
 }
 
 void message_connection::recv_msgbody_task::on_failure(int err){
+    std::cerr<<"recv msgbody failed, err="<<err<<std::endl;
     if(err==peer_closed){
         std::cerr<<"recv_msgbody_task peer closed"<<std::endl;
     }
@@ -43,10 +47,12 @@ message_connection::send_msg_task::send_msg_task(const message& msg) : transport
 
 // Now we have filled the msg, wake up user.
 void message_connection::send_msg_task::on_success(int bytes){
+    std::cout<<bytes<<" bytes written"<<std::endl;
     signal(); 
 }
 
 void message_connection::send_msg_task::on_failure(int err){
+    std::cerr<<"send msg failed, err="<<err<<std::endl;
     if(err==peer_closed){
         std::cerr<<"recv_msgbody_task peer closed"<<std::endl;
     }
