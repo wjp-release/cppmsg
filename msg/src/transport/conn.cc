@@ -68,7 +68,7 @@ void conn::resubmit_write(){
 }
 
 void conn::read(){
-    std::cout<<"read event over conn!\n";
+    std::cout<<"conn.cc: read event over conn!\n";
     if(closed) return;
     while(!reads.empty()) {
         auto& cur=reads.front();
@@ -78,7 +78,7 @@ void conn::read(){
 }
 
 void conn::write(){
-    std::cout<<"write event over conn!\n";
+    std::cout<<"conn.cc: write event over conn!\n";
     if(closed) return;
     while(!writes.empty()) {
         auto& cur=writes.front();

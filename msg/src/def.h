@@ -3,6 +3,8 @@
 #include <functional> // function
 #include <cstdint> // uint64_t 
 #include <cstddef>
+#include <cstdarg>
+#include <cstdio>
 #include <time.h> // timespec
 #include <exception>
 #include <stdexcept>
