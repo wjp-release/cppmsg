@@ -1,10 +1,15 @@
 #include "log.h"
+
+#include <cstdint> // uint64_t 
+#include <cstddef>
+#include <cstdio>
+#include <mutex>
+
 namespace msg{namespace common{
 namespace log{
 
-
-
-static log_level lv = lv_debug;
+static int lv = lv_debug;
+static std::mutex mtx;
 
 void set_log_level(int x) {
     std::lock_guard<std::mutex> lk(mtx);
@@ -16,8 +21,8 @@ void log_debug(const char* file, int line, const std::string& what, ...) {
     if(lv_debug<lv) return;
     va_list args;
     va_start(args, what);
-    fprintf(stdout, "DEBUG, File %s Line %d: ", file, line);
-    vfprintf(stdout, what, args);
+    fprintf(stdout, "<Debug> %s, line %d: ", file, line);
+    vfprintf(stdout, what.c_str(), args);
     fprintf(stdout, "\n"); //auto indent
     va_end(args);
 }
@@ -27,8 +32,8 @@ void log_err(const char* file, int line, const std::string& what, ...) {
     if(lv_err<lv) return;
     va_list args;
     va_start(args, what);
-    fprintf(stdout, "ERR, File %s Line %d: ", file, line);
-    vfprintf(stdout, what, args);
+    fprintf(stdout, "<Error>, %s, line %d: ", file, line);
+    vfprintf(stdout, what.c_str(), args);
     fprintf(stdout, "\n"); //auto indent
     va_end(args);
 }
@@ -38,9 +43,8 @@ void log_wtf(const char* file, int line, const std::string& what, ...) {
     if(lv_wtf<lv) return;
     va_list args;
     va_start(args, what);
-    log(lv_wtf, what, args);
-    fprintf(stdout, "WTF, File %s Line %d: ", file, line);
-    vfprintf(stdout, what, args);
+    fprintf(stdout, "<WTF>, %s, line %d: ", file, line);
+    vfprintf(stdout, what.c_str(), args);
     fprintf(stdout, "\n"); //auto indent
     va_end(args);
 }

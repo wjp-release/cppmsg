@@ -26,7 +26,7 @@ reactor::reactor(){
     timerfd_event=new event(epollfd,timerfd_timer.get_timerfd(), [this](int evflag){
         timerfd_timer.on_timerfd_event();
     });
-    signalfd_event=create_signalfd_event(epollfd);
+    // signalfd_event=create_signalfd_event(epollfd);
 }
 
 reactor::~reactor(){
@@ -37,7 +37,7 @@ reactor::~reactor(){
     close(epollfd);
     delete eventfd_event;
     delete timerfd_event;
-    delete signalfd_event;
+    // delete signalfd_event;
 }
 
 void reactor::wake(){
@@ -66,13 +66,13 @@ bool reactor::in_eventloop(){
 
 // fixme: replace iostream with your logging tools or just exit
 void reactor::bad_epollwait(){
-    std::cerr<<"epoll_wait failed!\n"; 
+    logerr("epoll_wait failed!");
 }
 
 void reactor::eventloop(){
     eventfd_event->submit_without_oneshot(EPOLLIN);
     timerfd_event->submit_without_oneshot(EPOLLIN);
-    signalfd_event->submit_without_oneshot(EPOLLIN);
+    // signalfd_event->submit_without_oneshot(EPOLLIN);
 	while(!closing){
 		struct epoll_event events[max_events];
 		int n = epoll_wait(epollfd,events,max_events,-1);

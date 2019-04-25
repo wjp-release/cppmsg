@@ -25,4 +25,23 @@ enum task_failure_reason : uint8_t{
     listener_closed = 7,
 };
 
+static inline std::string reason(int err){
+    switch(err){
+    case peer_closed: 
+        return "peer closed";
+    case fatal:
+        return "fatal; we should drop this task and erase it from any pending list";
+    case conn_closed:
+        return "conn closed";
+    case trivial:
+        return "trivial; it's safe to ignore it";
+    case bad_but_recoverable:
+        return "bad but recoverable, could be a temporary resource exhaustion; stop now and come back later";
+    case system_wide_fatal:
+        return "It's so wrong that we would let the entire system down!";
+    }
+    return "invalide err";
+}
+
+
 }}

@@ -50,7 +50,7 @@ void listener::resubmit_accept(){
     if(!accepts.empty()) e->submit(EPOLLIN);
 }
 void listener::accept(){
-    std::cout<<"accept event over listener!\n";
+    logdebug("accept events over listener");
     if(closed) return;
     for(auto i=accepts.begin(), d=accepts.end();i!=d;){
         auto rc=(*i)->try_accept(e->fd);

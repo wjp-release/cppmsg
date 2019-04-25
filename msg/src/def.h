@@ -18,6 +18,7 @@
 #include <string.h>
 #include <algorithm>
 #include <cassert>
+#include "common/log.h"
 
 using async_cb=std::function<void(int)>;
 using event_cb=std::function<void(int)>;

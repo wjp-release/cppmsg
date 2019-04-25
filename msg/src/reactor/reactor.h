@@ -43,7 +43,7 @@ private:
     cq<please_cb>   cbq; // callbacks to run in next loop 
     timer           timerfd_timer; // timerfd-based timer
     event*          timerfd_event; 
-    event*          signalfd_event; 
+    // event*          signalfd_event;  
     bool            closing = false; 
 };
 

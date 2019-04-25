@@ -167,6 +167,12 @@ build src/CMakeFiles/msg.dir/common/fd.cc.o: CXX_COMPILER__msg ../src/common/fd.
   INCLUDES = -I.././include -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/common
+build src/CMakeFiles/msg.dir/common/log.cc.o: CXX_COMPILER__msg ../src/common/log.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/common/log.cc.o.d
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  INCLUDES = -I.././include -I.././src
+  OBJECT_DIR = src/CMakeFiles/msg.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/common
 build src/CMakeFiles/msg.dir/common/taskpool.cc.o: CXX_COMPILER__msg ../src/common/taskpool.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/common/taskpool.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
@@ -181,7 +187,7 @@ build src/CMakeFiles/msg.dir/common/taskpool.cc.o: CXX_COMPILER__msg ../src/comm
 #############################################
 # Link the static library src/libmsg.a
 
-build src/libmsg.a: CXX_STATIC_LIBRARY_LINKER__msg src/CMakeFiles/msg.dir/protocol/connection.cc.o src/CMakeFiles/msg.dir/protocol/endpoint.cc.o src/CMakeFiles/msg.dir/protocol/message.cc.o src/CMakeFiles/msg.dir/protocol/reconnector.cc.o src/CMakeFiles/msg.dir/protocol/relistener.cc.o src/CMakeFiles/msg.dir/transport/conn.cc.o src/CMakeFiles/msg.dir/transport/connector.cc.o src/CMakeFiles/msg.dir/transport/ctltask.cc.o src/CMakeFiles/msg.dir/transport/iotask.cc.o src/CMakeFiles/msg.dir/transport/listener.cc.o src/CMakeFiles/msg.dir/reactor/event.cc.o src/CMakeFiles/msg.dir/reactor/reactor.cc.o src/CMakeFiles/msg.dir/reactor/sig.cc.o src/CMakeFiles/msg.dir/reactor/timer.cc.o src/CMakeFiles/msg.dir/common/clock.cc.o src/CMakeFiles/msg.dir/common/fd.cc.o src/CMakeFiles/msg.dir/common/taskpool.cc.o
+build src/libmsg.a: CXX_STATIC_LIBRARY_LINKER__msg src/CMakeFiles/msg.dir/protocol/connection.cc.o src/CMakeFiles/msg.dir/protocol/endpoint.cc.o src/CMakeFiles/msg.dir/protocol/message.cc.o src/CMakeFiles/msg.dir/protocol/reconnector.cc.o src/CMakeFiles/msg.dir/protocol/relistener.cc.o src/CMakeFiles/msg.dir/transport/conn.cc.o src/CMakeFiles/msg.dir/transport/connector.cc.o src/CMakeFiles/msg.dir/transport/ctltask.cc.o src/CMakeFiles/msg.dir/transport/iotask.cc.o src/CMakeFiles/msg.dir/transport/listener.cc.o src/CMakeFiles/msg.dir/reactor/event.cc.o src/CMakeFiles/msg.dir/reactor/reactor.cc.o src/CMakeFiles/msg.dir/reactor/sig.cc.o src/CMakeFiles/msg.dir/reactor/timer.cc.o src/CMakeFiles/msg.dir/common/clock.cc.o src/CMakeFiles/msg.dir/common/fd.cc.o src/CMakeFiles/msg.dir/common/log.cc.o src/CMakeFiles/msg.dir/common/taskpool.cc.o
   LANGUAGE_COMPILE_FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall
   OBJECT_DIR = src/CMakeFiles/msg.dir
   POST_BUILD = :
