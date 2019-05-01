@@ -5,8 +5,8 @@
 #include "system/reactor.h"
 #include "system/timer.h"
 #include "common/clock.h"
-#include "transport/conn.h"
-#include "protocol/connection.h"
+#include "protocol/channel/conn.h"
+#include "protocol/channel/connection.h"
 #include "sample.h"
 #include <functional>
 
@@ -23,7 +23,7 @@ using namespace msg;
 void add_timer(){
     reactor::instance().get_timer().please_push([]{
         cout<<"timeout~"<<endl;
-    }, common::future(1000), 3000);
+    }, future(1000), 3000);
 }
 
 void simple_msgconn_server(){
