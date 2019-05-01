@@ -31,7 +31,5 @@ using transferred_cb=std::function<void(int, const std::vector<iovec>&)>;
 template<class T>
 using cq=moodycamel::ConcurrentQueue<T>; // todo: use token feature to further speed up producer-consumer 
 
-//protocol template parameter
-static const int tcp=1;
-static const int ipc=0;
+
 

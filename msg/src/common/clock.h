@@ -2,7 +2,9 @@
 
 #include "def.h"
 
-namespace msg{namespace common{
+// clock.h: time related functions
+
+namespace msg{
 
 struct timespec parse_ms(int ms);
 uint64_t        now();
@@ -12,4 +14,4 @@ struct timespec timespec_elapsed(uint64_t start_time);
 uint64_t        ms_elapsed(uint64_t start_time);
 uint64_t        future(uint64_t ms_from_now);
     
-}}
+}

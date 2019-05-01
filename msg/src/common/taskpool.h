@@ -2,7 +2,9 @@
 
 #include "def.h"
 
-namespace msg{ namespace common{
+namespace msg{ 
+
+// taskpool: a stdlibc++ based fix-sized thread pool
 
 class taskpool {
 public:
@@ -18,4 +20,4 @@ private:
 };
 
 
-}}
+}

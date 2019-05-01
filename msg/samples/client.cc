@@ -2,8 +2,8 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include "reactor/reactor.h"
-#include "reactor/timer.h"
+#include "system/reactor.h"
+#include "system/timer.h"
 #include "common/clock.h"
 #include "transport/conn.h"
 #include "protocol/connection.h"

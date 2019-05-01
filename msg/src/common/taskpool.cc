@@ -5,7 +5,7 @@
 #include <queue>
 #include <thread>
 
-namespace msg{ namespace common{
+namespace msg{ 
 
 taskpool& taskpool::instance(){
     static taskpool tp(std::thread::hardware_concurrency());
@@ -57,4 +57,4 @@ void taskpool::execute(const task_cb& task) {
 }
 
 
-}}
+}

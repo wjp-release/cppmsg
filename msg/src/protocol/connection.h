@@ -1,14 +1,14 @@
 #pragma once
 
 #include "def.h"
-#include "transport/conn.h"
+#include "conn.h"
 #include "message.h"
-#include "transport/iotask.h"
+#include "tasks/iotask.h"
 #include "common/blockable.h"
 namespace msg{ namespace protocol{
 
 class connection{
-    using native_conn=std::unique_ptr<msg::transport::conn>;
+    using native_conn=std::unique_ptr<conn>;
 protected:
     native_conn     c;  // thread-safe
 public:
@@ -33,7 +33,7 @@ public:
     virtual ~message_connection(){}
     //Note that recvmsg(and the tasks it creates) cannot exlpoit the strength of readv to recv all msg parts in one task since we cannot know the size of msg body before reading the msg header.  
     //Too fully exploit the strength of readv/writev, you need to use the tranport layer zero-copy I/O interface directly.
-    class recv_msghdr_task : public transport::oneiov_read_task, public common::blockable{
+    class recv_msghdr_task : public oneiov_read_task, public blockable{
     private:
         uint64_t hdr=0;
         message_connection& c; 
@@ -44,17 +44,17 @@ public:
         virtual void on_failure(int err);
     };
 
-    class recv_msgbody_task : public transport::oneiov_read_task{
+    class recv_msgbody_task : public oneiov_read_task{
     private:
-        std::shared_ptr<common::blockable> user_task;
+        std::shared_ptr<blockable> user_task;
     public:
-        recv_msgbody_task(int size, message& msg, std::shared_ptr<common::blockable> user_task);
+        recv_msgbody_task(int size, message& msg, std::shared_ptr<blockable> user_task);
         virtual ~recv_msgbody_task(){}
         virtual void on_success(int bytes);
         virtual void on_failure(int err);
     };
 
-    class send_msg_task : public transport::vector_write_task, public common::blockable{
+    class send_msg_task : public vector_write_task, public blockable{
     public:
         send_msg_task(const message& msg);
         virtual ~send_msg_task(){}

@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <math.h>
 
-namespace msg{ namespace common{
+namespace msg{
 
 struct timespec parse_ms(int ms){
     struct timespec t;
@@ -47,4 +47,4 @@ uint64_t future(uint64_t ms_from_now){
 
 
 
-}}
+}

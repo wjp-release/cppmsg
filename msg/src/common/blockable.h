@@ -2,7 +2,7 @@
 #include "def.h"
 #include <condition_variable>
 
-namespace msg{namespace common{
+namespace msg{
 
 class blockable : public std::enable_shared_from_this<blockable>{
 private:
@@ -25,4 +25,4 @@ public:
     }
 };
 
-}}
+}

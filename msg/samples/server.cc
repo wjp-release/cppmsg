@@ -2,8 +2,8 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include "reactor/reactor.h"
-#include "reactor/timer.h"
+#include "system/reactor.h"
+#include "system/timer.h"
 #include "common/clock.h"
 #include "transport/conn.h"
 #include "protocol/connection.h"
@@ -21,16 +21,16 @@ using namespace msg;
 #define readbuf_size 1024
 
 void add_timer(){
-    reactor::reactor::instance().get_timer().please_push([]{
+    reactor::instance().get_timer().please_push([]{
         cout<<"timeout~"<<endl;
     }, common::future(1000), 3000);
 }
 
 void simple_msgconn_server(){
-    reactor::reactor::instance().start_eventloop();
+    reactor::instance().start_eventloop();
     int connfd=ipc_bind(server_uds_path);
-    protocol::message_connection c(connfd);
-    protocol::message what;
+    message_connection c(connfd);
+    message what;
     for(int i=0;i<100;i++){
         std::cout<<"try to recv msg"<<i<<std::endl;
         c.recvmsg(what);
