@@ -1,9 +1,9 @@
 #pragma once
 
 #include "def.h"
-#include "connection.h"
-#include "reconnector.h"
-#include "relistener.h"
+#include "channel/connection.h"
+#include "connect/reconnector.h"
+#include "listen/relistener.h"
 
 namespace msg{ namespace protocol{
 
