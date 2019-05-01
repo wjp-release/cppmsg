@@ -29,6 +29,8 @@ public:
 class read_task : public io_task{
 public:
     virtual ~read_task(){}
+    virtual void on_peer_closed()=0;
+    virtual void on_recoverable_failure()=0;
     bool try_scatter_input(int fd);
 };
 

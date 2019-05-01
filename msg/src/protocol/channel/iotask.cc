@@ -11,7 +11,7 @@ bool read_task::try_scatter_input(int fd){
             on_success(n);
             return true;
         }else if(n==0){
-            on_failure(peer_closed);
+            on_peer_closed();
             return false;
         }else{
             logdebug("read task error: %s\n", strerror(errno));
