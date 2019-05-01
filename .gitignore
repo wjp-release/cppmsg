@@ -1,9 +1,10 @@
 # Prerequisites
 *.d
-!./cache_friendly_scheduler/build
-./cache_friendly_scheduler/build/*
+!./msg/build
+./msg/build/*
 
 .vs/*
+.vscode/*
 
 # Compiled Object files
 *.slo
