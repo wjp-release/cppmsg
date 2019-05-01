@@ -18,6 +18,7 @@
 #include <algorithm>
 #include <cassert>
 #include <sys/epoll.h>
+#include <unistd.h>
 #include "common/log.h"
 #include "common/status.h"
 #include "common/concurrentq.h"

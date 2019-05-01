@@ -5,7 +5,6 @@
 #include <stdint.h>
 #include <functional>
 #include <vector>
-#include <unistd.h> // close
 
 #include "common/clock.h"
 #include "fd.h"

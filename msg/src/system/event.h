@@ -2,7 +2,6 @@
 
 #include "def.h"
 #include "reactor.h"
-#include <unistd.h>
 #include <iostream>
 #include <mutex>
 
