@@ -1,6 +1,6 @@
 #include "endpoint.h"
 
-namespace msg{namespace protocol{
+namespace msg{
 
 void endpoint::remove_connection(const connptr& c){
     auto it=std::find(connections.begin(),connections.end(), c);
@@ -26,4 +26,4 @@ void endpoint::create_direct_connection(int fd){
 }
 
 
-}}
+}

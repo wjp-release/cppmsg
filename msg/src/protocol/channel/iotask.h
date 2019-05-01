@@ -22,6 +22,9 @@ class io_task{
 public:
     virtual ~io_task(){}
     virtual void on_success(int bytes_transferred)=0;
+    virtual void on_recoverable_failure()=0;
+    virtual void on_peer_closed(){};
+    virtual void on_conn_closed(){};
     virtual iovec* iov()=0;
     virtual int iovcnt()=0;
 };
@@ -29,8 +32,6 @@ public:
 class read_task : public io_task{
 public:
     virtual ~read_task(){}
-    virtual void on_peer_closed()=0;
-    virtual void on_recoverable_failure()=0;
     bool try_scatter_input(int fd);
 };
 

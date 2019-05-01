@@ -2,10 +2,10 @@
 
 #include "def.h"
 #include "conn.h"
-#include "message.h"
+#include "protocol/message.h"
 #include "iotask.h"
 #include "common/blockable.h"
-namespace msg{ namespace protocol{
+namespace msg{ 
 
 class connection{
     using native_conn=std::unique_ptr<conn>;
@@ -41,7 +41,7 @@ public:
     public:
         recv_msghdr_task(message_connection& c, message& msg);
         virtual void on_success(int bytes);
-        virtual void on_failure(int err);
+        virtual void on_recoverable_failure();
     };
 
     class recv_msgbody_task : public oneiov_read_task{
@@ -51,7 +51,7 @@ public:
         recv_msgbody_task(int size, message& msg, std::shared_ptr<blockable> user_task);
         virtual ~recv_msgbody_task(){}
         virtual void on_success(int bytes);
-        virtual void on_failure(int err);
+        virtual void on_recoverable_failure();
     };
 
     class send_msg_task : public vector_write_task, public blockable{
@@ -59,7 +59,7 @@ public:
         send_msg_task(const message& msg);
         virtual ~send_msg_task(){}
         virtual void on_success(int bytes);
-        virtual void on_failure(int err);
+        virtual void on_recoverable_failure();
     };
 
     // block until writev succeeds
@@ -126,4 +126,4 @@ public:
 };
 
 
-}}
+}

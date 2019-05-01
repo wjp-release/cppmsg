@@ -21,7 +21,7 @@ bool read_task::try_scatter_input(int fd){
             case EAGAIN: // can't proceed
                 return false; // finish current run
             default: 
-                on_failure(bad_but_recoverable); 
+                on_recoverable_failure();
                 return false; 
             }
         }
@@ -36,7 +36,7 @@ bool write_task::try_gather_output(int fd){
             on_success(n);
             return true;
         }else if(n==0){
-            on_failure(peer_closed);
+            on_peer_closed();
             return false;
         }else{
             logdebug("write task error: %s\n", strerror(errno));
@@ -46,7 +46,7 @@ bool write_task::try_gather_output(int fd){
             case EAGAIN: // can't proceed
                 return false; // finish current run
             default: 
-                on_failure(bad_but_recoverable); 
+                on_recoverable_failure();
                 return false; 
             }
         }

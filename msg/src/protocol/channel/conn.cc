@@ -30,8 +30,8 @@ void conn::close(){
     if (!closed) {
         closed = true;
         //trigger on_failure callbacks of pending reads/writes
-        for(auto& wr:writes) wr->on_failure(conn_closed);
-        for(auto& rd:reads) rd->on_failure(conn_closed);
+        for(auto& wr:writes) wr->on_conn_closed();
+        for(auto& rd:reads) rd->on_conn_closed();
         e->please_destroy_me();
     }
 }

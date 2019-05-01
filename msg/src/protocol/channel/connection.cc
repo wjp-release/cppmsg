@@ -1,9 +1,8 @@
 #include "connection.h"
 
-using namespace msg::transport;
-namespace msg{namespace protocol{
+namespace msg{
     
-message_connection::recv_msghdr_task::recv_msghdr_task(message_connection& c, message& msg) : transport::oneiov_read_task(reinterpret_cast<void*>(&hdr), 8), c(c), msg(msg){}
+message_connection::recv_msghdr_task::recv_msghdr_task(message_connection& c, message& msg) : oneiov_read_task(reinterpret_cast<void*>(&hdr), 8), c(c), msg(msg){}
 
 // msghdr contains msglen, which allows creation of recv_msgbody_task
 void message_connection::recv_msghdr_task::on_success(int bytes){
@@ -15,12 +14,11 @@ void message_connection::recv_msghdr_task::on_success(int bytes){
     c.c->add_read(std::make_shared<recv_msgbody_task>(hdr, msg, shared_from_this()));
 }
 
-void message_connection::recv_msghdr_task::on_failure(int err){
-    logerr("recv msghdr failed: %s", reason(err));
+void message_connection::recv_msghdr_task::on_recoverable_failure(){
 }
 
-message_connection::recv_msgbody_task::recv_msgbody_task(int size, message& msg, std::shared_ptr<common::blockable> user_task): 
-    transport::oneiov_read_task(msg.alloc(size), size),
+message_connection::recv_msgbody_task::recv_msgbody_task(int size, message& msg, std::shared_ptr<blockable> user_task): 
+    oneiov_read_task(msg.alloc(size), size),
     user_task(user_task){}
 
 // Now we have filled the msg, wake up user.
@@ -29,11 +27,10 @@ void message_connection::recv_msgbody_task::on_success(int bytes){
     user_task->signal(); 
 }
 
-void message_connection::recv_msgbody_task::on_failure(int err){
-    logerr("recv msgbody failed: %s", reason(err));
+void message_connection::recv_msgbody_task::on_recoverable_failure(){
 }
 
-message_connection::send_msg_task::send_msg_task(const message& msg) : transport::vector_write_task(msg.nr_chunks()+1, msg.size()){
+message_connection::send_msg_task::send_msg_task(const message& msg) : vector_write_task(msg.nr_chunks()+1, msg.size()){
     msg.append_iov(iovs); 
 }
 
@@ -43,11 +40,10 @@ void message_connection::send_msg_task::on_success(int bytes){
     signal(); 
 }
 
-void message_connection::send_msg_task::on_failure(int err){
-    logerr("send msg failed: %s", reason(err));
+void message_connection::send_msg_task::on_recoverable_failure(){
 }
 
-connection::connection(int fd):c(std::make_unique<msg::transport::conn>(fd)){}
+connection::connection(int fd):c(std::make_unique<conn>(fd)){}
 
 void message_connection::sendmsg(const message& msg){
     auto task=std::make_shared<send_msg_task>(msg);
@@ -63,4 +59,4 @@ void message_connection::recvmsg(message& msg){
 
 
 
-}}
+}

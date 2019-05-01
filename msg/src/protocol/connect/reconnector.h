@@ -1,10 +1,10 @@
 #pragma once
 #include "def.h"
 
-namespace msg{namespace protocol{
+namespace msg{
 
 class reconnector{
 
 };
 
-}}
+}

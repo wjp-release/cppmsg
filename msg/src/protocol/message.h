@@ -2,7 +2,7 @@
 
 #include "def.h"
 
-namespace msg{ namespace protocol{
+namespace msg{ 
 // A message_chunk a single unit of message data container.
 struct message_chunk{
     message_chunk(){}
@@ -49,4 +49,4 @@ private:
     std::vector<message_chunk> chunks;
 };
 
-}}
+}

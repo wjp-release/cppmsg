@@ -5,7 +5,7 @@
 #include "connect/reconnector.h"
 #include "listen/relistener.h"
 
-namespace msg{ namespace protocol{
+namespace msg{ 
 
 // An endpoint maintains multiple reconnectors, relisteners, and connections. 
 class endpoint{ 
@@ -29,4 +29,4 @@ private:
     std::list<connptr>      connections; // established connections
 };
 
-}}
+}

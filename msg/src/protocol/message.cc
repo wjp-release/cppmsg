@@ -1,6 +1,6 @@
 #include "message.h"
 
-namespace msg{namespace protocol{
+namespace msg{
 
 message::message(const std::string& data){
     append((const uint8_t*)data.data(), data.size());
@@ -32,4 +32,4 @@ void message::set_iov(std::vector<iovec>& iov)const noexcept{
 
 
 
-}}
+}
