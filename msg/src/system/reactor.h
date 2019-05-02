@@ -29,6 +29,7 @@ public:
         static reactor r;
         return r;
     }
+    void            stop();
     void            start_eventloop(); 
     void            eventloop(); // the eventloop
     // Submit a task and run in the eventloop

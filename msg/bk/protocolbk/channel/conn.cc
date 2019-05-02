@@ -21,7 +21,6 @@ void conn::add_write(const write_sp& m){
     std::lock_guard<std::mutex> lk(mtx);
     if(closed) return;
     writes.push_back(m);
-    // list::size takes constant time since c++11
     if(writes.size()==1) write(), resubmit_write(); 
 }
 

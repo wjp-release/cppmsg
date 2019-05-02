@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/d/projects/cppmsg/msg/samples
+# Install script for directory: /mnt/e/my projects/cppmsg/msg/samples
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

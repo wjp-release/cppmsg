@@ -2,8 +2,6 @@
 
 #include "def.h"
 #include "reactor.h"
-#include <iostream>
-#include <mutex>
 
 namespace msg{ 
 
@@ -13,6 +11,9 @@ public:
     ~event();
     int             fd; 
     bool            submit(int evflag); 
+    bool            submit_in();
+    bool            submit_out();
+    bool            submit_both();
     void            please_destroy_me(); // safe destruction of event object that notifies the eventloop to delete event, which happens after current epoll_wait
     void            set_cb(event_cb);
     void            consume(int evflag); // must be called by eventloop

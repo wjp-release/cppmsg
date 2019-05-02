@@ -3,7 +3,7 @@
 #include "def.h"
 #include "channel/connection.h"
 #include "connect/reconnector.h"
-#include "listen/relistener.h"
+#include "listen/listener.h"
 
 namespace msg{ 
 
@@ -11,7 +11,7 @@ namespace msg{
 class endpoint{ 
 public:
     using reconnptr=std::shared_ptr<reconnector>;
-    using relistenptr=std::shared_ptr<relistener>;
+    using listenptr=std::shared_ptr<listener>;
     using connptr=std::shared_ptr<connection>;
     static endpoint& instance(){
         static endpoint ep;
@@ -25,7 +25,7 @@ public:
 private:
     endpoint(){}
     std::list<reconnptr>    reconnectors; // try to connect
-    std::list<relistenptr>  relisteners; // try to accept
+    std::list<listenptr>    listeners; // try to accept
     std::list<connptr>      connections; // established connections
 };
 

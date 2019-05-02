@@ -13,22 +13,26 @@
 
 #define max_events 64 
 
-
 namespace msg{
 
 reactor::reactor(){
     epollfd=epoll_create1(EPOLL_CLOEXEC);
+    if(epollfd==-1) logerr("epoll_create1 failed!");
     eventfd=efd_open();
+
     eventfd_event=new event(epollfd, eventfd, [this](int evflag){
         efd_recv(eventfd);
     });
     timerfd_event=new event(epollfd,timerfd_timer.get_timerfd(), [this](int evflag){
         timerfd_timer.on_timerfd_event();
     });
-    // signalfd_event=create_signalfd_event(epollfd);
 }
 
 reactor::~reactor(){
+    stop();
+}
+
+void reactor::stop(){
     closing=true;
     if(background_thread.joinable()){
         background_thread.join(); 
@@ -36,7 +40,6 @@ reactor::~reactor(){
     close(epollfd);
     delete eventfd_event;
     delete timerfd_event;
-    // delete signalfd_event;
 }
 
 void reactor::wake(){
@@ -63,9 +66,9 @@ bool reactor::in_eventloop(){
     return false;
 }
 
-// fixme: replace iostream with your logging tools or just exit
 void reactor::bad_epollwait(){
-    logerr("epoll_wait failed!");
+    logerr("epoll_wait failed, close");
+    close();
 }
 
 void reactor::eventloop(){

@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/d/projects/cppmsg/msg
+# Install script for directory: /mnt/e/my projects/cppmsg/msg
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,8 +39,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/mnt/d/projects/cppmsg/msg/build/src/cmake_install.cmake")
-  include("/mnt/d/projects/cppmsg/msg/build/samples/cmake_install.cmake")
+  include("/mnt/e/my projects/cppmsg/msg/build/src/cmake_install.cmake")
+  include("/mnt/e/my projects/cppmsg/msg/build/samples/cmake_install.cmake")
 
 endif()
 
@@ -52,5 +52,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/mnt/d/projects/cppmsg/msg/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/mnt/e/my projects/cppmsg/msg/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

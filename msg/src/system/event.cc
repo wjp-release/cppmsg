@@ -41,6 +41,18 @@ bool event::submit(int evflag){
     return epoll_ctl(reactor::instance().epollfd, EPOLL_CTL_MOD, fd, &ee)==0;
 }
 
+bool event::submit_in(){
+    return submit(EPOLLIN);
+}
+
+bool event::submit_out(){
+    return submit(EPOLLOUT);
+}
+
+bool event::submit_both(){
+    return submit(EPOLLOUT|EPOLLIN);
+}
+
 void event::consume(int evflag){
     std::lock_guard<std::mutex> lk(mtx);
     this->evmask &= ~evflag;

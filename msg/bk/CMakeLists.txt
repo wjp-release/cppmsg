@@ -1,0 +1,11 @@
+aux_source_directory(./protocol ss1)
+aux_source_directory(./protocol/channel ss2)
+aux_source_directory(./protocol/connect ss3)
+aux_source_directory(./protocol/listen ss4)
+aux_source_directory(./system ss5)
+aux_source_directory(./common ss6)
+add_library(msg ${ss1} ${ss2} ${ss3} ${ss4} ${ss5} ${ss6})  
+if(UNIX)
+	target_link_libraries(msg pthread)
+endif()
+

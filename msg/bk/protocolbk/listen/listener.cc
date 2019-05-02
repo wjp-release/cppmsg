@@ -1,7 +1,17 @@
 #include "listener.h"
 #include "common/taskpool.h"
 #include "system/fd.h"
-
+#include <sys/timerfd.h>
+#include <sys/time.h>
+#include <time.h>
+#include <sys/eventfd.h>
+#include <signal.h>
+#include <sys/signalfd.h>
+#include <stdlib.h>
+#include <string.h>
+#include <exception>
+#include <stdexcept>
+#include <iostream>
 #include <sys/epoll.h> //evflags
 #include <arpa/inet.h>
 #include <fcntl.h>
@@ -12,6 +22,10 @@
 #include <unistd.h>
 
 namespace msg{
+
+static bool is_recoverable(){
+    return (errno==ENETDOWN||errno==ENETDOWN||errno==ENOPROTOOPT||errno==EHOSTDOWN||errno==ENONET||errno==EHOSTUNREACH||errno==EOPNOTSUPP||errno==ENETUNREACH||errno==EAGAIN||errno==EWOULDBLOCK);
+}
 
 listener::listener(const addr& a){
     // [1] create socket
@@ -40,46 +54,52 @@ void listener::listener_cb(int evflag){
         close();
     }else{ // almost certainly time-consuming  
         taskpool::instance().execute([this, evflag]{
-            std::lock_guard<std::mutex> lk(mtx);
-            accept(), resubmit_accept();
+            this->start();
         });
     }
 }
 void listener::resubmit_accept(){ 
     if(closed) return;
-    if(!accepts.empty()) e->submit(EPOLLIN);
+    e->submit(EPOLLIN);
 }
 void listener::accept(){
     logdebug("accept events over listener");
     if(closed) return;
-    for(auto i=accepts.begin(), d=accepts.end();i!=d;){
-        auto rc=(*i)->try_accept(e->fd);
-        if(rc == should_stop_all){
-            return;
-        }else if(rc==ignore_this_continue){
-            i++;
-            continue;
-        }else{ // this task is either done or dropped for fatal err, erase it
-            i=accepts.erase(i);
+    int newfd = accept4(e->fd, NULL, NULL, SOCK_CLOEXEC);
+    if (newfd < 0) {
+        if(is_recoverable()){
+            logerr("accept failed, try it next loop"); 
+        }else if(errno==EBADF || errno==EFAULT || errno==EINVAL){
+            // 
+            closed=true;
+            e->please_destroy_me();
+            logerr("cannot accept, unrecoverable, close");
+        }else if(errno==ECONNABORTED || errno==ECONNRESET){
+
+            logerr("accept failed due to network problem, back off 300ms and retry"); 
+        }else{
+
+            logerr("accept failed due to other reason, probably recoverable, back off 100ms and retry");
         }
+        return;
     }
+    // now we get newfd, create a conn
+
+    
 }
 
 void listener::close(){
     std::lock_guard<std::mutex> lk(mtx);
     if (!closed) {
         closed = true;
-        //trigger on_failure callbacks of pending accepts
-        for(auto& a:accepts) a->on_failure(listener_closed);
         e->please_destroy_me();
     }
 }
 
-void listener::add_accept(const accept_sp& a){
+void listener::start(){
     std::lock_guard<std::mutex> lk(mtx);
     if(closed) return;
-    accepts.push_back(a);
-    if(accepts.size()==1) accept(), resubmit_accept(); 
+    accept(), resubmit_accept(); 
 }
 
 
