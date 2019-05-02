@@ -17,15 +17,19 @@ namespace msg{
 
 reactor::reactor(){
     epollfd=epoll_create1(EPOLL_CLOEXEC);
-    if(epollfd==-1) logerr("epoll_create1 failed!");
+    if(epollfd==-1) logerr("epoll_create1 failed!"), exit(-1);
     eventfd=efd_open();
-
-    eventfd_event=new event(epollfd, eventfd, [this](int evflag){
-        efd_recv(eventfd);
-    });
-    timerfd_event=new event(epollfd,timerfd_timer.get_timerfd(), [this](int evflag){
-        timerfd_timer.on_timerfd_event();
-    });
+    logerr("efd_open failed!"), exit(-1);
+    try{
+        eventfd_event=new event(epollfd, eventfd, [this](int evflag){
+            efd_recv(eventfd);
+        });
+        timerfd_event=new event(epollfd,timerfd_timer.get_timerfd(), [this](int evflag){
+            timerfd_timer.on_timerfd_event();
+        });
+    }catch(...){
+        logerr("create events failed!"), exit(-1);
+    }
 }
 
 reactor::~reactor(){
@@ -67,8 +71,8 @@ bool reactor::in_eventloop(){
 }
 
 void reactor::bad_epollwait(){
-    logerr("epoll_wait failed, close");
-    close();
+    logerr("epoll_wait fault, which should never happen");
+    exit(-1);
 }
 
 void reactor::eventloop(){

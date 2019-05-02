@@ -1,7 +1,7 @@
 #pragma once
 #include "def.h"
 
-namespace msg{namespace common{
+namespace msg{
 
 //intrusive list node base
 template<class T>
@@ -86,4 +86,4 @@ private:
 };
 
 
-}}
+}

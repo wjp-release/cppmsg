@@ -5,7 +5,7 @@
 #include <cstdio>
 #include <mutex>
 
-namespace msg{namespace common{
+namespace msg{
 namespace log{
 
 static int lv = lv_debug;
@@ -51,5 +51,5 @@ void log_wtf(const char* file, int line, const std::string& what, ...) {
 
 
 
-}
+
 }}

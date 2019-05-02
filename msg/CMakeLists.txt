@@ -60,7 +60,6 @@ if(MSVC)
 	set(CMAKE_CXX_FLAGS "/W4 /EHsc")
 endif()
 
-include_directories(./include)
 include_directories(./src)
 link_directories(./src)
 add_subdirectory(./src)

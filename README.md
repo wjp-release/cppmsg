@@ -4,8 +4,7 @@ cppmsg is a message library written in C++11.
 
 1. Safe concurrent event processing based on epoll's one-shot mode.
 2. Zero application level copy based on readv & writev.
-3. Efficient timer based on timerfd.
-4. Repliable message protocol(user-level resend, ack and heartbeats) based on nonblocking tcp. 
+3. Repliable message protocol(application-level resend, checksum, ack and heartbeats) based on nonblocking tcp. 
 
 ## build
 cd msg/scripts

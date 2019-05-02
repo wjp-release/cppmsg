@@ -1,0 +1,31 @@
+{
+    "configurations": [{
+        "name": "WSL",
+        "intelliSenseMode": "clang-x64",
+        "includePath": [
+            "${workspaceFolder}/**",
+            "C:/Users/recvf/AppData/Local/Packages/CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc/LocalState/rootfs/usr/include/c++/8",
+            "C:/Users/recvf/AppData/Local/Packages/CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc/LocalState/rootfs/usr/include/x86_64-linux-gnu/c++/8",
+            "C:/Users/recvf/AppData/Local/Packages/CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc/LocalState/rootfs/usr/local/include",
+            "C:/Users/recvf/AppData/Local/Packages/CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc/LocalState/rootfs/usr/include",
+            "C:/Users/recvf/AppData/Local/Packages/CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc/LocalState/rootfs/usr/include/x86_64-linux-gnu"
+        ],
+        "defines": [
+            "__linux__",
+            "__x86_64__"
+        ],
+        "browse": {
+            "path": [
+                "C:/Users/recvf/AppData/Local/Packages/CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc/LocalState/rootfs/usr/include/c++/8",
+                "C:/Users/recvf/AppData/Local/Packages/CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc/LocalState/rootfs/usr/include/x86_64-linux-gnu/c++/8",
+                "C:/Users/recvf/AppData/Local/Packages/CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc/LocalState/rootfs/usr/local/include",
+                "C:/Users/recvf/AppData/Local/Packages/CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc/LocalState/rootfs/usr/include",
+                "C:/Users/recvf/AppData/Local/Packages/CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc/LocalState/rootfs/usr/include/x86_64-linux-gnu"
+            ],
+            "limitSymbolsToIncludedHeaders": true,
+            "databaseFilename": ""
+        }
+    }],
+        "version": 4
+    }
+    
