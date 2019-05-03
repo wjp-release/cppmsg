@@ -4,22 +4,22 @@
 namespace msg{
 
 const char* status::CopyState(const char* state) {
-    uint32_t size;
-    memcpy(&size, state, sizeof(size));
-    char* result = new char[size + 5];
-    memcpy(result, state, size + 5);
+    uint32_t size = 9+strlen(state+9);
+    char* result = new char[size];
+    memcpy(result, state, size);
     return result;
 }
 
-status::status(Code code, const std::string& msg) {
+//0~3 msglen, 4: code, 5+: msg
+status::status(Code code, const std::string& msg, uint64_t value) {
     assert(code != StatusSuccess);
-    const uint32_t len1 = msg.size();
-    const uint32_t size = len1;
-    char* result = new char[size + 5];
-    memcpy(result, &size, sizeof(size));
-    result[4] = static_cast<char>(code);
-    memcpy(result + 5, msg.data(), len1);
-    state_ = result;
+    const uint32_t size = msg.size();
+    char* result = new char[size + 10];
+    memcpy(result, &value, sizeof(value));
+    result[8] = static_cast<char>(code);
+    memcpy(result + 9, msg.data(), size);
+    result[9+size]='\0';
+    state_=result;
 }
 
 std::string status::str() const {
@@ -51,9 +51,8 @@ std::string status::str() const {
         break;
     }
     std::string result(type);
-    uint32_t length;
-    memcpy(&length, state_, sizeof(length));
-    result.append(state_ + 5, length);
+    uint32_t length=msglen();
+    result.append(state_ + 9, length);
     return result;
   }
 }

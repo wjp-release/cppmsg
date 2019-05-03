@@ -14,8 +14,16 @@ namespace msg{
 class endpoint{
 public:
     // async connect; will retry until success
-    void async_connect_quietly();
-    void async_connect(async_cb on_connected);
+    status async_connect_quietly(){
+
+    }
+    status async_connect(async_cb on_connected){
+
+    }
+    // synchronous socket, connect
+    status connect(const addr& address, int& newfd);
+    // synchronous socket, bind, listen, accept
+    status accept(const addr& address, int& newfd);
 
 private:
     std::unordered_map<int, std::shared_ptr<connection>> connections;  // fd, connection map

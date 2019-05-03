@@ -15,12 +15,14 @@
 #include <iostream>
 #include <sys/types.h>
 #include "connector.h"
+#include "system/fd.h"
 
 namespace msg{
 
 status connect_task::try_connect(connector* c)noexcept{
     int fd = socket(a.posix_family(), SOCK_STREAM | SOCK_CLOEXEC, 0);
     if(fd<0) return status::failure("create socket failed");
+    set_nonblock(fd);
     this->newfd=fd; 
     addr_posix sp;
     int len=a.to_posix(&sp);
@@ -29,9 +31,9 @@ status connect_task::try_connect(connector* c)noexcept{
             logerr("connect failed");
             return status::failure("connect failed");
         }
-        return status::success();
+        return c->create_event(newfd); 
     }else{ // linux async connect never immediately suceeds though
-        return c->create_event(newfd);
+        return status::success();
     }
 }
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <cstring>
 
 namespace msg{
 
@@ -18,17 +19,17 @@ public:
     status(const status& s);
     void operator=(const status& s);
     static status success() { return status(); }
-    static status error(const std::string& msg) {
-        return status(StatusError, msg);
+    static status error(const std::string& msg, uint64_t val=0) {
+        return status(StatusError, msg, val);
     }
-    static status fault(const std::string& msg) {
-        return status(StatusFault, msg);
+    static status fault(const std::string& msg, uint64_t val=0) {
+        return status(StatusFault, msg, val);
     }
-    static status failure(const std::string& msg) {
-        return status(StatusFailure, msg);
+    static status failure(const std::string& msg, uint64_t val=0) {
+        return status(StatusFailure, msg, val);
     }
-    static status unsupported(const std::string& msg) {
-        return status(StatusUnsupported, msg);
+    static status unsupported(const std::string& msg, uint64_t val=0) {
+        return status(StatusUnsupported, msg, val);
     }
     bool is_success() const { return (state_ == nullptr); }
     bool is_error() const { return code() == StatusError; }
@@ -36,7 +37,16 @@ public:
     bool is_failure() const { return code() == StatusFailure; }
     bool is_unsupported() const {return code() == StatusUnsupported; }
     std::string str() const;
+    uint64_t val() const{
+        return reinterpret_cast<uint64_t>(state_);
+    }
+    uint32_t msglen() const{
+        return strlen(state_+9);
+    }
  private:
+    // first 8 bytes: store uint64_t, could be a pointer or integral value
+    // state_[9]: code
+    // state_[10:]: msg that ends with '\0'
     const char* state_;
     enum Code {
         StatusSuccess = 0,
@@ -48,7 +58,7 @@ public:
     Code code() const {
         return (state_ == nullptr) ? StatusSuccess : static_cast<Code>(state_[4]);
     }
-    status(Code code, const std::string& msg);
+    status(Code code, const std::string& msg, uint64_t value);
     static const char* CopyState(const char* s);
 };
 
