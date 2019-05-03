@@ -9,7 +9,9 @@ public:
     
 
 private:
-    addr        address;
+    int        fd;
+    
+
 };
 
 

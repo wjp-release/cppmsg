@@ -15,7 +15,7 @@ class endpoint{
 public:
 
 private:
-    std::unordered_map<addr, connection> connections; 
+    std::unordered_map<int, connection> connections;  // fd, connection map
 };
 
 
