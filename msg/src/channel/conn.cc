@@ -7,7 +7,6 @@ namespace msg{
 
 conn::conn(int fd){
     e = new event(reactor::instance().epollfd, fd, [this](int evflag){conn_cb(evflag);});
-    // We don't submit it now. We should only submit(EPOLLIN) when nonblocking read/write is unfinished!
 }
 
 void conn::add_read(const read_sp& m){

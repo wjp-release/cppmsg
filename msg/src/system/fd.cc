@@ -15,7 +15,7 @@
 #include <sys/types.h>
 #include <errno.h>
 #include "fd.h"
-#include "clock.h"
+#include "common/clock.h"
 
 namespace msg{ 
 
@@ -58,7 +58,7 @@ uint64_t efd_recv(int efd){
     return duh;
 }
 
-static void block_all_signals(){
+void block_all_signals(){
     sigset_t all;
     sigfillset(&all);
     sigprocmask(SIG_SETMASK,&all,NULL);

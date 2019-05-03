@@ -13,9 +13,12 @@ namespace msg{
 
 class endpoint{
 public:
+    // async connect; will retry until success
+    void async_connect_quietly();
+    void async_connect(async_cb on_connected);
 
 private:
-    std::unordered_map<int, connection> connections;  // fd, connection map
+    std::unordered_map<int, std::shared_ptr<connection>> connections;  // fd, connection map
 };
 
 

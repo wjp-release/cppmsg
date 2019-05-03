@@ -18,10 +18,14 @@
 #include <algorithm>
 #include <cassert>
 #include <sys/epoll.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <cstring>
 #include <unistd.h>
 #include "common/log.h"
 #include "common/status.h"
 #include "common/concurrentq.h"
+#include "common/ilist.h"
 
 using async_cb=std::function<void(int)>;
 using event_cb=std::function<void(int)>;
@@ -34,5 +38,5 @@ using transferred_cb=std::function<void(int, const std::vector<iovec>&)>;
 template<class T>
 using cq=moodycamel::ConcurrentQueue<T>; // todo: use token feature to further speed up producer-consumer 
 
-
+#define WJP_DEBUG
 

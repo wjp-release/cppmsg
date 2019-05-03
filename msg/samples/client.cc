@@ -5,8 +5,8 @@
 #include "system/reactor.h"
 #include "system/timer.h"
 #include "common/clock.h"
-#include "protocol/channel/conn.h"
-#include "protocol/channel/connection.h"
+#include "channel/conn.h"
+#include "channel/connection.h"
 #include "sample.h"
 #include <functional>
 

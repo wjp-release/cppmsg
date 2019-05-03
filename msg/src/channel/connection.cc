@@ -15,6 +15,10 @@ void message_connection::recv_msghdr_task::on_success(int bytes){
 }
 
 void message_connection::recv_msghdr_task::on_recoverable_failure(){
+    #ifdef WJP_DEBUG
+    logerr("recv_msghdr_task failed");
+    exit(-1);
+    #endif
 }
 
 message_connection::recv_msgbody_task::recv_msgbody_task(int size, message& msg, std::shared_ptr<blockable> user_task): 
@@ -28,6 +32,10 @@ void message_connection::recv_msgbody_task::on_success(int bytes){
 }
 
 void message_connection::recv_msgbody_task::on_recoverable_failure(){
+    #ifdef WJP_DEBUG
+    logerr("recv_msgbody_task failed");
+    exit(-1);
+    #endif
 }
 
 message_connection::send_msg_task::send_msg_task(const message& msg) : vector_write_task(msg.nr_chunks()+1, msg.size()){
@@ -41,6 +49,10 @@ void message_connection::send_msg_task::on_success(int bytes){
 }
 
 void message_connection::send_msg_task::on_recoverable_failure(){
+    #ifdef WJP_DEBUG
+    logerr("send_msg_task failed");
+    exit(-1);
+    #endif
 }
 
 connection::connection(int fd):c(std::make_unique<conn>(fd)){}

@@ -2,9 +2,6 @@
 
 #include "def.h"
 #include "common/taskpool.h"
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <cstring>
 
 /*
     struct iovec {
@@ -23,7 +20,7 @@ public:
     virtual ~io_task(){}
     virtual void on_success(int bytes_transferred)=0;
     virtual void on_recoverable_failure()=0;
-    virtual void on_peer_closed(){};
+    virtual void on_peer_closed(){}; // back off, increase back-off time
     virtual void on_conn_closed(){};
     virtual iovec* iov()=0;
     virtual int iovcnt()=0;
@@ -62,18 +59,6 @@ class vector_write_task : public vector_io_task, public write_task{
 public:
     vector_write_task(int nriov, int msglen): vector_io_task(nriov, msglen){}
     virtual ~vector_write_task(){}
-    virtual iovec* iov(){ 
-        return vector_io_task::iov();
-    }
-    virtual int iovcnt(){ 
-        return vector_io_task::iovcnt();
-    }
-};
-
-class header_read_task : public vector_io_task, public read_task{
-public:
-    header_read_task(int nriov): vector_io_task(nriov){}
-    virtual ~header_read_task(){}
     virtual iovec* iov(){ 
         return vector_io_task::iov();
     }

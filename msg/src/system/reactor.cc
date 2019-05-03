@@ -7,7 +7,6 @@
 #include <iostream>
 
 #include "event.h"
-#include "sig.h"
 #include "fd.h"
 #include "timer.h"
 
@@ -19,7 +18,7 @@ reactor::reactor(){
     epollfd=epoll_create1(EPOLL_CLOEXEC);
     if(epollfd==-1) logerr("epoll_create1 failed!"), exit(-1);
     eventfd=efd_open();
-    logerr("efd_open failed!"), exit(-1);
+    if(eventfd==-1) logerr("efd_open failed!"), exit(-1);
     try{
         eventfd_event=new event(epollfd, eventfd, [this](int evflag){
             efd_recv(eventfd);

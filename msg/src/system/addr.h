@@ -112,15 +112,15 @@ public:
             throw std::runtime_error("invalid family");
         }
     }
-    std::string str(){
-        return std::string(reinterpret_cast<char*>(this), 32);
+    std::string str() const{
+        return std::string(reinterpret_cast<const char*>(this), 32);
     }
     bool operator==(const addr &rhs) const { 
-        if(lhs.family!=rhs.family){
+        if(family!=rhs.family){
             return false;
         }
         int len;
-        switch(lhs.family){
+        switch(family){
         case family_v4:
             len=6;
             break;
@@ -134,7 +134,7 @@ public:
             throw std::runtime_error("invalid family");
         }
         for(int i=0;i<len;i++){
-            if(lhs.data[i] == rhs.data[i]) continue;
+            if(data[i] == rhs.data[i]) continue;
             return false;
         }
         return true; 
