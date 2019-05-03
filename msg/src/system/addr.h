@@ -112,6 +112,33 @@ public:
             throw std::runtime_error("invalid family");
         }
     }
+    std::string str(){
+        return std::string(reinterpret_cast<char*>(this), 32);
+    }
+    bool operator==(const addr &rhs) const { 
+        if(lhs.family!=rhs.family){
+            return false;
+        }
+        int len;
+        switch(lhs.family){
+        case family_v4:
+            len=6;
+            break;
+        case family_v6:
+            len=18;
+            break;
+        case family_uds:
+            len=31;
+            break;
+        default:
+            throw std::runtime_error("invalid family");
+        }
+        for(int i=0;i<len;i++){
+            if(lhs.data[i] == rhs.data[i]) continue;
+            return false;
+        }
+        return true; 
+    }
     //sockaddr_family: family_v4, family_v6, family_uds
     uint8_t     family;
     // for v4, v6, addr[0], addr[1] stores port number
@@ -121,5 +148,39 @@ public:
     uint8_t     data[31]; 
 };
 
+struct addrcmp{
+    bool operator()(const addr& lhs, const addr& rhs) const { 
+        if(lhs.family!=rhs.family){
+            return (uint8_t)lhs.family < (uint8_t)rhs.family;
+        }
+        int len;
+        switch(lhs.family){
+        case family_v4:
+            len=6;
+            break;
+        case family_v6:
+            len=18;
+            break;
+        case family_uds:
+            len=31;
+            break;
+        default:
+            throw std::runtime_error("invalid family");
+        }
+        for(int i=0;i<len;i++){
+            if(lhs.data[i] == rhs.data[i]) continue;
+            return lhs.data[i]<rhs.data[i];
+        }
+        return false; 
+    }
+};
+ 
+}
 
+namespace std {
+    template<> struct hash<msg::addr> {
+        std::size_t operator()(const msg::addr &f) const {
+            return std::hash<string>{}(f.str());
+        }  
+    };
 }
