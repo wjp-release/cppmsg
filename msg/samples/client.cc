@@ -11,6 +11,7 @@
 #include "sample.h"
 #include <functional>
 #include "endpoint.h"
+#include "system/resolv.h"
 
 using namespace std;
 using namespace msg::sample;
@@ -26,11 +27,13 @@ void simple_msgconn_client(){
     reactor::reactor::instance().start_eventloop();
     endpoint ep;
     int connfd;
-    auto s=ep.connect(,connfd);
+    auto t=resolv_taskpool::instance().create_resolv_task(family_v4,12345,"localhost",HintActive,HintTCP);
+    t->wait();
+    std::cout<<"now we have parsed addr"<<std::endl;
+    auto s=ep.connect(t->parsed_address,connfd);
     if(!s.is_success()) logerr(s.str());
-
-
-
+    std::cout<<"connected, now we wait 2 seconds"<<std::endl;
+    sleep(2000);
     basic_connection c(connfd);
     message what;
     for(int i=0;i<10;i++){

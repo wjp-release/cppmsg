@@ -66,13 +66,14 @@ void conn::resubmit_write(){
 }
 
 void conn::read(){
-    logdebug("read events over listener");
     if(closed) return;
+    logdebug("read events over listener");
     while(!reads.empty()) {
         auto& cur=reads.front();
         if(!cur->try_scatter_input(e->fd)) return; 
         else reads.pop_front();
     }
+    sleep(1000);
 }
 
 void conn::write(){

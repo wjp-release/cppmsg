@@ -1,10 +1,10 @@
-/mnt/e/my projects/cppmsg/msg/build/CMakeFiles/rebuild_cache.dir
-/mnt/e/my projects/cppmsg/msg/build/CMakeFiles/edit_cache.dir
-/mnt/e/my projects/cppmsg/msg/build/src/CMakeFiles/rebuild_cache.dir
-/mnt/e/my projects/cppmsg/msg/build/src/CMakeFiles/msg.dir
-/mnt/e/my projects/cppmsg/msg/build/src/CMakeFiles/edit_cache.dir
-/mnt/e/my projects/cppmsg/msg/build/samples/CMakeFiles/client.dir
-/mnt/e/my projects/cppmsg/msg/build/samples/CMakeFiles/edit_cache.dir
-/mnt/e/my projects/cppmsg/msg/build/samples/CMakeFiles/basic.dir
-/mnt/e/my projects/cppmsg/msg/build/samples/CMakeFiles/rebuild_cache.dir
-/mnt/e/my projects/cppmsg/msg/build/samples/CMakeFiles/server.dir
+/mnt/d/wjp/cppmsg/msg/build/CMakeFiles/rebuild_cache.dir
+/mnt/d/wjp/cppmsg/msg/build/CMakeFiles/edit_cache.dir
+/mnt/d/wjp/cppmsg/msg/build/src/CMakeFiles/rebuild_cache.dir
+/mnt/d/wjp/cppmsg/msg/build/src/CMakeFiles/msg.dir
+/mnt/d/wjp/cppmsg/msg/build/src/CMakeFiles/edit_cache.dir
+/mnt/d/wjp/cppmsg/msg/build/samples/CMakeFiles/client.dir
+/mnt/d/wjp/cppmsg/msg/build/samples/CMakeFiles/edit_cache.dir
+/mnt/d/wjp/cppmsg/msg/build/samples/CMakeFiles/basic.dir
+/mnt/d/wjp/cppmsg/msg/build/samples/CMakeFiles/rebuild_cache.dir
+/mnt/d/wjp/cppmsg/msg/build/samples/CMakeFiles/server.dir

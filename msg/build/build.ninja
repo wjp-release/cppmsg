@@ -34,7 +34,7 @@ include rules.ninja
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/mnt/e/my projects/cppmsg/msg/build" && /usr/bin/cmake -H"/mnt/e/my projects/cppmsg/msg" -B"/mnt/e/my projects/cppmsg/msg/build"
+  COMMAND = cd /mnt/d/wjp/cppmsg/msg/build && /usr/bin/cmake -H/mnt/d/wjp/cppmsg/msg -B/mnt/d/wjp/cppmsg/msg/build
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -44,13 +44,13 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/mnt/e/my projects/cppmsg/msg/build" && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  COMMAND = cd /mnt/d/wjp/cppmsg/msg/build && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 build edit_cache: phony CMakeFiles/edit_cache.util
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
-# /mnt/e/my projects/cppmsg/msg/CMakeLists.txt
+# /mnt/d/wjp/cppmsg/msg/CMakeLists.txt
 # =============================================================================
 
 
@@ -58,7 +58,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build src/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/mnt/e/my projects/cppmsg/msg/build/src" && /usr/bin/cmake -H"/mnt/e/my projects/cppmsg/msg" -B"/mnt/e/my projects/cppmsg/msg/build"
+  COMMAND = cd /mnt/d/wjp/cppmsg/msg/build/src && /usr/bin/cmake -H/mnt/d/wjp/cppmsg/msg -B/mnt/d/wjp/cppmsg/msg/build
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -83,6 +83,24 @@ build src/CMakeFiles/msg.dir/message.cc.o: CXX_COMPILER__msg ../src/message.cc |
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir
+build src/CMakeFiles/msg.dir/channel/ack_connection.cc.o: CXX_COMPILER__msg ../src/channel/ack_connection.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/channel/ack_connection.cc.o.d
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  INCLUDES = -I.././src
+  OBJECT_DIR = src/CMakeFiles/msg.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
+build src/CMakeFiles/msg.dir/channel/basic_connection.cc.o: CXX_COMPILER__msg ../src/channel/basic_connection.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/channel/basic_connection.cc.o.d
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  INCLUDES = -I.././src
+  OBJECT_DIR = src/CMakeFiles/msg.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
+build src/CMakeFiles/msg.dir/channel/checksum_connection.cc.o: CXX_COMPILER__msg ../src/channel/checksum_connection.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/channel/checksum_connection.cc.o.d
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  INCLUDES = -I.././src
+  OBJECT_DIR = src/CMakeFiles/msg.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
 build src/CMakeFiles/msg.dir/channel/conn.cc.o: CXX_COMPILER__msg ../src/channel/conn.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/channel/conn.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
@@ -97,6 +115,12 @@ build src/CMakeFiles/msg.dir/channel/connection.cc.o: CXX_COMPILER__msg ../src/c
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
 build src/CMakeFiles/msg.dir/channel/iotask.cc.o: CXX_COMPILER__msg ../src/channel/iotask.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/channel/iotask.cc.o.d
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  INCLUDES = -I.././src
+  OBJECT_DIR = src/CMakeFiles/msg.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
+build src/CMakeFiles/msg.dir/channel/pingpong_connection.cc.o: CXX_COMPILER__msg ../src/channel/pingpong_connection.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/channel/pingpong_connection.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
@@ -125,6 +149,12 @@ build src/CMakeFiles/msg.dir/listener/listener.cc.o: CXX_COMPILER__msg ../src/li
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/listener
+build src/CMakeFiles/msg.dir/system/addr.cc.o: CXX_COMPILER__msg ../src/system/addr.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/system/addr.cc.o.d
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  INCLUDES = -I.././src
+  OBJECT_DIR = src/CMakeFiles/msg.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/system
 build src/CMakeFiles/msg.dir/system/event.cc.o: CXX_COMPILER__msg ../src/system/event.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/system/event.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
@@ -139,6 +169,12 @@ build src/CMakeFiles/msg.dir/system/fd.cc.o: CXX_COMPILER__msg ../src/system/fd.
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/system
 build src/CMakeFiles/msg.dir/system/reactor.cc.o: CXX_COMPILER__msg ../src/system/reactor.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/system/reactor.cc.o.d
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  INCLUDES = -I.././src
+  OBJECT_DIR = src/CMakeFiles/msg.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/system
+build src/CMakeFiles/msg.dir/system/resolv.cc.o: CXX_COMPILER__msg ../src/system/resolv.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/system/resolv.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
@@ -181,7 +217,7 @@ build src/CMakeFiles/msg.dir/common/taskpool.cc.o: CXX_COMPILER__msg ../src/comm
 #############################################
 # Link the static library src/libmsg.a
 
-build src/libmsg.a: CXX_STATIC_LIBRARY_LINKER__msg src/CMakeFiles/msg.dir/endpoint.cc.o src/CMakeFiles/msg.dir/message.cc.o src/CMakeFiles/msg.dir/channel/conn.cc.o src/CMakeFiles/msg.dir/channel/connection.cc.o src/CMakeFiles/msg.dir/channel/iotask.cc.o src/CMakeFiles/msg.dir/connector/connect_task.cc.o src/CMakeFiles/msg.dir/connector/connector.cc.o src/CMakeFiles/msg.dir/connector/reconnector.cc.o src/CMakeFiles/msg.dir/listener/listener.cc.o src/CMakeFiles/msg.dir/system/event.cc.o src/CMakeFiles/msg.dir/system/fd.cc.o src/CMakeFiles/msg.dir/system/reactor.cc.o src/CMakeFiles/msg.dir/system/timer.cc.o src/CMakeFiles/msg.dir/common/clock.cc.o src/CMakeFiles/msg.dir/common/log.cc.o src/CMakeFiles/msg.dir/common/status.cc.o src/CMakeFiles/msg.dir/common/taskpool.cc.o
+build src/libmsg.a: CXX_STATIC_LIBRARY_LINKER__msg src/CMakeFiles/msg.dir/endpoint.cc.o src/CMakeFiles/msg.dir/message.cc.o src/CMakeFiles/msg.dir/channel/ack_connection.cc.o src/CMakeFiles/msg.dir/channel/basic_connection.cc.o src/CMakeFiles/msg.dir/channel/checksum_connection.cc.o src/CMakeFiles/msg.dir/channel/conn.cc.o src/CMakeFiles/msg.dir/channel/connection.cc.o src/CMakeFiles/msg.dir/channel/iotask.cc.o src/CMakeFiles/msg.dir/channel/pingpong_connection.cc.o src/CMakeFiles/msg.dir/connector/connect_task.cc.o src/CMakeFiles/msg.dir/connector/connector.cc.o src/CMakeFiles/msg.dir/connector/reconnector.cc.o src/CMakeFiles/msg.dir/listener/listener.cc.o src/CMakeFiles/msg.dir/system/addr.cc.o src/CMakeFiles/msg.dir/system/event.cc.o src/CMakeFiles/msg.dir/system/fd.cc.o src/CMakeFiles/msg.dir/system/reactor.cc.o src/CMakeFiles/msg.dir/system/resolv.cc.o src/CMakeFiles/msg.dir/system/timer.cc.o src/CMakeFiles/msg.dir/common/clock.cc.o src/CMakeFiles/msg.dir/common/log.cc.o src/CMakeFiles/msg.dir/common/status.cc.o src/CMakeFiles/msg.dir/common/taskpool.cc.o
   LANGUAGE_COMPILE_FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall
   OBJECT_DIR = src/CMakeFiles/msg.dir
   POST_BUILD = :
@@ -193,13 +229,13 @@ build src/libmsg.a: CXX_STATIC_LIBRARY_LINKER__msg src/CMakeFiles/msg.dir/endpoi
 # Utility command for edit_cache
 
 build src/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/mnt/e/my projects/cppmsg/msg/build/src" && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  COMMAND = cd /mnt/d/wjp/cppmsg/msg/build/src && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 build src/edit_cache: phony src/CMakeFiles/edit_cache.util
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
-# /mnt/e/my projects/cppmsg/msg/CMakeLists.txt
+# /mnt/d/wjp/cppmsg/msg/CMakeLists.txt
 # =============================================================================
 
 # =============================================================================
@@ -226,8 +262,8 @@ build samples/CMakeFiles/client.dir/client.cc.o: CXX_COMPILER__client ../samples
 
 build samples/client: CXX_EXECUTABLE_LINKER__client samples/CMakeFiles/client.dir/client.cc.o | src/libmsg.a || src/libmsg.a
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall
-  LINK_LIBRARIES = -Wl,-rpath,"/mnt/e/my projects/cppmsg/msg/./src" src/libmsg.a -lpthread
-  LINK_PATH = -L"/mnt/e/my projects/cppmsg/msg/./src"
+  LINK_LIBRARIES = -Wl,-rpath,/mnt/d/wjp/cppmsg/msg/./src src/libmsg.a -lpthread
+  LINK_PATH = -L/mnt/d/wjp/cppmsg/msg/./src
   OBJECT_DIR = samples/CMakeFiles/client.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -238,7 +274,7 @@ build samples/client: CXX_EXECUTABLE_LINKER__client samples/CMakeFiles/client.di
 # Utility command for edit_cache
 
 build samples/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/mnt/e/my projects/cppmsg/msg/build/samples" && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  COMMAND = cd /mnt/d/wjp/cppmsg/msg/build/samples && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 build samples/edit_cache: phony samples/CMakeFiles/edit_cache.util
@@ -266,8 +302,8 @@ build samples/CMakeFiles/basic.dir/basic.cc.o: CXX_COMPILER__basic ../samples/ba
 
 build samples/basic: CXX_EXECUTABLE_LINKER__basic samples/CMakeFiles/basic.dir/basic.cc.o | src/libmsg.a || src/libmsg.a
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall
-  LINK_LIBRARIES = -Wl,-rpath,"/mnt/e/my projects/cppmsg/msg/./src" src/libmsg.a -lpthread
-  LINK_PATH = -L"/mnt/e/my projects/cppmsg/msg/./src"
+  LINK_LIBRARIES = -Wl,-rpath,/mnt/d/wjp/cppmsg/msg/./src src/libmsg.a -lpthread
+  LINK_PATH = -L/mnt/d/wjp/cppmsg/msg/./src
   OBJECT_DIR = samples/CMakeFiles/basic.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -278,7 +314,7 @@ build samples/basic: CXX_EXECUTABLE_LINKER__basic samples/CMakeFiles/basic.dir/b
 # Utility command for rebuild_cache
 
 build samples/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd "/mnt/e/my projects/cppmsg/msg/build/samples" && /usr/bin/cmake -H"/mnt/e/my projects/cppmsg/msg" -B"/mnt/e/my projects/cppmsg/msg/build"
+  COMMAND = cd /mnt/d/wjp/cppmsg/msg/build/samples && /usr/bin/cmake -H/mnt/d/wjp/cppmsg/msg -B/mnt/d/wjp/cppmsg/msg/build
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -307,8 +343,8 @@ build samples/CMakeFiles/server.dir/server.cc.o: CXX_COMPILER__server ../samples
 
 build samples/server: CXX_EXECUTABLE_LINKER__server samples/CMakeFiles/server.dir/server.cc.o | src/libmsg.a || src/libmsg.a
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall
-  LINK_LIBRARIES = -Wl,-rpath,"/mnt/e/my projects/cppmsg/msg/./src" src/libmsg.a -lpthread
-  LINK_PATH = -L"/mnt/e/my projects/cppmsg/msg/./src"
+  LINK_LIBRARIES = -Wl,-rpath,/mnt/d/wjp/cppmsg/msg/./src src/libmsg.a -lpthread
+  LINK_PATH = -L/mnt/d/wjp/cppmsg/msg/./src
   OBJECT_DIR = samples/CMakeFiles/server.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -329,13 +365,13 @@ build server: phony samples/server
 # =============================================================================
 
 #############################################
-# Folder: /mnt/e/my projects/cppmsg/msg/build/samples
+# Folder: /mnt/d/wjp/cppmsg/msg/build/samples
 
 build  samples/all: phony client basic server
 # =============================================================================
 
 #############################################
-# Folder: /mnt/e/my projects/cppmsg/msg/build/src
+# Folder: /mnt/d/wjp/cppmsg/msg/build/src
 
 build  src/all: phony msg
 # =============================================================================

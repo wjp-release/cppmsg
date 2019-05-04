@@ -7,7 +7,6 @@
 #include <condition_variable>
 #include <queue>
 #include <thread>
-#include "common/blockable.h"
 #include "addr.h"
 #include "common/taskpool.h"
 
@@ -16,37 +15,23 @@ namespace msg{
  
 #define NrThreads 2
 
+resolv_task::resolv_task(uint8_t family, uint16_t port, const std::string& hostname, uint8_t passive, uint8_t hint_protocol, resolv_cb cb):
+        port(htons(port)), // little->big endian
+        hostname(hostname), 
+        hint_passive(passive),
+        hint_protocol(hint_protocol),
+        cb(cb)
+{
+    sa_family_t fam;
+    auto s=get_posix_family(family, fam);
+    if(!s.is_success()) throw std::runtime_error("invalid family");
+    family=fam;
+}
+
 resolv_taskpool& resolv_taskpool::instance(){
     static resolv_taskpool tp(NrThreads); 
     return tp;
 }
-
-// sync mode: do not set cb, call wait() to block until success
-// async mode: do not call wait(), set cb.
-struct resolv_task : public blockable{
-    resolv_task(uint8_t family, uint16_t port, const std::string& hostname, uint8_t passive, uint8_t hint_protocol, resolv_cb cb):
-            port(::htons(port)), // little->big endian
-            hostname(hostname), 
-            hint_passive(passive),
-            hint_protocol(hint_protocol),
-            cb(cb)
-    {
-        sa_family_t fam;
-        auto s=get_posix_family(family, fam);
-        if(!s.is_success()) throw std::runtime_error("invalid family");
-        family=fam;
-    }
-	sa_family_t  family; //parsed from family_v4/v6/uds
-    uint16_t     port; //after htons
-	std::string  hostname; //raw input
-	addr         parsed_address;
-    uint8_t      hint_passive;
-    uint8_t      hint_protocol;
-    resolv_cb    cb; 
-    bool         syncmode(){
-        return cb==nullptr;
-    }
-};
 
 struct resolv_taskpool::meta {
     std::mutex mtx_;
@@ -95,7 +80,7 @@ static status resolv(std::shared_ptr<resolv_task> t){
     else return status::failure("no valid result");
 }
 
-std::shared_ptr<resolv_task> resolv_taskpool::create_resolv_task(uint8_t family, uint16_t port, const std::string& hostname, uint8_t hint_passive, uint8_t hint_protocol=HintTCP, resolv_cb cb)
+std::shared_ptr<resolv_task> resolv_taskpool::create_resolv_task(uint8_t family, uint16_t port, const std::string& hostname, uint8_t hint_passive, uint8_t hint_protocol, resolv_cb cb)
 {
     try{
 	    auto t=std::make_shared<resolv_task>(family, port, hostname, hint_passive, hint_protocol, cb);

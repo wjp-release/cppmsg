@@ -32,7 +32,6 @@ public:
         try{
             auto t=std::make_shared<T>(fd);
             connections[fd]=t;
-            newfd=fd;
             return t;
         }catch(...){
             logerr("create connection failed");

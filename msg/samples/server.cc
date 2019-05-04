@@ -9,7 +9,10 @@
 #include "channel/connection.h"
 #include "sample.h"
 #include <functional>
-
+#include "system/addr.h"
+#include "system/resolv.h"
+#include "endpoint.h"
+#include "channel/basic_connection.h"
 using namespace std;
 using namespace msg::sample;
 using namespace msg;
@@ -28,8 +31,17 @@ void add_timer(){
 
 void simple_msgconn_server(){
     reactor::instance().start_eventloop();
-    int connfd=ipc_bind(server_uds_path);
-    message_connection c(connfd);
+    auto t=resolv_taskpool::instance().create_resolv_task(family_v4,12345,"localhost",1, 0, 0);
+    t->wait();
+    std::cout<<"now we have parsed addr"<<std::endl;
+    endpoint ep;
+    int listenfd;
+    auto s=ep.listen(t->parsed_address,listenfd);
+    std::cout<<"listen "<<s.str()<<std::endl;
+    int connfd;
+    s=ep.accept(listenfd, connfd);
+    std::cout<<"accept "<<s.str()<<std::endl;
+    basic_connection c(connfd);
     message what;
     for(int i=0;i<100;i++){
         std::cout<<"try to recv msg"<<i<<std::endl;

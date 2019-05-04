@@ -44,7 +44,7 @@ basic_connection::send_msg_task::send_msg_task(const message& msg) : vector_writ
 
 // Now we have filled the msg, wake up user.
 void basic_connection::send_msg_task::on_success(int bytes){
-    logerr("%d bytes written", bytes);
+    logdebug("%d bytes written", bytes);
     signal(); 
 }
 

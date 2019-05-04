@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/e/my projects/cppmsg/msg/src
+# Install script for directory: /mnt/d/wjp/cppmsg/msg/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
