@@ -20,10 +20,25 @@ public:
     status async_connect(async_cb on_connected){
 
     }
-    // synchronous socket, connect
+    // block: synchronous socket, connect
     status connect(const addr& address, int& newfd);
-    // synchronous socket, bind, listen, accept
-    status accept(const addr& address, int& newfd);
+    // fast: socket, bind, listen
+    status listen(const addr& address, int& listenfd);
+    // block: synchronous accept 
+    status accept(int listenfd, int& newfd);
+
+    template <class T>
+    std::shared_ptr<T> create_connection(int fd){
+        try{
+            auto t=std::make_shared<T>(fd);
+            connections[fd]=t;
+            newfd=fd;
+            return t;
+        }catch(...){
+            logerr("create connection failed");
+            return nullptr;
+        }
+    }
 
 private:
     std::unordered_map<int, std::shared_ptr<connection>> connections;  // fd, connection map

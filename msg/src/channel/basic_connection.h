@@ -42,6 +42,7 @@ public:
     };
 
     // block until writev succeeds
+    // retry until syscall success
     virtual void    sendmsg(const message& msg);
     // return immediately; cb will be executed in threadpool on writev success
     virtual void    sendmsg_async(const message& msg, const async_cb& cb=nullptr){
@@ -49,6 +50,7 @@ public:
     }
 
     // block until readv succeeds
+    // retry until syscall success
     virtual void    recvmsg(message& msg);
     // return immediately; cb will be executed in threadpool on readv success
     virtual void    recvmsg_async(const message& msg, const async_cb& cb=nullptr){

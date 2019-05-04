@@ -7,8 +7,10 @@
 #include "common/clock.h"
 #include "channel/conn.h"
 #include "channel/connection.h"
+#include "channel/basic_connection.h"
 #include "sample.h"
 #include <functional>
+#include "endpoint.h"
 
 using namespace std;
 using namespace msg::sample;
@@ -22,8 +24,14 @@ using namespace msg;
 
 void simple_msgconn_client(){
     reactor::reactor::instance().start_eventloop();
-    int connfd=ipc_connect(server_uds_path);
-    message_connection c(connfd);
+    endpoint ep;
+    int connfd;
+    auto s=ep.connect(,connfd);
+    if(!s.is_success()) logerr(s.str());
+
+
+
+    basic_connection c(connfd);
     message what;
     for(int i=0;i<10;i++){
         std::cout<<"try to send msg"<<i<<std::endl;

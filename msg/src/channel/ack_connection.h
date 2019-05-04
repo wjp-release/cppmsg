@@ -6,7 +6,7 @@
 namespace msg{ 
 
 // Success of sendmsg is defined as receving an ack from the receiver. 
-// sendmsg tries to recv an ack after message_connection::sendmsg.
+// sendmsg supports application level ARQ(automatic repeated request).
 // recvmsg sends back an ack on a successful message_connection::recvmsg.
 class ack_connection : public basic_connection{
 public:

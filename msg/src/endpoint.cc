@@ -1,5 +1,6 @@
 #include "endpoint.h"
-#include "channel/connection.h"
+#include "channel/basic_connection.h"
+
 namespace msg{
 
 status endpoint::connect(const addr& a, int& newfd){
@@ -10,16 +11,10 @@ status endpoint::connect(const addr& a, int& newfd){
     if(::connect(fd, sp.sa(), len)!=0){
         return status::failure("connect failed");
     }
-    try{
-        connections[fd]=std::make_shared<message_connection>(fd);
-        newfd=fd;
-    }catch(...){
-        return status::failure("create connection failed");
-    }
     return status::success();
 }
 
-status endpoint::accept(const addr& a, int& newfd){
+status endpoint::listen(const addr& a, int& listenfd){
     int fd = socket(a.posix_family(), SOCK_STREAM | SOCK_CLOEXEC, 0);
     if(fd<0){
         return status::failure("create socket failed");
@@ -30,17 +25,22 @@ status endpoint::accept(const addr& a, int& newfd){
     if(bind(fd, sp.sa(), len)<0){
         return status::failure("bind failed");
     }
-    if (listen(fd, 128) != 0) {
+    if (::listen(fd, 128) != 0) {
         return status::failure("listen failed");
     }
-    newfd = accept4(fd, NULL, NULL, SOCK_CLOEXEC);
+    listenfd=fd;
+    return status::success();
+}
+
+status endpoint::accept(int listenfd, int&newfd){
+    // accept4(listenfd, 0, 0, SOCK_CLOEXEC) is better 
+    // but unavailable on many platforms
+    newfd = ::accept(listenfd, NULL, NULL);
     if (newfd < 0) {
         return status::failure("accept4 failed");
     }
     return status::success();
 }
-
-
 
     
 }

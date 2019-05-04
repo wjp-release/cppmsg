@@ -27,6 +27,10 @@
 #include "common/concurrentq.h"
 #include "common/ilist.h"
 
+namespace msg{
+
+class addr;
+using resolv_cb=std::function<void(addr)>;
 using async_cb=std::function<void(int)>;
 using event_cb=std::function<void(int)>;
 using please_cb=std::function<void(void)>;
@@ -37,6 +41,8 @@ using transferred_cb=std::function<void(int, const std::vector<iovec>&)>;
 
 template<class T>
 using cq=moodycamel::ConcurrentQueue<T>; // todo: use token feature to further speed up producer-consumer 
+
+}
 
 #define WJP_DEBUG
 

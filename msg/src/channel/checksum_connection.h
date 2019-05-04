@@ -16,7 +16,9 @@ class checksum_connection : public ack_connection{
 public:
     checksum_connection(int fd):ack_connection(fd){}
     virtual ~checksum_connection(){}
-
+    status disable_checksum(){
+        
+    }
 };
 
 

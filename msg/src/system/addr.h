@@ -47,6 +47,23 @@ enum sockaddr_family: uint8_t{
     family_uds = 2
 };
 
+status get_posix_family(uint8_t f, sa_family_t& fam){
+	switch(f) {
+	case family_v4:
+		fam = AF_INET;
+		break;
+	case family_v6:
+		fam = AF_INET6;
+		break;
+	case family_uds:
+		fam = AF_UNSPEC;
+		break;
+	default:
+		return status::error("invalid family input");
+	}
+    return status::success();
+}
+
 //addr_posix is a storage of posix sockaddr, large enough to fit in all three types above.
 class addr_posix{ 
 public:
@@ -56,9 +73,39 @@ public:
     char data[128]; 
 };
 
+
 // addr is a logical storage of sockaddr, which can be converted from and to addr_posix or any standard sockaddr struct.
 class addr{
 public:
+    addr(){
+        memset(data, 0, 31);
+    }
+    addr(const addr& a): family(a.family){
+        memcpy(data, a.data, 31);
+    }
+    addr& operator=(const addr& a){
+        family=a.family;
+        memcpy(data, a.data, 31);
+        return *this;
+    }
+    void init(uint8_t fam, uint16_t port, sockaddr_in* sin)
+    {
+        family=fam;
+        set_port(port);
+        memcpy(data+2, &sin->sin_addr.s_addr, 4);
+    }
+    void init(uint8_t fam, uint16_t port, sockaddr_in6* sin)
+    {
+        family=fam;
+        set_port(port);
+        memcpy(data+2, sin->sin6_addr.s6_addr, 16);
+    }
+    void init(uint8_t fam, uint16_t port, sockaddr_un* sun)
+    {
+        family=fam;
+        set_port(port);
+        memcpy(data, sun->sun_path, 31);
+    }
     uint16_t posix_family() const noexcept{
         switch(family){
         case family_v4:
