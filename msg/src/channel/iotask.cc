@@ -15,7 +15,7 @@ bool read_task::try_scatter_input(int fd){
             on_peer_closed();
             return false;
         }else{
-            logdebug("read task error: %s\n", strerror(errno));
+            logdebug("read task error: %d, %s\n", errno, strerror(errno));
             switch (errno) {
             case EINTR: // interrupted
                 continue; // try again
@@ -43,7 +43,7 @@ bool write_task::try_gather_output(int fd){
             on_peer_closed();
             return false;
         }else{
-            logdebug("write task error: %s\n", strerror(errno));
+            logdebug("write task error: %d, %s\n", errno, strerror(errno));
             switch (errno) {
             case EINTR: // interrupted
                 continue; // try again

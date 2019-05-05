@@ -68,7 +68,7 @@ static inline int ipc_bind(const char* path) {
     memset(&addr, 0, sizeof(addr));
     addr.sun_family = AF_UNIX;
     strncpy(addr.sun_path, path, sizeof(addr.sun_path)-1);
-    if(bind(sock_fd, (struct sockaddr*)&addr, sizeof(addr))) panic("bind");
+    if(::bind(sock_fd, (struct sockaddr*)&addr, sizeof(addr))) panic("bind");
     return sock_fd;
 }
 

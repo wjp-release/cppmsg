@@ -69,11 +69,6 @@ bool reactor::in_eventloop(){
     return false;
 }
 
-void reactor::bad_epollwait(){
-    logerr("epoll_wait fault, which should never happen");
-    exit(-1);
-}
-
 void reactor::eventloop(){
     eventfd_event->submit_without_oneshot(EPOLLIN);
     timerfd_event->submit_without_oneshot(EPOLLIN);
@@ -81,7 +76,8 @@ void reactor::eventloop(){
 	while(!closing){
 		struct epoll_event events[max_events];
 		int n = epoll_wait(epollfd,events,max_events,-1);
-		if(n<0 && errno==EBADF) bad_epollwait(); 
+        if(n<0) logdebug("epoll_wait error: %d, %s\n", errno, strerror(errno));
+    	if(n<0 && errno==EBADF) exit(-1); 
 		for(int j=0; j<n; j++) consume(&events[j]);
         please_cb cb; 
         while (cbq.try_dequeue(cb)) cb();
