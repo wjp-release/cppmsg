@@ -1,9 +1,9 @@
-#include "endpoint.h"
+#include "session.h"
 #include "channel/basic_connection.h"
 
 namespace msg{
 
-status endpoint::connect(const addr& a, int& newfd){
+status session::connect(const addr& a, int& newfd){
     int fd = socket(a.posix_family(), SOCK_STREAM | SOCK_CLOEXEC, 0);
     if(fd<0) return status::failure("create socket failed");
     addr_posix sp;
@@ -11,10 +11,11 @@ status endpoint::connect(const addr& a, int& newfd){
     if(::connect(fd, sp.sa(), len)!=0){
         return status::failure("connect failed");
     }
+    newfd=fd;
     return status::success();
 }
 
-status endpoint::listen(const addr& a, int& listenfd){
+status session::listen(const addr& a, int& listenfd){
     int fd = socket(a.posix_family(), SOCK_STREAM | SOCK_CLOEXEC, 0);
     if(fd<0){
         return status::failure("create socket failed");
@@ -32,7 +33,7 @@ status endpoint::listen(const addr& a, int& listenfd){
     return status::success();
 }
 
-status endpoint::accept(int listenfd, int&newfd){
+status session::accept(int listenfd, int&newfd){
     // accept4(listenfd, 0, 0, SOCK_CLOEXEC) is better 
     // but unavailable on many platforms
     newfd = ::accept(listenfd, NULL, NULL);

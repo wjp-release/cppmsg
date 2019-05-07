@@ -5,13 +5,13 @@
 #include "system/reactor.h"
 #include "system/timer.h"
 #include "common/clock.h"
-#include "channel/conn.h"
+#include "channel/pipe.h"
 #include "channel/connection.h"
 #include "sample.h"
 #include <functional>
 #include "system/addr.h"
 #include "system/resolv.h"
-#include "endpoint.h"
+#include "session.h"
 #include "channel/basic_connection.h"
 using namespace std;
 using namespace msg::sample;
@@ -34,7 +34,7 @@ void simple_msgconn_server(){
     auto t=resolv_taskpool::instance().create_resolv_task(family_v4,12345,"localhost",1, 0, 0);
     t->wait();
     std::cout<<"now we have parsed addr"<<std::endl;
-    endpoint ep;
+    session ep;
     int listenfd;
     auto s=ep.listen(t->parsed_address,listenfd);
     std::cout<<"listen "<<s.str()<<std::endl;
@@ -54,8 +54,41 @@ void simple_msgconn_server(){
     }
 }
 
+void simple_conn_server(){
+    // init
+    reactor::instance().start_eventloop();
+    auto t=resolv_taskpool::instance().create_resolv_task(family_v4,12345,"localhost",1, 0, 0);
+    t->wait();
+    std::cout<<"now we have parsed addr"<<std::endl;
+    session ep;
+    int listenfd;
+    auto s=ep.listen(t->parsed_address,listenfd);
+    std::cout<<"listen "<<s.str()<<", listenfd="<<listenfd<<std::endl;
+    int connfd;
+    s=ep.accept(listenfd, connfd);
+    std::cout<<"accept "<<s.str()<<", connfd="<<connfd<<std::endl;
+    // conn
+    struct tmp_task : public oneiov_read_task{
+        tmp_task() : oneiov_read_task(tmp, 1024)
+        {}
+        char tmp[1024];
+        void on_success(int bytes){
+            logdebug("%d bytes read: %s", bytes, std::string(tmp, bytes).c_str());
+        }
+        void on_recoverable_failure(){
+            logerr("tmp_task failed");
+            exit(-1);
+        }
+    };
+    msg::pipe c(connfd);
+    std::cout<<"pipe created"<<std::endl;
+    c.add_read(std::make_shared<tmp_task>());
+    c.add_read(std::make_shared<tmp_task>());
+    std::cout<<"two read tasks added"<<std::endl;
+}
+
 int main() {
-    simple_msgconn_server();
+    simple_conn_server();
     cin.get();
     return 0;
 }

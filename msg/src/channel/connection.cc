@@ -2,6 +2,6 @@
 
 namespace msg{
 
-connection::connection(int fd):c(std::make_unique<conn>(fd)){}
+connection::connection(int fd):c(std::make_unique<pipe>(fd)){}
 
 }

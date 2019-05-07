@@ -1,14 +1,14 @@
 #pragma once
 
 #include "def.h"
-#include "conn.h"
+#include "pipe.h"
 #include "message.h"
 #include "iotask.h"
 #include "common/blockable.h"
 namespace msg{ 
 
 class connection{
-    using native_conn=std::unique_ptr<conn>;
+    using native_conn=std::unique_ptr<pipe>;
 protected:
     native_conn     c;  // thread-safe
 public:

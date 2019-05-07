@@ -6,12 +6,12 @@
 #include <unordered_map>
 
 /*
-    An enpoint maintains connections with one or multiple peers.
+    A session maintains one or multiple connections.
 */
 
 namespace msg{
 
-class endpoint{
+class session{
 public:
     // async connect; will retry until success
     status async_connect_quietly(){

@@ -12,8 +12,11 @@ event::event(int epollfd, int fd, const event_cb& cb):cb(cb),fd(fd){
     ::epoll_event ee;
     ee.events=0;
     ee.data.ptr=this;
-    if(epoll_ctl(epollfd, EPOLL_CTL_ADD, fd, &ee)!=0)
-        throw std::runtime_error("can't create epollfd");
+    if(epoll_ctl(epollfd, EPOLL_CTL_ADD, fd, &ee)!=0){
+        logerr("epoll_ctl add failed, errno=%d, err is \"%s\", fd=%d, epollfd=%d", errno, strerror(errno), fd, epollfd);
+        throw std::runtime_error("epoll_ctl add failed");
+    }
+        
 }
 event::~event(){
     ::epoll_event ee; //unused

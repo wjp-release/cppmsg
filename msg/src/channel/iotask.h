@@ -22,7 +22,7 @@ public:
     virtual void on_success(int bytes_transferred)=0;
     virtual void on_recoverable_failure()=0;
     virtual void on_peer_closed(){}; // back off, increase back-off time
-    virtual void on_conn_closed(){}; 
+    virtual void on_pipe_closed(){}; 
     virtual iovec* iov()=0;
     virtual int iovcnt()=0;
 };

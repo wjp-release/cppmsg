@@ -1,40 +1,40 @@
-#include "conn.h"
+#include "pipe.h"
 
 #include <sys/epoll.h> //evflags
 #include "common/taskpool.h"
 
 namespace msg{
 
-conn::conn(int fd){
-    e = new event(reactor::instance().epollfd, fd, [this](int evflag){conn_cb(evflag);});
+pipe::pipe(int fd){
+    e = new event(reactor::instance().epollfd, fd, [this](int evflag){pipe_cb(evflag);});
 }
 
-void conn::add_read(const read_sp& m){
+void pipe::add_read(const read_sp& m){
     std::lock_guard<std::mutex> lk(mtx);
     if(closed) return;
     reads.push_back(m);
     if(reads.size()==1) read(), resubmit_read(); 
 }
 
-void conn::add_write(const write_sp& m){
+void pipe::add_write(const write_sp& m){
     std::lock_guard<std::mutex> lk(mtx);
     if(closed) return;
     writes.push_back(m);
     if(writes.size()==1) write(), resubmit_write(); 
 }
 
-void conn::close(){
+void pipe::close(){
     std::lock_guard<std::mutex> lk(mtx);
     if (!closed) {
         closed = true;
         //trigger on_failure callbacks of pending reads/writes
-        for(auto& wr:writes) wr->on_conn_closed();
-        for(auto& rd:reads) rd->on_conn_closed();
+        for(auto& wr:writes) wr->on_pipe_closed();
+        for(auto& rd:reads) rd->on_pipe_closed();
         e->please_destroy_me();
     }
 }
 
-void conn::conn_cb(int evflag){
+void pipe::pipe_cb(int evflag){
     if(evflag & (EPOLLHUP | EPOLLERR)) {
         close();  // close on orderly shut or error
     }else{ // almost certainly time-consuming  
@@ -47,7 +47,7 @@ void conn::conn_cb(int evflag){
     }
 }
 
-void conn::resubmit_both(){
+void pipe::resubmit_both(){
     if(closed) return;
     int flag = 0; 
     if(!reads.empty()) flag |= EPOLLIN;
@@ -55,17 +55,17 @@ void conn::resubmit_both(){
     if(flag!=0) e->submit(flag);
 }
 
-void conn::resubmit_read(){
+void pipe::resubmit_read(){
     if(closed) return;
     if(!reads.empty()) e->submit(EPOLLIN);
 }
 
-void conn::resubmit_write(){
+void pipe::resubmit_write(){
     if(closed) return;
     if(!writes.empty()) e->submit(EPOLLOUT);
 }
 
-void conn::read(){
+void pipe::read(){
     if(closed) return;
     logdebug("read events over listener");
     while(!reads.empty()) {
@@ -76,7 +76,7 @@ void conn::read(){
     sleep(1000);
 }
 
-void conn::write(){
+void pipe::write(){
     logdebug("write events over listener");
     if(closed) return;
     while(!writes.empty()) {

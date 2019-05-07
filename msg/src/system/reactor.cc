@@ -16,7 +16,7 @@ namespace msg{
 
 reactor::reactor(){
     epollfd=epoll_create1(EPOLL_CLOEXEC);
-    if(epollfd==-1) logerr("epoll_create1 failed!"), exit(-1);
+    if(epollfd==-1) logerr("epoll_create1 failed! errno=%d, err is: %s", errno,  strerror(errno)), exit(-1);
     eventfd=efd_open();
     if(eventfd==-1) logerr("efd_open failed!"), exit(-1);
     try{
@@ -86,7 +86,13 @@ void reactor::eventloop(){
 
 void reactor::start_eventloop(){
     background_thread=std::thread([this]{
-        eventloop();
+        try{
+            eventloop();
+        }catch(std::exception& e){
+            logerr("An exception is caught during eventloop:", e.what());
+            logdebug("quit now!");
+            exit(-1);
+        }
     });
 }
 
