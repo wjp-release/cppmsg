@@ -84,12 +84,15 @@ void simple_conn_server(){
     std::cout<<"pipe created"<<std::endl;
     c.add_read(std::make_shared<tmp_task>());
     c.add_read(std::make_shared<tmp_task>());
-    std::cout<<"two read tasks added"<<std::endl;
+    c.add_read(std::make_shared<tmp_task>());
+    c.add_read(std::make_shared<tmp_task>());
+    std::cout<<"4 read tasks added"<<std::endl;
+    while(true){}
 }
 
 int main() {
     simple_conn_server();
-    cin.get();
+    while(true){}
     return 0;
 }
 

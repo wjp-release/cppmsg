@@ -18,12 +18,13 @@ public:
     void                 add_write(const write_sp& m);
     void                 close();
 protected:
-    void                 pipe_cb(int evflag);
+    void                 pipe_cb(int evflag); //lock
     void                 resubmit_both();
     void                 resubmit_read();
     void                 resubmit_write();
     void                 read();
     void                 write();
+    void                 doclose();
 private:
     event*               e; 
     bool                 closed = false; 

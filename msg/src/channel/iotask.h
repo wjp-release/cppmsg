@@ -10,6 +10,9 @@
     };
 */
 
+#define Fatal_Error 0
+#define Recoverable_Failure
+
 namespace msg{
 
 // Zero application-level copy could be achieved by setting addresses in read/write tasks without copying data into a buffer. 
@@ -21,7 +24,6 @@ public:
     virtual ~io_task(){}
     virtual void on_success(int bytes_transferred)=0;
     virtual void on_recoverable_failure()=0;
-    virtual void on_peer_closed(){}; // back off, increase back-off time
     virtual void on_pipe_closed(){}; 
     virtual iovec* iov()=0;
     virtual int iovcnt()=0;
@@ -32,7 +34,7 @@ public:
 class read_task : public io_task{
 public:
     virtual ~read_task(){}
-    bool try_scatter_input(int fd);
+    status try_scatter_input(int fd);
 };
 
 // io_task that implements gather write
@@ -40,7 +42,7 @@ public:
 class write_task : public io_task{
 public:
     virtual ~write_task(){}
-    bool try_gather_output(int fd);
+    status try_gather_output(int fd);
 };
 
 

@@ -60,14 +60,14 @@ void simple_conn_client(){
     std::cout<<"connected, now we wait 1 second"<<std::endl;
     sleep(1000);
     struct tmp_write : public vector_write_task{
-        tmp_write() : vector_write_task(2, 1024)
+        tmp_write(const std::string& what) : vector_write_task(2, what.size()), tmp(what)
         {
-            iovs[1].iov_base=tmp;
-            iovs[1].iov_len=1024;
+            iovs[1].iov_base=(void*)tmp.data();
+            iovs[1].iov_len=tmp.size();
         }
-        char tmp[1024];
+        std::string tmp;
         void on_success(int bytes){
-            logdebug("%d bytes written: %s", bytes, std::string(tmp, bytes).c_str());
+            logdebug("%d bytes written: %s", bytes, tmp.c_str());
         }
         void on_recoverable_failure(){
             logerr("tmp_write failed");
@@ -76,14 +76,16 @@ void simple_conn_client(){
     };
     msg::pipe c(connfd);
     std::cout<<"pipe created"<<std::endl;
-    c.add_write(std::make_shared<tmp_write>());
-    c.add_write(std::make_shared<tmp_write>());
-    std::cout<<"two write tasks added"<<std::endl;
+    c.add_write(std::make_shared<tmp_write>("Hello!"));
+    c.add_write(std::make_shared<tmp_write>("Shield against darkness!"));
+    std::cout<<"2 write tasks added"<<std::endl;
+
+    while(true){}
 }
 
 int main() {
     simple_conn_client();
-    cin.get();
+    while(true){}
     return 0;
 }
 

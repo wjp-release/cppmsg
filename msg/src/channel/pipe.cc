@@ -26,11 +26,7 @@ void pipe::add_write(const write_sp& m){
 void pipe::close(){
     std::lock_guard<std::mutex> lk(mtx);
     if (!closed) {
-        closed = true;
-        //trigger on_failure callbacks of pending reads/writes
-        for(auto& wr:writes) wr->on_pipe_closed();
-        for(auto& rd:reads) rd->on_pipe_closed();
-        e->please_destroy_me();
+        doclose();
     }
 }
 
@@ -50,9 +46,12 @@ void pipe::pipe_cb(int evflag){
 void pipe::resubmit_both(){
     if(closed) return;
     int flag = 0; 
-    if(!reads.empty()) flag |= EPOLLIN;
-    if(!writes.empty()) flag |= EPOLLOUT;
-    if(flag!=0) e->submit(flag);
+    if(!reads.empty()) flag |= EPOLLIN; //1
+    if(!writes.empty()) flag |= EPOLLOUT; //4
+    if(flag!=0){
+        logdebug("now we submit %d", flag); 
+        e->submit(flag);
+    }
 }
 
 void pipe::resubmit_read(){
@@ -66,25 +65,40 @@ void pipe::resubmit_write(){
 }
 
 void pipe::read(){
-    if(closed) return;
+    if(closed) return ; 
     logdebug("read events over listener");
     while(!reads.empty()) {
         auto& cur=reads.front();
-        if(!cur->try_scatter_input(e->fd)) return; 
-        else reads.pop_front();
+        auto s=cur->try_scatter_input(e->fd);
+        if(s.is_success()) reads.pop_front();
+        else if(s.is_failure()) return;
+        else if(s.is_error()){ 
+            doclose();
+            return;
+        }
     }
-    sleep(1000);
 }
 
 void pipe::write(){
-    logdebug("write events over listener");
     if(closed) return;
+    logdebug("write events over listener");
     while(!writes.empty()) {
         auto& cur=writes.front();
-        if(!cur->try_gather_output(e->fd)) return;
-        else writes.pop_front();
+        auto s=cur->try_gather_output(e->fd);
+        if(s.is_success()) writes.pop_front();
+        else if(s.is_failure()) return;
+        else if(s.is_error()){ 
+            doclose();
+            return;
+        }
     }
 }
 
+void pipe::doclose(){
+    closed = true;
+    for(auto& wr:writes) wr->on_pipe_closed();
+    for(auto& rd:reads) rd->on_pipe_closed();
+    e->please_destroy_me();
+}
 
 }

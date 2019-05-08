@@ -58,6 +58,7 @@ bool event::submit_both(){
 
 void event::consume(int evflag){
     std::lock_guard<std::mutex> lk(mtx);
+    logdebug("event captured over fd %d", fd);
     this->evmask &= ~evflag;
     if(cb) cb(evflag);
 }
