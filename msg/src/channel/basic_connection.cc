@@ -55,6 +55,8 @@ void basic_connection::send_msg_task::on_recoverable_failure(){
     #endif
 }
 
+
+// On lower level, message(c1, c2, c3, ...) ---> msg(hdr, body). 
 void basic_connection::sendmsg(const message& msg){
     auto task=std::make_shared<send_msg_task>(msg);
     c->add_write(task);

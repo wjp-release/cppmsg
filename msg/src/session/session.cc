@@ -3,7 +3,7 @@
 
 namespace msg{
 
-status session::connect(const addr& a, int& newfd){
+status sync_connect(const addr& a, int& newfd){
     int fd = socket(a.posix_family(), SOCK_STREAM | SOCK_CLOEXEC, 0);
     if(fd<0) return status::failure("create socket failed");
     addr_posix sp;
@@ -15,7 +15,7 @@ status session::connect(const addr& a, int& newfd){
     return status::success();
 }
 
-status session::listen(const addr& a, int& listenfd){
+status bind_listen(const addr& a, int& listenfd){
     int fd = socket(a.posix_family(), SOCK_STREAM | SOCK_CLOEXEC, 0);
     if(fd<0){
         return status::failure("create socket failed");
@@ -33,7 +33,7 @@ status session::listen(const addr& a, int& listenfd){
     return status::success();
 }
 
-status session::accept(int listenfd, int&newfd){
+status sync_accept(int listenfd, int&newfd){
     // accept4(listenfd, 0, 0, SOCK_CLOEXEC) is better 
     // but unavailable on many platforms
     newfd = ::accept(listenfd, NULL, NULL);

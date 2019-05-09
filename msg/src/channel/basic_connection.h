@@ -43,6 +43,7 @@ public:
 
     // block until writev succeeds
     // retry until syscall success
+    // No matter how many chunks it has, once sent, the msg is devided into two parts, msg_hdr and msg_body.
     virtual void    sendmsg(const message& msg);
     // return immediately; cb will be executed in threadpool on writev success
     virtual void    sendmsg_async(const message& msg, const async_cb& cb=nullptr){
@@ -51,11 +52,25 @@ public:
 
     // block until readv succeeds
     // retry until syscall success
+    // recv a msg with one chunk
     virtual void    recvmsg(message& msg);
     // return immediately; cb will be executed in threadpool on readv success
-    virtual void    recvmsg_async(const message& msg, const async_cb& cb=nullptr){
+    virtual void    recvmsg_async(message& msg, const async_cb& cb=nullptr){
         //todo 
     }
+    // the result of multiple sendmsgs could be grouped in one message
+    virtual void    recv_multipart_msg(message& msg){
+
+
+
+    }
+    // the result of multiple sendmsgs could be grouped in one message
+    virtual void    recv_multipart_msg_async(message& msg, const async_cb& cb=nullptr){
+        
+
+
+    }
+
 private:
     // todo: options like open/close nagle, send/recv timeouts, etc
     // todo: heartbeats 

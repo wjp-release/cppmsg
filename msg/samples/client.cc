@@ -8,9 +8,9 @@
 #include "channel/pipe.h"
 #include "channel/connection.h"
 #include "channel/basic_connection.h"
+#include "session/session.h"
 #include "sample.h"
 #include <functional>
-#include "session.h"
 #include "system/resolv.h"
 
 using namespace std;
@@ -25,12 +25,11 @@ using namespace msg;
 
 void simple_msgconn_client(){
     reactor::reactor::instance().start_eventloop();
-    session ep;
     int connfd;
     auto t=resolv_taskpool::instance().create_resolv_task(family_v4,12345,"localhost",HintActive,HintTCP);
     t->wait();
     std::cout<<"now we have parsed addr"<<std::endl;
-    auto s=ep.connect(t->parsed_address,connfd);
+    auto s=sync_connect(t->parsed_address,connfd);
     if(!s.is_success()) logerr(s.str());
     std::cout<<"connected, now we wait 2 seconds"<<std::endl;
     sleep(2000);
@@ -50,15 +49,14 @@ void simple_msgconn_client(){
 
 void simple_conn_client(){
     reactor::reactor::instance().start_eventloop();
-    session ep;
     int connfd=-1;
     auto t=resolv_taskpool::instance().create_resolv_task(family_v4,12345,"localhost",HintActive,HintTCP);
     t->wait();
     std::cout<<"now we have parsed addr"<<std::endl;
-    auto s=ep.connect(t->parsed_address, connfd);
+    auto s=sync_connect(t->parsed_address, connfd);
     if(!s.is_success()) logerr(s.str());
     std::cout<<"connected, now we wait 1 second"<<std::endl;
-    sleep(1000);
+    sleep(100);
     struct tmp_write : public vector_write_task{
         tmp_write(const std::string& what) : vector_write_task(2, what.size()), tmp(what)
         {
