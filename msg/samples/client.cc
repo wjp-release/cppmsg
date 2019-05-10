@@ -55,8 +55,7 @@ void simple_conn_client(){
     std::cout<<"now we have parsed addr"<<std::endl;
     auto s=sync_connect(t->parsed_address, connfd);
     if(!s.is_success()) logerr(s.str());
-    std::cout<<"connected, now we wait 1 second"<<std::endl;
-    sleep(100);
+    std::cout<<"connected, now we try to create pipe"<<std::endl;
     struct tmp_write : public vector_write_task{
         tmp_write(const std::string& what) : vector_write_task(2, what.size()), tmp(what)
         {

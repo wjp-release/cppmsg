@@ -14,17 +14,23 @@ public:
     // note that fd is an established tcp connection's fd
     pipe(int fd); // may fail: epoll_ctl add 
     ~pipe(){ if(!closed) close();}
+    // public functions acquire mtx ownership
     void                 add_read(const read_sp& m);
     void                 add_write(const write_sp& m);
-    void                 close();
-protected:
-    void                 pipe_cb(int evflag); //lock
+    void                 close(); 
     void                 resubmit_both();
     void                 resubmit_read();
     void                 resubmit_write();
-    void                 read();
-    void                 write();
+    void                 read(); 
+    void                 write(); 
+    void                 pipe_cb(int evflag); 
+protected:
+    void                 dosubmit_both();
+    void                 dosubmit_read();
+    void                 dosubmit_write();
     void                 doclose();
+    void                 doread(std::unique_lock<std::mutex>&);
+    void                 dowrite(std::unique_lock<std::mutex>&);
 private:
     event*               e; 
     bool                 closed = false; 

@@ -17,7 +17,7 @@ public:
     checksum_connection(int fd):ack_connection(fd){}
     virtual ~checksum_connection(){}
     status disable_checksum(){
-        
+        return status::success();
     }
 };
 

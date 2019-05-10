@@ -59,12 +59,12 @@ struct readhdr_task : public oneiov_read_task{
         uint64_t duh=12345;
         memcpy(tmp, &duh, 8);
         auto len=get_following_msglen();
-        logdebug("before recv, readhdr len=%uul", len);
+        logdebug("before recv, readhdr len=%d", len);
     }
     msg::pipe* p;
     char tmp[8];
     uint64_t get_following_msglen(){
-        return reinterpret_cast<uint64_t>(tmp);
+        return *reinterpret_cast<uint64_t*>(tmp);
     }
     void on_success(int bytes);
     void on_recoverable_failure(){
@@ -74,7 +74,10 @@ struct readhdr_task : public oneiov_read_task{
 };
 
 struct readmsg_task : public oneiov_read_task{
-    readmsg_task(msg::pipe* p, int size) : oneiov_read_task( (tmp=new char[size]), size), p(p){}
+    readmsg_task(msg::pipe* p, int size) : oneiov_read_task(0, size), p(p){
+        tmp = new char [size];
+        v.iov_base = tmp;
+    }
     ~readmsg_task(){
         if(tmp) delete [] tmp;
     }
@@ -82,7 +85,7 @@ struct readmsg_task : public oneiov_read_task{
     char* tmp=0;
     void on_success(int bytes){
         logdebug("%d bytes read: %s", bytes, std::string(tmp, bytes).c_str());
-        p->add_read(std::make_shared<readhdr_task>(p));
+        //p->add_read(std::make_shared<readhdr_task>(p));
         logdebug("now we add a readhdr task");
     }
     void on_recoverable_failure(){
@@ -92,13 +95,13 @@ struct readmsg_task : public oneiov_read_task{
 };
 
 void readhdr_task::on_success(int bytes){
-    uint64_t len= get_following_msglen();
+    int len= get_following_msglen();
     logdebug("%d bytes read, following msglen=%d", bytes, len);
-    if(len>0 && len<1024*1024*64){
+    if(len>0&&len<4096){
         p->add_read(std::make_shared<readmsg_task>(p, (int)len));
-        logdebug("now we add a readmsg task, expect len=%ull", len);
+        logdebug("now we add a readmsg task, expect len=%d", len);
     }else{
-        logerr("duh, len is not valid");
+        logerr("duh, len %d is not valid", len);
     }
 }
 
