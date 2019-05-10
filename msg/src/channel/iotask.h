@@ -23,7 +23,7 @@ class io_task{
 public:
     virtual ~io_task(){}
     virtual void on_success(int bytes_transferred)=0;
-    virtual void on_recoverable_failure()=0;
+    virtual void on_recoverable_failure(int backoff)=0;
     virtual void on_pipe_closed(){}; 
     virtual iovec* iov()=0;
     virtual int iovcnt()=0;
@@ -34,7 +34,7 @@ public:
 class read_task : public io_task{
 public:
     virtual ~read_task(){}
-    status try_scatter_input(int fd);
+    status try_scatter_input(int fd, int backoff);
 };
 
 // io_task that implements gather write
@@ -42,7 +42,7 @@ public:
 class write_task : public io_task{
 public:
     virtual ~write_task(){}
-    status try_gather_output(int fd);
+    status try_gather_output(int fd, int backoff);
 };
 
 

@@ -9,6 +9,11 @@ pipe::pipe(int fd){
     e = new event(reactor::instance().epollfd, fd, [this](int evflag){pipe_cb(evflag);});
 }
 
+uint16_t pipe::get_backoff() const noexcept{
+    std::lock_guard<std::mutex> lk(mtx);
+    return backoff;
+}
+
 void pipe::add_read(const read_sp& m){
     std::unique_lock<std::mutex> lk(mtx);
     if(closed) return;
@@ -29,6 +34,29 @@ void pipe::add_write(const write_sp& m){
     }
 }
 
+void pipe::remove_write(const write_sp& m){
+    std::lock_guard<std::mutex> lk(mtx);
+    if(closed) return;
+    writes.remove(m);
+}
+
+void pipe::remove_read(const read_sp& m){
+    std::lock_guard<std::mutex> lk(mtx);
+    if(closed) return;
+    reads.remove(m);
+}
+
+void pipe::clear_writes(){
+    std::lock_guard<std::mutex> lk(mtx);
+    if(closed) return;
+    writes.clear();
+}
+
+void pipe::clear_reads(){
+    std::lock_guard<std::mutex> lk(mtx);
+    if(closed) return;
+    reads.clear();
+}
 void pipe::close(){
     std::lock_guard<std::mutex> lk(mtx);
     if (!closed) {
@@ -101,13 +129,19 @@ void pipe::doread(std::unique_lock<std::mutex>& lk){
     while(!reads.empty()) {
         auto& cur=reads.front();
         lk.unlock();
-        auto s=cur->try_scatter_input(e->fd);
+        auto s=cur->try_scatter_input(e->fd, backoff);
         lk.lock();
-        if(s.is_success()) reads.pop_front();
-        else if(s.is_failure()) return;
-        else if(s.is_error()){ 
+        if(s.is_success()){ // good, pop it
+            reads.pop_front();
+            backoff=0; // turn off backoff
+        }else if(s.is_failure()){ // retry immediately
+            backoff=0; // turn off backoff
+            return;
+        }else if(s.is_error()){ // can't recover
             doclose();
             return;
+        }else if(s.is_fault()){ // come back later
+            adjust_backoff(); // incremental backoff
         }
     }
 }
@@ -118,7 +152,7 @@ void pipe::dowrite(std::unique_lock<std::mutex>& lk){
     while(!writes.empty()) {
         auto& cur=writes.front();
         lk.unlock();
-        auto s=cur->try_gather_output(e->fd);
+        auto s=cur->try_gather_output(e->fd, backoff);
         lk.lock();
         if(s.is_success()) writes.pop_front();
         else if(s.is_failure()) return;
@@ -136,5 +170,16 @@ void pipe::doclose(){
     for(auto& rd:reads) rd->on_pipe_closed();
     e->please_destroy_me();
 }
+
+void pipe::adjust_backoff(){
+    if(backoff!=0){
+        if(backoff<2560){ // max backoff=2560+10 ms 
+            backoff*=2; 
+        }
+    }else{
+        backoff=10; 
+    }
+}
+
 
 }

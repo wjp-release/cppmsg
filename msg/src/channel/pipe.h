@@ -17,6 +17,10 @@ public:
     // public functions acquire mtx ownership
     void                 add_read(const read_sp& m);
     void                 add_write(const write_sp& m);
+    void                 remove_read(const read_sp& m);
+    void                 remove_write(const write_sp& m);
+    void                 clear_reads();
+    void                 clear_writes();
     void                 close(); 
     void                 resubmit_both();
     void                 resubmit_read();
@@ -24,6 +28,7 @@ public:
     void                 read(); 
     void                 write(); 
     void                 pipe_cb(int evflag); 
+    uint16_t             get_backoff() const noexcept;
 protected:
     void                 dosubmit_both();
     void                 dosubmit_read();
@@ -32,11 +37,14 @@ protected:
     void                 doread(std::unique_lock<std::mutex>&);
     void                 dowrite(std::unique_lock<std::mutex>&);
 private:
+    void                 adjust_backoff();
     event*               e; 
     bool                 closed = false; 
     std::list<write_sp>  writes;
     std::list<read_sp>   reads; 
-    std::mutex           mtx;
+    mutable std::mutex   mtx;
+    uint16_t             backoff;
+
 };
 
 }

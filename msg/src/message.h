@@ -42,8 +42,8 @@ public:
         }
         std::cout<<std::endl;
     }
-    void append_iov(std::vector<iovec>& iov)const noexcept;
-    void set_iov(std::vector<iovec>& iov)const noexcept;
+    void append_to_iovs(std::vector<iovec>& iov)const noexcept;
+    void convert_to_iovs(std::vector<iovec>& iov)const noexcept;
 private:
     uint32_t total_size=0;
     std::vector<message_chunk> chunks;

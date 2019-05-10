@@ -25,8 +25,8 @@ event::~event(){
 }
 
 bool event::submit_without_oneshot(int evflag){
-    if (closing) return false; 
     std::lock_guard<std::mutex> lk(mtx);
+    if (closing) return false; 
 	this->evmask |= evflag; 
     ::epoll_event ee;
     ee.events=evmask|EPOLLERR;
@@ -35,8 +35,8 @@ bool event::submit_without_oneshot(int evflag){
 }
 
 bool event::submit(int evflag){
-    if (closing) return false; 
     std::lock_guard<std::mutex> lk(mtx);
+    if (closing) return false; 
 	this->evmask |= evflag; 
     ::epoll_event ee;
     ee.events=evmask|EPOLLONESHOT|EPOLLERR;

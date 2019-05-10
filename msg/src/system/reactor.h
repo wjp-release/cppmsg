@@ -57,5 +57,13 @@ private:
     bool            closing = false; 
 };
 
+static inline void defer(timer_cb cb, uint64_t delay){
+    reactor::instance().get_timer().please_push(cb, future(delay));
+}
+
+static inline void repeat(timer_cb cb, uint64_t delay, uint32_t period){
+    reactor::instance().get_timer().please_push(cb, future(delay), period);
+}
+
 
 }

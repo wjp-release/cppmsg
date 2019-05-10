@@ -66,7 +66,7 @@ void simple_conn_client(){
         void on_success(int bytes){
             logdebug("%d bytes written: %s", bytes, tmp.c_str());
         }
-        void on_recoverable_failure(){
+        void on_recoverable_failure(int backoff){
             logerr("tmp_write failed");
             exit(-1);
         }

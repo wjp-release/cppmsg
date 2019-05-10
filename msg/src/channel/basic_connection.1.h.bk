@@ -1,0 +1,72 @@
+#pragma once
+
+#include "def.h"
+#include "connection.h"
+
+namespace msg{ 
+
+// msg protocol level connection, owned by endpoints
+class basic_connection : public connection {
+public:
+    basic_connection(int fd):connection(fd){}
+    virtual ~basic_connection(){}
+
+    class recv_msghdr_task : public oneiov_read_task, public blockable{
+    private:
+        uint64_t hdr=0;
+        basic_connection& c; 
+        message& msg;
+    public:
+        recv_msghdr_task(basic_connection& c, message& msg);
+        virtual void on_success(int bytes);
+        virtual void on_recoverable_failure();
+    };
+
+    class recv_msgbody_task : public oneiov_read_task{
+    private:
+        std::shared_ptr<blockable> user_task;
+    public:
+        recv_msgbody_task(int size, message& msg, std::shared_ptr<blockable> user_task);
+        virtual ~recv_msgbody_task(){}
+        virtual void on_success(int bytes);
+        virtual void on_recoverable_failure();
+    };
+
+    class send_msg_task : public vector_write_task, public blockable{
+    public:
+        send_msg_task(const message& msg);
+        virtual ~send_msg_task(){}
+        virtual void on_success(int bytes);
+        virtual void on_recoverable_failure();
+    };
+
+    virtual void    sendmsg(const message& msg);
+    virtual void    sendmsg_async(const message& msg, const async_cb& cb=nullptr){
+        //todo 
+    }
+
+    virtual void    recvmsg(message& msg);
+    virtual void    recvmsg_async(message& msg, const async_cb& cb=nullptr){
+        //todo 
+    }
+
+    virtual void    recv_multipart_msg(message& msg){
+
+
+
+    }
+
+    virtual void    recv_multipart_msg_async(message& msg, const async_cb& cb=nullptr){
+        
+
+
+    }
+
+private:
+    // todo: options like open/close nagle, send/recv timeouts, etc
+    // todo: heartbeats 
+};
+
+
+
+}

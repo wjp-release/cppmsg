@@ -67,7 +67,7 @@ struct readhdr_task : public oneiov_read_task{
         return *reinterpret_cast<uint64_t*>(tmp);
     }
     void on_success(int bytes);
-    void on_recoverable_failure(){
+    void on_recoverable_failure(int backoff){
         logerr("readhdr_task failed");
         exit(-1);
     }
@@ -88,7 +88,7 @@ struct readmsg_task : public oneiov_read_task{
         //p->add_read(std::make_shared<readhdr_task>(p));
         logdebug("now we add a readhdr task");
     }
-    void on_recoverable_failure(){
+    void on_recoverable_failure(int backoff){
         logerr("readmsg_task failed");
         exit(-1);
     }

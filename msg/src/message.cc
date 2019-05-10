@@ -19,15 +19,15 @@ void* message::alloc(uint32_t size){
     return reinterpret_cast<void*>(chunks.back().data);
 }
 
-void message::append_iov(std::vector<iovec>& iov)const noexcept{
+void message::append_to_iovs(std::vector<iovec>& iov)const noexcept{
     for(auto& c:chunks){
         iov.push_back({(void*)c.data, (size_t)c.size});
     }
 }
 
-void message::set_iov(std::vector<iovec>& iov)const noexcept{
+void message::convert_to_iovs(std::vector<iovec>& iov)const noexcept{
     iov.clear();
-    append_iov(iov);
+    append_to_iovs(iov);
 }
 
 
