@@ -43,13 +43,13 @@ public:
     direct_connection(int fd):connection(fd){}
     virtual ~direct_connection(){}
     virtual status    sendmsg(const message& msg){
-        
+        return status::success();  
     }
     virtual void    sendmsg_async(const message& msg, const async_cb& cb=nullptr){
 
     }
     virtual status    recvmsg(message& msg){
-
+        return status::success();
     }
     virtual void    recvmsg_async(const message& msg, const async_cb& cb=nullptr){
 

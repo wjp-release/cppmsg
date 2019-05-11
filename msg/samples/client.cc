@@ -57,13 +57,13 @@ void simple_conn_client(){
     if(!s.is_success()) logerr(s.str());
     std::cout<<"connected, now we try to create pipe"<<std::endl;
     struct tmp_write : public vector_write_task{
-        tmp_write(const std::string& what) : vector_write_task(2, what.size()), tmp(what)
+        tmp_write(const std::string& what) : vector_write_task(2, what.size(), std::weak_ptr<basic_connection>()), tmp(what)
         {
             iovs[1].iov_base=(void*)tmp.data();
             iovs[1].iov_len=tmp.size();
         }
         std::string tmp;
-        void on_success(int bytes){
+        void on_success(int bytes,std::unique_lock<std::mutex>& lk){
             logdebug("%d bytes written: %s", bytes, tmp.c_str());
         }
         void on_recoverable_failure(int backoff){

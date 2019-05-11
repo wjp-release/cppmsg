@@ -1,16 +1,17 @@
 #pragma once
 
 #include "def.h"
-#include "basic_connection.h"
+#include "healthcheck_connection.h"
 
 namespace msg{ 
 
-// Success of sendmsg is defined as receving an ack from the receiver. 
-// sendmsg supports application level ARQ(automatic repeated request).
-// recvmsg sends back an ack on a successful message_connection::recvmsg.
-class ack_connection : public basic_connection{
+/*
+    An ack connection implements application level ACK(acknowledgement) and ARQ(automatic repeated request).
+*/
+
+class ack_connection : public healthcheck_connection{
 public:
-    ack_connection(int fd):basic_connection(fd){}
+    ack_connection(int fd):healthcheck_connection(fd){}
     virtual ~ack_connection(){}
 
 private:

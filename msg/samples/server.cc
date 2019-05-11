@@ -54,7 +54,7 @@ void simple_msgconn_server(){
 }
 
 struct readhdr_task : public oneiov_read_task{
-    readhdr_task(msg::pipe* p) : oneiov_read_task(tmp, 8), p(p)
+    readhdr_task(msg::pipe* p) : oneiov_read_task(tmp, 8, std::weak_ptr<basic_connection>()), p(p)
     {
         uint64_t duh=12345;
         memcpy(tmp, &duh, 8);
@@ -66,7 +66,7 @@ struct readhdr_task : public oneiov_read_task{
     uint64_t get_following_msglen(){
         return *reinterpret_cast<uint64_t*>(tmp);
     }
-    void on_success(int bytes);
+    void on_success(int bytes, std::unique_lock<std::mutex>& lk);
     void on_recoverable_failure(int backoff){
         logerr("readhdr_task failed");
         exit(-1);
@@ -74,7 +74,7 @@ struct readhdr_task : public oneiov_read_task{
 };
 
 struct readmsg_task : public oneiov_read_task{
-    readmsg_task(msg::pipe* p, int size) : oneiov_read_task(0, size), p(p){
+    readmsg_task(msg::pipe* p, int size) : oneiov_read_task(0, size, std::weak_ptr<basic_connection>()), p(p){
         tmp = new char [size];
         v.iov_base = tmp;
     }
@@ -83,7 +83,7 @@ struct readmsg_task : public oneiov_read_task{
     }
     msg::pipe* p;
     char* tmp=0;
-    void on_success(int bytes){
+    void on_success(int bytes, std::unique_lock<std::mutex>& lk){
         logdebug("%d bytes read: %s", bytes, std::string(tmp, bytes).c_str());
         //p->add_read(std::make_shared<readhdr_task>(p));
         logdebug("now we add a readhdr task");
@@ -94,7 +94,7 @@ struct readmsg_task : public oneiov_read_task{
     }
 };
 
-void readhdr_task::on_success(int bytes){
+void readhdr_task::on_success(int bytes, std::unique_lock<std::mutex>& lk){
     int len= get_following_msglen();
     logdebug("%d bytes read, following msglen=%d", bytes, len);
     if(len>0&&len<4096){

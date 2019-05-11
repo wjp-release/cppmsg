@@ -14,7 +14,6 @@ public:
     // note that fd is an established tcp connection's fd
     pipe(int fd); // may fail: epoll_ctl add 
     ~pipe(){ if(!closed) close();}
-    // public functions acquire mtx ownership
     void                 add_read(const read_sp& m);
     void                 add_write(const write_sp& m);
     void                 remove_read(const read_sp& m);
@@ -29,6 +28,9 @@ public:
     void                 write(); 
     void                 pipe_cb(int evflag); 
     uint16_t             get_backoff() const noexcept;
+    // called in io_task::on_success
+    void                 doadd_read(std::unique_lock<std::mutex>&lk,const read_sp& m);
+    void                 doadd_write(std::unique_lock<std::mutex>&lk,const write_sp& m);
 protected:
     void                 dosubmit_both();
     void                 dosubmit_read();

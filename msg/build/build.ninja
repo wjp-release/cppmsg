@@ -101,6 +101,12 @@ build src/CMakeFiles/msg.dir/channel/connection.cc.o: CXX_COMPILER__msg ../src/c
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
+build src/CMakeFiles/msg.dir/channel/healthcheck_connection.cc.o: CXX_COMPILER__msg ../src/channel/healthcheck_connection.cc || cmake_object_order_depends_target_msg
+  DEP_FILE = src/CMakeFiles/msg.dir/channel/healthcheck_connection.cc.o.d
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  INCLUDES = -I.././src
+  OBJECT_DIR = src/CMakeFiles/msg.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
 build src/CMakeFiles/msg.dir/channel/iotask.cc.o: CXX_COMPILER__msg ../src/channel/iotask.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/channel/iotask.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
@@ -241,7 +247,7 @@ build src/CMakeFiles/msg.dir/session/stateless_server_session.cc.o: CXX_COMPILER
 #############################################
 # Link the static library src/libmsg.a
 
-build src/libmsg.a: CXX_STATIC_LIBRARY_LINKER__msg src/CMakeFiles/msg.dir/message.cc.o src/CMakeFiles/msg.dir/channel/ack_connection.cc.o src/CMakeFiles/msg.dir/channel/basic_connection.cc.o src/CMakeFiles/msg.dir/channel/checksum_connection.cc.o src/CMakeFiles/msg.dir/channel/connection.cc.o src/CMakeFiles/msg.dir/channel/iotask.cc.o src/CMakeFiles/msg.dir/channel/pingpong_connection.cc.o src/CMakeFiles/msg.dir/channel/pipe.cc.o src/CMakeFiles/msg.dir/connector/connect_task.cc.o src/CMakeFiles/msg.dir/connector/connector.cc.o src/CMakeFiles/msg.dir/connector/reconnector.cc.o src/CMakeFiles/msg.dir/listener/listener.cc.o src/CMakeFiles/msg.dir/system/addr.cc.o src/CMakeFiles/msg.dir/system/event.cc.o src/CMakeFiles/msg.dir/system/fd.cc.o src/CMakeFiles/msg.dir/system/reactor.cc.o src/CMakeFiles/msg.dir/system/resolv.cc.o src/CMakeFiles/msg.dir/system/timer.cc.o src/CMakeFiles/msg.dir/common/clock.cc.o src/CMakeFiles/msg.dir/common/log.cc.o src/CMakeFiles/msg.dir/common/status.cc.o src/CMakeFiles/msg.dir/common/taskpool.cc.o src/CMakeFiles/msg.dir/session/client_session.cc.o src/CMakeFiles/msg.dir/session/logical_session.cc.o src/CMakeFiles/msg.dir/session/session.cc.o src/CMakeFiles/msg.dir/session/stateful_server_session.cc.o src/CMakeFiles/msg.dir/session/stateless_server_session.cc.o
+build src/libmsg.a: CXX_STATIC_LIBRARY_LINKER__msg src/CMakeFiles/msg.dir/message.cc.o src/CMakeFiles/msg.dir/channel/ack_connection.cc.o src/CMakeFiles/msg.dir/channel/basic_connection.cc.o src/CMakeFiles/msg.dir/channel/checksum_connection.cc.o src/CMakeFiles/msg.dir/channel/connection.cc.o src/CMakeFiles/msg.dir/channel/healthcheck_connection.cc.o src/CMakeFiles/msg.dir/channel/iotask.cc.o src/CMakeFiles/msg.dir/channel/pingpong_connection.cc.o src/CMakeFiles/msg.dir/channel/pipe.cc.o src/CMakeFiles/msg.dir/connector/connect_task.cc.o src/CMakeFiles/msg.dir/connector/connector.cc.o src/CMakeFiles/msg.dir/connector/reconnector.cc.o src/CMakeFiles/msg.dir/listener/listener.cc.o src/CMakeFiles/msg.dir/system/addr.cc.o src/CMakeFiles/msg.dir/system/event.cc.o src/CMakeFiles/msg.dir/system/fd.cc.o src/CMakeFiles/msg.dir/system/reactor.cc.o src/CMakeFiles/msg.dir/system/resolv.cc.o src/CMakeFiles/msg.dir/system/timer.cc.o src/CMakeFiles/msg.dir/common/clock.cc.o src/CMakeFiles/msg.dir/common/log.cc.o src/CMakeFiles/msg.dir/common/status.cc.o src/CMakeFiles/msg.dir/common/taskpool.cc.o src/CMakeFiles/msg.dir/session/client_session.cc.o src/CMakeFiles/msg.dir/session/logical_session.cc.o src/CMakeFiles/msg.dir/session/session.cc.o src/CMakeFiles/msg.dir/session/stateful_server_session.cc.o src/CMakeFiles/msg.dir/session/stateless_server_session.cc.o
   LANGUAGE_COMPILE_FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall
   OBJECT_DIR = src/CMakeFiles/msg.dir
   POST_BUILD = :

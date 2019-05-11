@@ -16,6 +16,15 @@ uint16_t pipe::get_backoff() const noexcept{
 
 void pipe::add_read(const read_sp& m){
     std::unique_lock<std::mutex> lk(mtx);
+    doadd_read(lk,m);
+}
+
+void pipe::add_write(const write_sp& m){
+    std::unique_lock<std::mutex> lk(mtx);
+    doadd_write(lk, m);
+}
+
+void pipe::doadd_read(std::unique_lock<std::mutex>&lk, const read_sp& m){
     if(closed) return;
     reads.push_back(m);
     if(reads.size()==1){
@@ -24,8 +33,7 @@ void pipe::add_read(const read_sp& m){
     } 
 }
 
-void pipe::add_write(const write_sp& m){
-    std::unique_lock<std::mutex> lk(mtx);
+void pipe::doadd_write(std::unique_lock<std::mutex>&lk, const write_sp& m){
     if(closed) return;
     writes.push_back(m);
     if(writes.size()==1){
@@ -33,6 +41,7 @@ void pipe::add_write(const write_sp& m){
         dosubmit_write();
     }
 }
+
 
 void pipe::remove_write(const write_sp& m){
     std::lock_guard<std::mutex> lk(mtx);
@@ -129,7 +138,7 @@ void pipe::doread(std::unique_lock<std::mutex>& lk){
     while(!reads.empty()) {
         auto& cur=reads.front();
         lk.unlock();
-        auto s=cur->try_scatter_input(e->fd, backoff);
+        auto s=cur->try_scatter_input(e->fd, backoff, lk);
         lk.lock();
         if(s.is_success()){ // good, pop it
             reads.pop_front();
@@ -152,7 +161,7 @@ void pipe::dowrite(std::unique_lock<std::mutex>& lk){
     while(!writes.empty()) {
         auto& cur=writes.front();
         lk.unlock();
-        auto s=cur->try_gather_output(e->fd, backoff);
+        auto s=cur->try_gather_output(e->fd, backoff, lk);
         lk.lock();
         if(s.is_success()) writes.pop_front();
         else if(s.is_failure()) return;
