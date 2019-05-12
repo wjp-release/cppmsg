@@ -31,16 +31,14 @@ void simple_msgconn_client(){
     std::cout<<"now we have parsed addr"<<std::endl;
     auto s=sync_connect(t->parsed_address,connfd);
     if(!s.is_success()) logerr(s.str());
-    std::cout<<"connected, now we wait 2 seconds"<<std::endl;
-    sleep(2000);
-    basic_connection c(connfd);
+    auto c=basic_connection::make(connfd);
     message what;
     for(int i=0;i<10;i++){
         std::cout<<"try to send msg"<<i<<std::endl;
-        c.sendmsg("Client request <"+std::to_string(i)+">");
+        c->sendmsg("Client request <"+std::to_string(i)+">");
         std::cout<<"msg"<<i<<" sent!"<<std::endl;
         std::cout<<"try to recv msg"<<i<<"'s reply"<<std::endl;
-        c.recvmsg(what);
+        c->recvmsg(what);
         std::cout<<"msg"<<i<<"'s reply recved!"<<std::endl;
         what.print();
     }

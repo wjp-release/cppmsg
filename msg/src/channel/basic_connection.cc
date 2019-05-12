@@ -23,7 +23,8 @@ status basic_connection::sendmsg(const message& msg){
         }
     };
     try{
-        auto task=std::make_shared<sendtask>(msg, std::weak_ptr<basic_connection>(shared_from_this()));
+        std::weak_ptr<basic_connection> cptr=shared_from_this();
+        auto task=std::make_shared<sendtask>(msg, cptr);
         c->add_write(task);
         if(task->wait_for(send_timeout)){
             return status::success();
@@ -32,8 +33,10 @@ status basic_connection::sendmsg(const message& msg){
             return status::failure("timeout");
         }            
     }catch(const std::exception& e){ 
+        logerr(e.what());
         return status::fault(e.what());
     }catch(...){
+        logerr("unknown exception");
         return status::fault("unknown exception");
     }
 }
@@ -83,7 +86,8 @@ void basic_connection::bodytask::on_recoverable_failure(int backoff){
 
 status basic_connection::recvmsg(message& msg){
     try{
-        auto task=std::make_shared<hdrtask>((void*)hdrbuf, msg, std::weak_ptr<basic_connection>(shared_from_this()));
+        std::weak_ptr<basic_connection> cptr=shared_from_this();
+        auto task=std::make_shared<hdrtask>((void*)hdrbuf, msg, cptr);
         c->add_read(task);
         if(task->wait_for(recv_timeout)){
             if(task->failure){
@@ -97,8 +101,10 @@ status basic_connection::recvmsg(message& msg){
             return status::failure("timeout");
         }
     }catch(const std::exception& e){
+        logerr(e.what());
         return status::fault(e.what());
     }catch(...){
+        logerr("unknown exception");
         return status::fault("unknown exception");
     }
 }

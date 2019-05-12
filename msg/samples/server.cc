@@ -40,15 +40,15 @@ void simple_msgconn_server(){
     int connfd;
     s=sync_accept(listenfd, connfd);
     std::cout<<"accept "<<s.str()<<std::endl;
-    basic_connection c(connfd);
+    auto c=basic_connection::make(connfd);
     message what;
     for(int i=0;i<100;i++){
         std::cout<<"try to recv msg"<<i<<std::endl;
-        c.recvmsg(what);
+        c->recvmsg(what);
         std::cout<<"msg"<<i<<" recved!"<<std::endl;
         what.print();
         std::cout<<"try to send msg"<<i<<"'s reply"<<std::endl;
-        c.sendmsg("Server response <"+std::to_string(i)+">");
+        c->sendmsg("Server response <"+std::to_string(i)+">");
         std::cout<<"msg"<<i<<"'s reply is sent!"<<std::endl;
     }
 }

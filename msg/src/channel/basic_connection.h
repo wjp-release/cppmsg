@@ -12,6 +12,10 @@ namespace msg{
 
 class basic_connection : public connection, public std::enable_shared_from_this<basic_connection> {
 public:
+    // Users must create basic_connection as shared_ptr.
+    static std::shared_ptr<basic_connection> make(int fd){
+        return std::make_shared<basic_connection>(fd);
+    }
     basic_connection(int fd):connection(fd){
         backoff_routine=[this]{
             c->resubmit_write(); // backoff resubmit
