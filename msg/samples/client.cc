@@ -81,7 +81,7 @@ void simple_conn_client(){
 }
 
 int main() {
-    simple_conn_client();
+    simple_msgconn_client();
     while(true){}
     return 0;
 }

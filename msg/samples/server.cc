@@ -129,7 +129,7 @@ void simple_conn_server(){
 }
 
 int main() {
-    simple_conn_server();
+    simple_msgconn_server();
     while(true){}
     return 0;
 }

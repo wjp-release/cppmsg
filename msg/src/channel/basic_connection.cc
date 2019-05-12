@@ -22,14 +22,20 @@ status basic_connection::sendmsg(const message& msg){
             }
         }
     };
-    auto task=std::make_shared<sendtask>(msg, std::weak_ptr<basic_connection>(shared_from_this()));
-    c->add_write(task);
-    if(task->wait_for(send_timeout)){
-        return status::success();
-    }else{
-        c->remove_write(task);
-        return status::failure("timeout");
-    }            
+    try{
+        auto task=std::make_shared<sendtask>(msg, std::weak_ptr<basic_connection>(shared_from_this()));
+        c->add_write(task);
+        if(task->wait_for(send_timeout)){
+            return status::success();
+        }else{
+            c->remove_write(task);
+            return status::failure("timeout");
+        }            
+    }catch(const std::exception& e){ 
+        return status::fault(e.what());
+    }catch(...){
+        return status::fault("unknown exception");
+    }
 }
 
 // message hdr read success
@@ -76,18 +82,24 @@ void basic_connection::bodytask::on_recoverable_failure(int backoff){
 }
 
 status basic_connection::recvmsg(message& msg){
-    auto task=std::make_shared<hdrtask>((void*)hdrbuf, msg, std::weak_ptr<basic_connection>(shared_from_this()));
-    c->add_read(task);
-    if(task->wait_for(recv_timeout)){
-        if(task->failure){
+    try{
+        auto task=std::make_shared<hdrtask>((void*)hdrbuf, msg, std::weak_ptr<basic_connection>(shared_from_this()));
+        c->add_read(task);
+        if(task->wait_for(recv_timeout)){
+            if(task->failure){
+                c->remove_read(task);
+                return status::failure("invalid hdr, msg body size illegal");
+            }
+            return status::success();
+        }else{
+            c->remove_read(task->subtask);
             c->remove_read(task);
-            return status::failure("invalid hdr, msg body size illegal");
+            return status::failure("timeout");
         }
-        return status::success();
-    }else{
-        c->remove_read(task->subtask);
-        c->remove_read(task);
-        return status::failure("timeout");
+    }catch(const std::exception& e){
+        return status::fault(e.what());
+    }catch(...){
+        return status::fault("unknown exception");
     }
 }
 
