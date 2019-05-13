@@ -87,9 +87,9 @@ private:
         virtual void on_recoverable_failure(int backoff);
     };
     timer_cb          backoff_routine;
-    char              hdrbuf[8]; // hdr buffer
-    uint32_t          send_timeout=0; // ms
-    uint32_t          recv_timeout=0; // ms
+    char              hdrbuf[8]; // hdr buffer for recvmsg
+    uint32_t          send_timeout=0; // ms, 0 represents no tmo
+    uint32_t          recv_timeout=0; // ms; 0 represents no tmo
     bool              nagle=false;
 };
 

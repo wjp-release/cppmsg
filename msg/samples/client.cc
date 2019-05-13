@@ -30,7 +30,7 @@ void simple_msgconn_client(){
     t->wait();
     std::cout<<"now we have parsed addr"<<std::endl;
     auto s=sync_connect(t->parsed_address,connfd);
-    if(!s.is_success()) logerr(s.str());
+    if(!s.is_success()) logerr(s.str().c_str());
     auto c=basic_connection::make(connfd);
     message what;
     for(int i=0;i<10;i++){
@@ -52,7 +52,7 @@ void simple_conn_client(){
     t->wait();
     std::cout<<"now we have parsed addr"<<std::endl;
     auto s=sync_connect(t->parsed_address, connfd);
-    if(!s.is_success()) logerr(s.str());
+    if(!s.is_success()) logerr(s.str().c_str());
     std::cout<<"connected, now we try to create pipe"<<std::endl;
     struct tmp_write : public vector_write_task{
         tmp_write(const std::string& what) : vector_write_task(2, what.size(), std::weak_ptr<basic_connection>()), tmp(what)
@@ -78,8 +78,39 @@ void simple_conn_client(){
     while(true){}
 }
 
+void basic_once(){
+    reactor::reactor::instance().start_eventloop();
+    auto t=resolv_taskpool::instance().create_resolv_task(family_v4,12345,"localhost",HintActive,HintTCP);
+    t->wait();
+    std::cout<<"now we have parsed addr"<<std::endl;
+    int connfd;
+    auto s=sync_connect(t->parsed_address,connfd);
+    if(!s.is_success()) logerr(s.str().c_str());
+    auto c=basic_connection::make(connfd);
+    std::cout<<"try to send msg"<<std::endl;
+    c->sendmsg("Damn, we are good!");
+    std::cout<<"msg has been sent"<<std::endl;
+    while(true){}
+}
+
+void basic_100(){
+    reactor::reactor::instance().start_eventloop();
+    auto t=resolv_taskpool::instance().create_resolv_task(family_v4,12345,"localhost",HintActive,HintTCP);
+    t->wait();
+    std::cout<<"now we have parsed addr"<<std::endl;
+    int connfd;
+    auto s=sync_connect(t->parsed_address,connfd);
+    if(!s.is_success()) logerr(s.str().c_str());
+    auto c=basic_connection::make(connfd);
+    std::cout<<"try to send msg"<<std::endl;
+    for(int i=0;i<100;i++){
+        c->sendmsg("~basic~"+std::to_string(i));
+        std::cout<<"msg"<<i<<" has been sent"<<std::endl;
+    }
+}
+
 int main() {
-    simple_msgconn_client();
+    basic_100();
     while(true){}
     return 0;
 }

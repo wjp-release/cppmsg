@@ -6,6 +6,22 @@ message::message(const std::string& data){
     append((const uint8_t*)data.data(), data.size());
 }
 
+message::message(const char* data){
+    append((const uint8_t*)data, strlen(data));
+}
+
+message::message(const uint8_t* data, uint32_t size){
+    append(data, size); 
+}
+
+std::string message::str(){
+    std::string s;
+    for(auto& c:chunks){
+        s+=std::string((char*)c.data,c.size);
+    }
+    return s;
+}
+
 void message::append(const uint8_t* data, uint32_t size){
     assert(size<=MaxSize);
     total_size+=size;

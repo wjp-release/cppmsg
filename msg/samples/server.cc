@@ -128,9 +128,29 @@ void simple_conn_server(){
     while(true){}
 }
 
-int main() {
-    simple_msgconn_server();
+void basic_server(){
+    reactor::instance().start_eventloop();
+    auto t=resolv_taskpool::instance().create_resolv_task(family_v4,12345,"localhost",1, 0, 0);
+    t->wait();
+    std::cout<<"now we have parsed addr"<<std::endl;
+    int listenfd;
+    auto s=bind_listen(t->parsed_address,listenfd);
+    std::cout<<"listen "<<s.str()<<", listenfd="<<listenfd<<std::endl;
+    int connfd;
+    s=sync_accept(listenfd, connfd);
+    std::cout<<"accept "<<s.str()<<", connfd="<<connfd<<std::endl;
+    auto c=basic_connection::make(connfd);
+    message what;
+    for(uint64_t i=0;i<100;i++){
+        std::cout<<"try to recv msg"<<i<<std::endl;
+        c->recvmsg(what);
+        std::cout<<"msg"<<i<<" recved: "<<what.str()<<std::endl;
+        what.print();
+    }
+}
+                           
+int main() {  
+    basic_server();
     while(true){}
     return 0;
 }
-

@@ -28,7 +28,8 @@ public:
     bool wait_for(int milliseconds){
         std::unique_lock<std::mutex> lk(mtx);
         while(!is_done){
-            cv.wait_for(lk, milliseconds*1ms);
+            if(milliseconds==0) cv.wait(lk);
+            else cv.wait_for(lk, milliseconds*1ms);
         }
         return is_done;
     }

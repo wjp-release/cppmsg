@@ -13,9 +13,9 @@ enum log_level : int {
 };
 
 void set_log_level(int loglv);
-void log_debug(const char* file, int line, const std::string&, ...);
-void log_err(const char* file, int line, const std::string&, ...);
-void log_wtf(const char* file, int line, const std::string&, ...);
+void log_debug(const char* file, int line, const char*, ...);
+void log_err(const char* file, int line, const char*, ...);
+void log_wtf(const char* file, int line, const char*, ...);
 
 }   
 }

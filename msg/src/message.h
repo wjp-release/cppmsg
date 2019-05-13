@@ -27,6 +27,8 @@ public:
     static const int MaxSize=1024*1024*64; //64MB
     message(){}
     message(const std::string& data);
+    message(const char* data);
+    message(const uint8_t* data, uint32_t size);
     void append(const uint8_t* data, uint32_t size);
     void* alloc(uint32_t size);
     int nr_chunks()const noexcept{
@@ -38,9 +40,17 @@ public:
     void print(){ //debug
         std::cout<<"size="<<size()<<", nr_chunks="<<nr_chunks();
         for(auto& i:chunks){
-            std::cout<<"["<<std::string((char*)i.data, i.size)<<"] ";
+            std::cout<<" ["<<std::string((char*)i.data, i.size)<<"]";
         }
         std::cout<<std::endl;
+    }
+    std::string str(); 
+    bool empty() const noexcept{
+        return total_size==0;
+    }
+    void clear(){
+        total_size=0;
+        chunks.clear();
     }
     void append_to_iovs(std::vector<iovec>& iov)const noexcept;
     void convert_to_iovs(std::vector<iovec>& iov)const noexcept;

@@ -31,7 +31,7 @@ void connector::connect_cb(int evflag){
     }else{ // almost certainly time-consuming  
         taskpool::instance().execute([this, evflag]{
             auto s=ctask->handle_async_connect_result();
-            if(!s.is_success()) logerr(s.str());
+            if(!s.is_success()) logerr(s.str().c_str());
         });
     }
 }
