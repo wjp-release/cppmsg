@@ -35,9 +35,8 @@ public:
         nagle=false;
     }
     virtual status    sendmsg(const message& msg);
-    virtual void      sendmsg_async(const message& msg, const async_cb& cb=nullptr){
-        //todo 
-    }
+    
+    virtual void      sendmsg_async(const message& msg, const async_cb& cb=nullptr);
 
     virtual status    recvmsg(message& msg);
     virtual void      recvmsg_async(message& msg, const async_cb& cb=nullptr){
@@ -86,6 +85,7 @@ private:
         virtual void on_success(int bytes, std::unique_lock<std::mutex>& lk);
         virtual void on_recoverable_failure(int backoff);
     };
+
     timer_cb          backoff_routine;
     char              hdrbuf[8]; // hdr buffer for recvmsg
     uint32_t          send_timeout=0; // ms, 0 represents no tmo

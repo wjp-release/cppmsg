@@ -2,6 +2,38 @@
 #include "system/reactor.h"
 namespace msg{
 
+void      sendmsg_async(const message& msg, const async_cb& cb=nullptr){
+    class send_async_task : public vector_write_task{
+    public:
+        send_async_task(const message& msg, const connptr& c, const async_cb& cb) : vector_write_task(msg.nr_chunks()+1, msg.size(), c), cb(cb){
+            msg.append_to_iovs(iovs);
+        }
+        virtual void on_success(int bytes, std::unique_lock<std::mutex>& lk){
+            logdebug("%d bytes written", bytes);
+            cb(bytes);
+        }
+        virtual void on_recoverable_failure(int backoff){
+            auto c=conn.lock();
+            if(!c){ 
+                logerr("This task's owning connection has been destroyed, hence this task should have been discarded. Therefore we won't do anything to recover it.");
+            }else{
+                if(backoff>=backoff_subjectively_down){
+                    // async timeout by watching incremental backoff
+                    cb(AsyncTimeout); 
+                }else{
+                    cb(WillRetryLater); 
+                    logdebug("async send failed, retry in %d ms", backoff+backoff_base);
+                    defer(c->backoff_cb(), backoff);
+                }
+            }
+        }
+    private:
+        async_cb cb;
+    };
+
+}
+
+
 status basic_connection::sendmsg(const message& msg){
     class sendtask : public vector_write_task, public blockable{
     public:

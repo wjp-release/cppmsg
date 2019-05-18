@@ -182,11 +182,11 @@ void pipe::doclose(){
 
 void pipe::adjust_backoff(){
     if(backoff!=0){
-        if(backoff<2560){ // max backoff=2560+10 ms 
+        if(backoff<backoff_max){  
             backoff*=2; 
         }
     }else{
-        backoff=10; 
+        backoff=10;  // starts from 10
     }
 }
 

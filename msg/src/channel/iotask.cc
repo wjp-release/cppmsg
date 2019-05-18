@@ -22,7 +22,7 @@ status read_task::try_scatter_input(int fd, int backoff, std::unique_lock<std::m
             case EAGAIN: 
                 return status::failure("EAGAIN, try again");
             default: 
-                on_recoverable_failure(10+backoff);
+                on_recoverable_failure(backoff_base+backoff);
                 return status::fault("Something bad but unfatal happens, backoff, come back later");
             }
         }
@@ -49,7 +49,7 @@ status write_task::try_gather_output(int fd, int backoff, std::unique_lock<std::
             case EAGAIN: // can't proceed
                 return status::failure("EAGAIN, try again");
             default: 
-                on_recoverable_failure(10+backoff);
+                on_recoverable_failure(backoff_base+backoff);
                 return status::fault("Something bad but unfatal happens, backoff, come back later");
             }
         }

@@ -1,5 +1,6 @@
 #pragma once
 
+// frequently used headers
 #include <functional> // function
 #include <cstdint> // uint64_t 
 #include <cstddef>
@@ -27,11 +28,26 @@
 #include "common/concurrentq.h"
 #include "common/ilist.h"
 
+// compilation options for reliablility test
+#define ENABLE_CHAOS_MONKEY_TEST // change successful results to random failures randomly
+#define ENABLE_ADVERSARY_TEST // change successful results to a certain failure deterministicly
+
+// msg:: definitions
 namespace msg{
+
+// The send/recv retry backoff time can increases to at most 5 seconds
+const static int backoff_max=5120; //ms
+// Async timeout is implemented by checking backoff value
+const static int backoff_subjectively_down=2000; //ms
+const static int backoff_base=22; // always let backoff+= backoff_base to prevent backoff from being 0
 
 class addr;
 using resolv_cb=std::function<void(addr)>;
+//async_cb(int x) x>0 on success, represents bytes, x<0 on failure
 using async_cb=std::function<void(int)>;
+const static int AsyncTimeout = -1; // async timeout
+const static int WillRetryLater = -2; // recoverable failure retry
+//event_cb(int flag) takes evflag
 using event_cb=std::function<void(int)>;
 using please_cb=std::function<void(void)>;
 using timer_cb=std::function<void(void)>;
