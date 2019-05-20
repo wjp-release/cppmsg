@@ -53,8 +53,8 @@ public:
 // undefined: on_success, on_recoverable_failure
 class vector_io_task : public io_task{
 public:
-    vector_io_task(int nriov, uint64_t msglen): iovs(nriov), header(msglen){
-        iovs[0].iov_base=reinterpret_cast<void*>(&header);
+    vector_io_task(uint64_t msglen): iovs(1), header(msglen){
+        iovs[0].iov_base=reinterpret_cast<void*>(&header); 
         iovs[0].iov_len=8;
     }
     virtual iovec* iov(){ 
@@ -72,7 +72,7 @@ public:
 // undefined: on_success, on_recoverable_failure 
 class vector_write_task : public vector_io_task, public write_task{
 public:
-    vector_write_task(int nriov, uint64_t msglen, const connptr& c): vector_io_task(nriov, msglen), conn(c)
+    vector_write_task(uint64_t msglen, const connptr& c): vector_io_task(msglen), conn(c)
     {}
     virtual ~vector_write_task(){}
     virtual iovec* iov(){ 

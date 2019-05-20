@@ -27,21 +27,24 @@ void pipe::add_write(const write_sp& m){
 void pipe::doadd_read(std::unique_lock<std::mutex>&lk, const read_sp& m){
     if(closed) return;
     reads.push_back(m);
-    if(reads.size()==1){
-        doread(lk);
-        dosubmit_read();
-    } 
+    if(reads.size()==1) dosubmit_read();
+    
+    // What should we do right after adding a read task? 
+    // Should we submit only(and wait for epoll event) or try to doread aggressively, assuming that data is ready?
+
+    // We choose submit only here, as it has better sendmsg_async performance
+
+    // if(reads.size()==1){
+    //     doread(lk);
+    //     dosubmit_read();
+    // } 
 }
 
 void pipe::doadd_write(std::unique_lock<std::mutex>&lk, const write_sp& m){
     if(closed) return;
     writes.push_back(m);
-    if(writes.size()==1){
-        dowrite(lk);
-        dosubmit_write();
-    }
+    if(writes.size()==1) dosubmit_write();
 }
-
 
 void pipe::remove_write(const write_sp& m){
     std::lock_guard<std::mutex> lk(mtx);
@@ -66,6 +69,7 @@ void pipe::clear_reads(){
     if(closed) return;
     reads.clear();
 }
+
 void pipe::close(){
     std::lock_guard<std::mutex> lk(mtx);
     if (!closed) {
@@ -146,11 +150,12 @@ void pipe::doread(std::unique_lock<std::mutex>& lk){
         }else if(s.is_failure()){ // retry immediately
             backoff=0; // turn off backoff
             return;
-        }else if(s.is_error()){ // can't recover
+        }else if(s.is_error()){ // can't recover, we are doomed
             doclose();
             return;
         }else if(s.is_fault()){ // come back later
-            adjust_backoff(); // incremental backoff
+            // The first task run into this problem will schedule a timeout, resubmit read later.
+            adjust_backoff(); // incremental backoff 
         }
     }
 }
@@ -171,7 +176,6 @@ void pipe::dowrite(std::unique_lock<std::mutex>& lk){
         }
     }
 }
-
 
 void pipe::doclose(){
     closed = true;

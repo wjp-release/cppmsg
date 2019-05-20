@@ -14,7 +14,7 @@ message_meta::message_meta(const uint8_t* data, uint32_t size){
     append(data, size); 
 }
 
-std::string message_meta::str(){
+std::string message_meta::str()const{
     std::string s;
     for(auto& c:chunks){
         s+=std::string((char*)c.data,c.size);

@@ -12,15 +12,10 @@ namespace msg{
 
 class basic_connection : public connection, public std::enable_shared_from_this<basic_connection> {
 public:
-    // Users must create basic_connection as shared_ptr.
     static std::shared_ptr<basic_connection> make(int fd){
         return std::make_shared<basic_connection>(fd);
     }
-    basic_connection(int fd):connection(fd){
-        backoff_routine=[this]{
-            c->resubmit_write(); // backoff resubmit
-        };
-    }
+    basic_connection(int fd);
     virtual ~basic_connection(){}
     void              set_send_tmo(int ms){
         send_timeout=ms;
@@ -36,13 +31,13 @@ public:
     }
     virtual status    sendmsg(const message& msg);
     
-    virtual void      sendmsg_async(const message& msg, const async_cb& cb=nullptr);
+    virtual status    sendmsg_async(const message& msg, const async_cb& cb=nullptr);
 
     virtual status    recvmsg(message& msg);
-    virtual void      recvmsg_async(message& msg, const async_cb& cb=nullptr){
-        //todo 
-    }
 
+    // We do not support recvmsg_async for good reason. In order to create recvhdr_task and recvbody_task one by one we have to keep track of every async recvmsg operations, which makes the connection fatter than it should be. Furthermore, it doesn't make too much sense to recv sequential messages asynchronously.
+
+    // However we do support recv multipart msg though, since it is more efficient to read as much as we can in one recvbody_task.
     virtual status    recv_multipart_msg(message& msg){
 
 
@@ -51,8 +46,6 @@ public:
 
     virtual void      recv_multipart_msg_async(message& msg, const async_cb& cb=nullptr){
         
-
-
     }
     uint64_t          hdr(){
         return *reinterpret_cast<uint64_t*>(hdrbuf);

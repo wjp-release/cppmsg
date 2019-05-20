@@ -55,7 +55,7 @@ void simple_conn_client(){
     if(!s.is_success()) logerr(s.str().c_str());
     std::cout<<"connected, now we try to create pipe"<<std::endl;
     struct tmp_write : public vector_write_task{
-        tmp_write(const std::string& what) : vector_write_task(2, what.size(), std::weak_ptr<basic_connection>()), tmp(what)
+        tmp_write(const std::string& what) : vector_write_task( what.size(), std::weak_ptr<basic_connection>()), tmp(what)
         {
             iovs[1].iov_base=(void*)tmp.data();
             iovs[1].iov_len=tmp.size();
@@ -107,6 +107,37 @@ void basic_100(){
         c->sendmsg("~basic~"+std::to_string(i));
         std::cout<<"msg"<<i<<" has been sent"<<std::endl;
     }
+    while(true){}
+}
+
+static std::string star(int n){
+    std::string x="";
+    for(int i=0;i<n;i+=10)x+="*";
+    return x;
+}
+
+void async_100(){
+    reactor::reactor::instance().start_eventloop();
+    auto t=resolv_taskpool::instance().create_resolv_task(family_v4,12345,"localhost",HintActive,HintTCP);
+    t->wait();
+    std::cout<<"now we have parsed addr"<<std::endl;
+    int connfd;
+    auto s=sync_connect(t->parsed_address,connfd);
+    if(!s.is_success()) logerr(s.str().c_str());
+    auto c=basic_connection::make(connfd);
+    std::cout<<"try to send msg"<<std::endl;
+    for(int i=0;i<100;i++){
+        auto st=star(i);
+        c->sendmsg_async(st+"~basic~"+std::to_string(i)+st, [](int flag){
+            if(flag>=0){
+                std::cout<<flag<<" bytes written"<<std::endl;
+            }else{
+                std::cout<<"Async failure, err="<<flag<<std::endl;
+            }
+        });
+        std::cout<<"msg"<<i<<" has been scheduled to be sent"<<std::endl;
+    }
+    while(true){} // If we don't wait here, 
 }
 
 int main() {

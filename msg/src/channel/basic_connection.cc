@@ -2,14 +2,24 @@
 #include "system/reactor.h"
 namespace msg{
 
-void      sendmsg_async(const message& msg, const async_cb& cb=nullptr){
+basic_connection::basic_connection(int fd):connection(fd){
+    backoff_routine=[this]{
+        c->resubmit_write(); // backoff resubmission
+    };
+}
+
+status basic_connection::sendmsg_async(const message& msg, const async_cb& cb){
     class send_async_task : public vector_write_task{
     public:
-        send_async_task(const message& msg, const connptr& c, const async_cb& cb) : vector_write_task(msg.nr_chunks()+1, msg.size(), c), cb(cb){
+        send_async_task(const message& msg, const connptr& c, const async_cb& cb) : vector_write_task(msg.size(), c), cb(cb){
             msg.append_to_iovs(iovs);
+
+            std::string tmp((const char*)iovs[1].iov_base, iovs[1].iov_len);
+            logdebug("create async task msg=[%s], len=%d",tmp.c_str(), tmp.size());
         }
         virtual void on_success(int bytes, std::unique_lock<std::mutex>& lk){
-            logdebug("%d bytes written", bytes);
+            std::string tmp((const char*)iovs[1].iov_base, iovs[1].iov_len);
+            logdebug("send async %d bytes, msg=[%s], msglen=%d", bytes, tmp.c_str(), tmp.size());
             cb(bytes);
         }
         virtual void on_recoverable_failure(int backoff){
@@ -30,6 +40,19 @@ void      sendmsg_async(const message& msg, const async_cb& cb=nullptr){
     private:
         async_cb cb;
     };
+    // Try to send a message asynchronously
+    try{
+        std::weak_ptr<basic_connection> cptr=shared_from_this();
+        auto task=std::make_shared<send_async_task>(msg, cptr, cb);
+        c->add_write(task);
+        return status::success();
+    }catch(const std::exception& e){ 
+        logerr(e.what());
+        return status::fault(e.what());
+    }catch(...){
+        logerr("unknown exception");
+        return status::fault("unknown exception");
+    }
 
 }
 
@@ -37,12 +60,17 @@ void      sendmsg_async(const message& msg, const async_cb& cb=nullptr){
 status basic_connection::sendmsg(const message& msg){
     class sendtask : public vector_write_task, public blockable{
     public:
-        sendtask(const message& msg, const connptr& c) : vector_write_task(msg.nr_chunks()+1, msg.size(), c){
+        sendtask(const message& msg, const connptr& c) : vector_write_task(msg.size(), c){
             msg.append_to_iovs(iovs); 
+            std::string tmp((const char*)iovs[1].iov_base, iovs[1].iov_len);
+            logdebug("create sync task msg=[%s], len=%d",tmp.c_str(), tmp.size());
+
         }
         virtual ~sendtask(){}
         virtual void on_success(int bytes, std::unique_lock<std::mutex>& lk){
-            logdebug("%d bytes written", bytes);
+            std::string tmp((const char*)iovs[1].iov_base, iovs[1].iov_len);
+            logdebug("send async %d bytes, msg=[%s], msglen=%d", bytes, tmp.c_str(), tmp.size());
+
             signal(); 
         }
         virtual void on_recoverable_failure(int backoff){
@@ -54,6 +82,7 @@ status basic_connection::sendmsg(const message& msg){
             }
         }
     };
+    // Try to send a message synchronously
     try{
         std::weak_ptr<basic_connection> cptr=shared_from_this();
         auto task=std::make_shared<sendtask>(msg, cptr);

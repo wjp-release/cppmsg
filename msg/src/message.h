@@ -43,7 +43,7 @@ public:
         }
         std::cout<<std::endl;
     }
-    std::string str(); 
+    std::string str() const; 
     bool empty() const noexcept{
         return total_size==0;
     }
@@ -88,7 +88,7 @@ public:
     void print(){ //debug
         meta->print();
     }
-    std::string str(){
+    std::string str()const{
         return meta->str();
     }
     bool empty() const noexcept{
