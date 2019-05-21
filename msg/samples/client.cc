@@ -141,7 +141,7 @@ void async_100(){
 }
 
 int main() {
-    basic_100();
+    async_100();
     while(true){}
     return 0;
 }

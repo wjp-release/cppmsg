@@ -3,10 +3,49 @@
 #include <sys/epoll.h> //evflags
 #include "common/taskpool.h"
 
+#include <arpa/inet.h>
+#include <fcntl.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+
 namespace msg{
+#ifndef TCP_NODELAY
+#define TCP_NODELAY 1
+#endif
+
+// disable nagle
+static status set_nodelay(int fd, int nodelay){
+	int r=setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &nodelay, sizeof(int));
+    if(r==0) return status::success();
+    else return status::failure("setsockopt tcp nodelay failed");
+}
+
+static status set_keepalive(int fd, int keepalive){
+	int r=setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, &keepalive, sizeof(int));
+    if(r==0) return status::success();
+    else return status::failure("setsockopt tcp nodelay failed");
+}
+
+status pipe::enable_nagle(){
+    set_nodelay(e->fd, 0);
+}
+
+status pipe::disable_nagle(){
+    set_nodelay(e->fd, 1); 
+}
+
+status pipe::enable_keepalive(){
+    set_keepalive(e->fd, 1);
+}
+
+status pipe::disable_keepalive(){
+    set_keepalive(e->fd, 0);
+}
 
 pipe::pipe(int fd){
     e = new event(reactor::instance().epollfd, fd, [this](int evflag){pipe_cb(evflag);});
+    // nagle enabled by default
+    set_keepalive(fd, 1);
 }
 
 uint16_t pipe::get_backoff() const noexcept{

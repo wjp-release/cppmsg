@@ -24,10 +24,16 @@ public:
         recv_timeout=ms;
     }
     void              enable_nagle(){
-        nagle=true;
-    }
+        c->enable_nagle();
+    }   
     void              disable_nagle(){
-        nagle=false;
+        c->disable_nagle();
+    }
+    void              enable_keepalive(){
+        c->enable_keepalive();
+    }   
+    void              disable_keepalive(){
+        c->disable_keepalive();
     }
     virtual status    sendmsg(const message& msg);
     
@@ -38,15 +44,8 @@ public:
     // We do not support recvmsg_async for good reason. In order to create recvhdr_task and recvbody_task one by one we have to keep track of every async recvmsg operations, which makes the connection fatter than it should be. Furthermore, it doesn't make too much sense to recv sequential messages asynchronously.
 
     // However we do support recv multipart msg though, since it is more efficient to read as much as we can in one recvbody_task.
-    virtual status    recv_multipart_msg(message& msg){
+    virtual status    recv_multipart_msg(message& msg);
 
-
-        return status::success();
-    }
-
-    virtual void      recv_multipart_msg_async(message& msg, const async_cb& cb=nullptr){
-        
-    }
     uint64_t          hdr(){
         return *reinterpret_cast<uint64_t*>(hdrbuf);
     }  
@@ -83,7 +82,6 @@ private:
     char              hdrbuf[8]; // hdr buffer for recvmsg
     uint32_t          send_timeout=0; // ms, 0 represents no tmo
     uint32_t          recv_timeout=0; // ms; 0 represents no tmo
-    bool              nagle=false;
 };
 
 

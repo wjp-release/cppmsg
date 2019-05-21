@@ -14,6 +14,10 @@ public:
     // note that fd is an established tcp connection's fd
     pipe(int fd); // may fail: epoll_ctl add 
     ~pipe(){ if(!closed) close();}
+    status               enable_nagle();
+    status               disable_nagle();
+    status               enable_keepalive();
+    status               disable_keepalive();
     void                 add_read(const read_sp& m);
     void                 add_write(const write_sp& m);
     void                 remove_read(const read_sp& m);

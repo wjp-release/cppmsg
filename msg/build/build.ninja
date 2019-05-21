@@ -268,77 +268,6 @@ build src/edit_cache: phony src/CMakeFiles/edit_cache.util
 # /mnt/d/wjp/cppmsg/msg/CMakeLists.txt
 # =============================================================================
 
-# =============================================================================
-# Object build statements for EXECUTABLE target client
-
-
-#############################################
-# Order-only phony target for client
-
-build cmake_object_order_depends_target_client: phony || cmake_object_order_depends_target_msg
-build samples/CMakeFiles/client.dir/client.cc.o: CXX_COMPILER__client ../samples/client.cc || cmake_object_order_depends_target_client
-  DEP_FILE = samples/CMakeFiles/client.dir/client.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
-  INCLUDES = -I.././src
-  OBJECT_DIR = samples/CMakeFiles/client.dir
-  OBJECT_FILE_DIR = samples/CMakeFiles/client.dir
-
-# =============================================================================
-# Link build statements for EXECUTABLE target client
-
-
-#############################################
-# Link the executable samples/client
-
-build samples/client: CXX_EXECUTABLE_LINKER__client samples/CMakeFiles/client.dir/client.cc.o | src/libmsg.a || src/libmsg.a
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2
-  LINK_LIBRARIES = -Wl,-rpath,/mnt/d/wjp/cppmsg/msg/./src src/libmsg.a -lpthread
-  LINK_PATH = -L/mnt/d/wjp/cppmsg/msg/./src
-  OBJECT_DIR = samples/CMakeFiles/client.dir
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = samples/client
-  TARGET_PDB = client.dbg
-
-#############################################
-# Utility command for edit_cache
-
-build samples/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /mnt/d/wjp/cppmsg/msg/build/samples && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-  DESC = No interactive CMake dialog available...
-  restat = 1
-build samples/edit_cache: phony samples/CMakeFiles/edit_cache.util
-# =============================================================================
-# Object build statements for EXECUTABLE target basic
-
-
-#############################################
-# Order-only phony target for basic
-
-build cmake_object_order_depends_target_basic: phony || cmake_object_order_depends_target_msg
-build samples/CMakeFiles/basic.dir/basic.cc.o: CXX_COMPILER__basic ../samples/basic.cc || cmake_object_order_depends_target_basic
-  DEP_FILE = samples/CMakeFiles/basic.dir/basic.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
-  INCLUDES = -I.././src
-  OBJECT_DIR = samples/CMakeFiles/basic.dir
-  OBJECT_FILE_DIR = samples/CMakeFiles/basic.dir
-
-# =============================================================================
-# Link build statements for EXECUTABLE target basic
-
-
-#############################################
-# Link the executable samples/basic
-
-build samples/basic: CXX_EXECUTABLE_LINKER__basic samples/CMakeFiles/basic.dir/basic.cc.o | src/libmsg.a || src/libmsg.a
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2
-  LINK_LIBRARIES = -Wl,-rpath,/mnt/d/wjp/cppmsg/msg/./src src/libmsg.a -lpthread
-  LINK_PATH = -L/mnt/d/wjp/cppmsg/msg/./src
-  OBJECT_DIR = samples/CMakeFiles/basic.dir
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = samples/basic
-  TARGET_PDB = basic.dbg
 
 #############################################
 # Utility command for rebuild_cache
@@ -381,12 +310,147 @@ build samples/server: CXX_EXECUTABLE_LINKER__server samples/CMakeFiles/server.di
   TARGET_FILE = samples/server
   TARGET_PDB = server.dbg
 # =============================================================================
+# Object build statements for EXECUTABLE target basic
+
+
+#############################################
+# Order-only phony target for basic
+
+build cmake_object_order_depends_target_basic: phony || cmake_object_order_depends_target_msg
+build samples/CMakeFiles/basic.dir/basic.cc.o: CXX_COMPILER__basic ../samples/basic.cc || cmake_object_order_depends_target_basic
+  DEP_FILE = samples/CMakeFiles/basic.dir/basic.cc.o.d
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
+  INCLUDES = -I.././src
+  OBJECT_DIR = samples/CMakeFiles/basic.dir
+  OBJECT_FILE_DIR = samples/CMakeFiles/basic.dir
+
+# =============================================================================
+# Link build statements for EXECUTABLE target basic
+
+
+#############################################
+# Link the executable samples/basic
+
+build samples/basic: CXX_EXECUTABLE_LINKER__basic samples/CMakeFiles/basic.dir/basic.cc.o | src/libmsg.a || src/libmsg.a
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2
+  LINK_LIBRARIES = -Wl,-rpath,/mnt/d/wjp/cppmsg/msg/./src src/libmsg.a -lpthread
+  LINK_PATH = -L/mnt/d/wjp/cppmsg/msg/./src
+  OBJECT_DIR = samples/CMakeFiles/basic.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = samples/basic
+  TARGET_PDB = basic.dbg
+# =============================================================================
+# Object build statements for EXECUTABLE target client
+
+
+#############################################
+# Order-only phony target for client
+
+build cmake_object_order_depends_target_client: phony || cmake_object_order_depends_target_msg
+build samples/CMakeFiles/client.dir/client.cc.o: CXX_COMPILER__client ../samples/client.cc || cmake_object_order_depends_target_client
+  DEP_FILE = samples/CMakeFiles/client.dir/client.cc.o.d
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
+  INCLUDES = -I.././src
+  OBJECT_DIR = samples/CMakeFiles/client.dir
+  OBJECT_FILE_DIR = samples/CMakeFiles/client.dir
+
+# =============================================================================
+# Link build statements for EXECUTABLE target client
+
+
+#############################################
+# Link the executable samples/client
+
+build samples/client: CXX_EXECUTABLE_LINKER__client samples/CMakeFiles/client.dir/client.cc.o | src/libmsg.a || src/libmsg.a
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2
+  LINK_LIBRARIES = -Wl,-rpath,/mnt/d/wjp/cppmsg/msg/./src src/libmsg.a -lpthread
+  LINK_PATH = -L/mnt/d/wjp/cppmsg/msg/./src
+  OBJECT_DIR = samples/CMakeFiles/client.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = samples/client
+  TARGET_PDB = client.dbg
+
+#############################################
+# Utility command for edit_cache
+
+build samples/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /mnt/d/wjp/cppmsg/msg/build/samples && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+build samples/edit_cache: phony samples/CMakeFiles/edit_cache.util
+# =============================================================================
+# Object build statements for EXECUTABLE target perfcli
+
+
+#############################################
+# Order-only phony target for perfcli
+
+build cmake_object_order_depends_target_perfcli: phony || cmake_object_order_depends_target_msg
+build samples/CMakeFiles/perfcli.dir/perfcli.cc.o: CXX_COMPILER__perfcli ../samples/perfcli.cc || cmake_object_order_depends_target_perfcli
+  DEP_FILE = samples/CMakeFiles/perfcli.dir/perfcli.cc.o.d
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
+  INCLUDES = -I.././src
+  OBJECT_DIR = samples/CMakeFiles/perfcli.dir
+  OBJECT_FILE_DIR = samples/CMakeFiles/perfcli.dir
+
+# =============================================================================
+# Link build statements for EXECUTABLE target perfcli
+
+
+#############################################
+# Link the executable samples/perfcli
+
+build samples/perfcli: CXX_EXECUTABLE_LINKER__perfcli samples/CMakeFiles/perfcli.dir/perfcli.cc.o | src/libmsg.a || src/libmsg.a
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2
+  LINK_LIBRARIES = -Wl,-rpath,/mnt/d/wjp/cppmsg/msg/./src src/libmsg.a -lpthread
+  LINK_PATH = -L/mnt/d/wjp/cppmsg/msg/./src
+  OBJECT_DIR = samples/CMakeFiles/perfcli.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = samples/perfcli
+  TARGET_PDB = perfcli.dbg
+# =============================================================================
+# Object build statements for EXECUTABLE target perfsvr
+
+
+#############################################
+# Order-only phony target for perfsvr
+
+build cmake_object_order_depends_target_perfsvr: phony || cmake_object_order_depends_target_msg
+build samples/CMakeFiles/perfsvr.dir/perfsvr.cc.o: CXX_COMPILER__perfsvr ../samples/perfsvr.cc || cmake_object_order_depends_target_perfsvr
+  DEP_FILE = samples/CMakeFiles/perfsvr.dir/perfsvr.cc.o.d
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
+  INCLUDES = -I.././src
+  OBJECT_DIR = samples/CMakeFiles/perfsvr.dir
+  OBJECT_FILE_DIR = samples/CMakeFiles/perfsvr.dir
+
+# =============================================================================
+# Link build statements for EXECUTABLE target perfsvr
+
+
+#############################################
+# Link the executable samples/perfsvr
+
+build samples/perfsvr: CXX_EXECUTABLE_LINKER__perfsvr samples/CMakeFiles/perfsvr.dir/perfsvr.cc.o | src/libmsg.a || src/libmsg.a
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2
+  LINK_LIBRARIES = -Wl,-rpath,/mnt/d/wjp/cppmsg/msg/./src src/libmsg.a -lpthread
+  LINK_PATH = -L/mnt/d/wjp/cppmsg/msg/./src
+  OBJECT_DIR = samples/CMakeFiles/perfsvr.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = samples/perfsvr
+  TARGET_PDB = perfsvr.dbg
+# =============================================================================
 # Target aliases.
 
 build basic: phony samples/basic
 build client: phony samples/client
 build libmsg.a: phony src/libmsg.a
 build msg: phony src/libmsg.a
+build perfcli: phony samples/perfcli
+build perfsvr: phony samples/perfsvr
 build server: phony samples/server
 # =============================================================================
 # Folder targets.
@@ -397,7 +461,7 @@ build server: phony samples/server
 #############################################
 # Folder: /mnt/d/wjp/cppmsg/msg/build/samples
 
-build  samples/all: phony client basic server
+build  samples/all: phony server basic client perfcli perfsvr
 # =============================================================================
 
 #############################################
@@ -411,7 +475,7 @@ build  src/all: phony msg
 #############################################
 # The main all target.
 
-build all: phony src/libmsg.a samples/client samples/basic samples/server
+build all: phony src/libmsg.a samples/server samples/basic samples/client samples/perfcli samples/perfsvr
 
 #############################################
 # Make the all target the default.
