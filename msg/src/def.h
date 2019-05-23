@@ -35,6 +35,9 @@
 // msg:: definitions
 namespace msg{
 
+// 256*4KB = 1MB 
+const static int msg_freelist_size = 256;
+
 // The send/recv retry backoff time can increases to at most 5 seconds
 const static int backoff_max=5120; //ms
 // Async timeout is implemented by checking backoff value
@@ -61,5 +64,4 @@ using cq=moodycamel::ConcurrentQueue<T>; // todo: use token feature to further s
 }
 
 #define WJP_DEBUG
-#define USE_ARENA
 

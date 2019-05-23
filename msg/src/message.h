@@ -3,14 +3,76 @@
 #include "def.h"
 
 namespace msg{ 
-// Arena needed!
+
+// create large messages from existing freelist 
+class arena_message_freelist{
+
+
+};
+
+
 class arena{
 public:
+    arena(){}
+    arena(const arena&) = delete;
+    arena& operator=(const arena&) = delete;
+    arena(arena&&) = delete;
+    arena& operator=(arena&&) = delete;
+    ~arena(){
+        for(auto c : arena_chunks){
+            delete[]c;
+        }
+    }
+
+//  Arena::AllocateNewBlock(size_t block_bytes) {
+//   char* result = new char[block_bytes];
+//   blocks_.push_back(result);
+//   memory_usage_.fetch_add(block_bytes + sizeof(char*),
+//                           std::memory_order_relaxed);
+//   return result;
+// }
 
 
+// char* Arena::AllocateFallback(size_t bytes) {
+//   if (bytes > kBlockSize / 4) {
+//     // Object is more than a quarter of our block size.  Allocate it separately
+//     // to avoid wasting too much space in leftover bytes.
+//     char* result = AllocateNewBlock(bytes);
+//     return result;
+//   }
+
+//   // We waste the remaining space in the current block.
+//   alloc_ptr_ = AllocateNewBlock(kBlockSize);
+//   alloc_bytes_remaining_ = kBlockSize;
+
+//   char* result = alloc_ptr_;
+//   alloc_ptr_ += bytes;
+//   alloc_bytes_remaining_ -= bytes;
+//   return result;
+// }
+
+
+    uint8_t* alloc(uint32_t bytes){
+        const int align = 8;
+        size_t current_mod = reinterpret_cast<uintptr_t>(ptr) & (align - 1);
+        size_t slop = (current_mod == 0 ? 0 : align - current_mod);
+        size_t needed = bytes + slop;
+        uint8_t* result;
+        if (needed <= remaining_bytes) {
+            result = ptr + slop;
+            ptr += needed;
+            remaining_bytes -= needed;
+        } else {
+           // result = AllocateFallback(bytes);
+        }
+        assert((reinterpret_cast<uintptr_t>(result) & (align - 1)) == 0);
+        return result;
+
+    } 
 private:
-
-
+    uint8_t*              ptr = 0;
+    uint32_t              remaining_bytes = 4096;
+    std::vector<uint8_t*> arena_chunks; 
 };
 
 // A message_chunk a single unit of message data container.
@@ -43,6 +105,12 @@ public:
     message_meta(const std::string& data);
     message_meta(const char* data);
     message_meta(const uint8_t* data, uint32_t size);
+    ~message_meta(){
+        if(a) delete a;
+    }
+    void use_arena(){ //for building large messages
+        if(!a) a = new arena();
+    }
     void append(const uint8_t* data, uint32_t size);
     void* alloc(uint32_t size);
     int nr_chunks()const noexcept{
@@ -68,9 +136,11 @@ public:
     }
     void append_to_iovs(std::vector<iovec>& iov)const noexcept;
     void convert_to_iovs(std::vector<iovec>& iov)const noexcept;
-    uint32_t total_size=0;
+    uint32_t    total_size=0;
+    arena*      a=0; 
     std::list<message_chunk> chunks; // vector will cause stupid copy reallocation
 };
+
 
 // Note that message objects can be copied, stored and passed as an integral value, without causing data replication of its underlying message_meta object. 
 // It also ensures even if client mistakenly destroys the message which is taken as recvmsg() function's argument, the function can still function properly without referring to an already destroyed object.
@@ -121,6 +191,7 @@ public:
 private:
     std::shared_ptr<message_meta> meta;
 };
+
 
 
 }

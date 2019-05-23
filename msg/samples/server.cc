@@ -212,7 +212,7 @@ void test_message(){
 }
                            
 int main() {  
-    //recvmulti_server();
+    recvmulti_server();
     while(true){}
     return 0;
 }
