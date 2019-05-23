@@ -134,4 +134,39 @@ resolv_taskpool::~resolv_taskpool() {
     }
 }
 
+status resolv_ipv4_sync(addr& address, const char* host, int port, int ms_timeout){
+    auto t=resolv_taskpool::instance().create_resolv_task(family_v4,port,host,1, 0, 0);
+    if(ms_timeout==0){
+        t->wait();
+        address=t->parsed_address;
+        return status::success();
+    }else{
+        bool rc=t->wait_for(ms_timeout);
+        address=t->parsed_address;
+        if(rc){
+            return status::success();
+        }else{
+            return status::failure("resolv timeout");
+        }
+    }
+}
+
+status resolv_ipv6_sync(addr& address, const char* host, int port, int ms_timeout){
+    auto t=resolv_taskpool::instance().create_resolv_task(family_v6,port,host,1, 0, 0);
+    if(ms_timeout==0){
+        t->wait();
+        address=t->parsed_address;
+        return status::success();
+    }else{
+        bool rc=t->wait_for(ms_timeout);
+        address=t->parsed_address;
+        if(rc){
+            return status::success();
+        }else{
+            return status::failure("resolv timeout");
+        }
+    }
+}
+
+
 }

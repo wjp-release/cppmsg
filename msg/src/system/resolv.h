@@ -39,4 +39,11 @@ private:
     std::shared_ptr<meta> meta_;
 };
 
+
+status resolv_ipv4_sync(addr& address, const char* host, int port, int ms_timeout=0);
+
+status resolv_ipv6_sync(addr& address, const char* host, int port, int ms_timeout=0);
+
+
+
 }

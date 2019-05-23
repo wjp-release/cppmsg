@@ -177,10 +177,11 @@ status basic_connection::recv_multipart_msg(message& msg){
         message& msg; 
         uint8_t* buf;
     public:
-        bool failure=false;
+        bool failure=false; // on_success called, but still is a failure due to illegal msg format
         bulk_read_task(char* buf, message& msg, const connptr& c): 
         oneiov_read_task(buf, 1024*1024, c), msg(msg), buf((uint8_t*)buf){}
         virtual void on_success(int bytes, std::unique_lock<std::mutex>& lk){
+            logdebug("now we recv %d bytes", bytes);
             // parse buf into separate message chunks
             for(const uint8_t* p=buf;p<buf+bytes;){
                 auto size=*reinterpret_cast<const uint64_t*>(p);
@@ -189,8 +190,11 @@ status basic_connection::recv_multipart_msg(message& msg){
                     signal(); //obviously illegal, discard it 
                     return;
                 }
-                msg.append((const uint8_t*)p+8, size);
-                p+=(8+size);
+                p+=8;
+                if(p>=buf+bytes) break;
+                std::cout<<"append chunk "<<std::string((const char*)p, size)<<std::endl;
+                msg.append((const uint8_t*)p, (uint32_t)size);
+                p+=size;
             }
             signal(); 
         }

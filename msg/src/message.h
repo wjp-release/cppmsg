@@ -6,6 +6,9 @@ namespace msg{
 // A message_chunk a single unit of message data container.
 struct message_chunk{
     message_chunk(){}
+    message_chunk(const message_chunk& x){
+
+    }
     // After creating empty chunks, recvmsg will immediately fill it with exact size bytes
     message_chunk(uint32_t size):size(size){
         data=new uint8_t[size];
@@ -15,6 +18,7 @@ struct message_chunk{
         memcpy(data, d, size);
     }
     ~message_chunk(){
+        logdebug("message  chunk released! ~~~~~\n~~~~~\n~~~~!!");
         if(data) delete [] data;
     }
     uint32_t size=0;

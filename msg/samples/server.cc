@@ -23,6 +23,12 @@ using namespace msg;
 
 #define readbuf_size 1024
 
+static std::string star(int n){
+    std::string x="";
+    for(int i=0;i<n;i+=10)x+="*";
+    return x;
+}
+
 void add_timer(){
     reactor::instance().get_timer().please_push([]{
         cout<<"timeout~"<<endl;
@@ -170,9 +176,41 @@ void basic_server_newmsg(){
     }
 }
 
+void recvmulti_server(){
+    reactor::instance().start_eventloop();
+    addr address;
+    auto ss=resolv_ipv4_sync(address, "localhost", 12345, 1000);
+    if(!ss.is_success()){
+        std::cout<<ss.str().c_str()<<std::endl;
+        exit(-1);
+    }
+    std::cout<<"now we have parsed addr"<<std::endl;
+    int listenfd;
+    auto s=bind_listen(address, listenfd);
+    std::cout<<"listen "<<s.str()<<", listenfd="<<listenfd<<std::endl;
+    int connfd;
+    s=sync_accept(listenfd, connfd);
+    std::cout<<"accept "<<s.str()<<", connfd="<<connfd<<std::endl;
+    auto c=basic_connection::make(connfd);
+    for(uint64_t i=0;i<100;i++){
+        message what;
+        std::cout<<"try to recv multi msg"<<i<<std::endl;
+        c->recv_multipart_msg(what);
+        std::cout<<"msg"<<i<<" recved! ";
+        what.print();
+    }
+}
+
                            
 int main() {  
-    basic_server_newmsg();
+    message what;
+    const char* duh="~~basic~~~";
+    for(int i=0;i<1000;i++){
+        std::string tmp=star(i)+duh+std::to_string(i)+"!";
+        what.append((const uint8_t*)tmp.data(), tmp.size());
+    }
+    what.print();
+    //recvmulti_server();
     while(true){}
     return 0;
 }

@@ -25,7 +25,7 @@ std::string message_meta::str()const{
 void message_meta::append(const uint8_t* data, uint32_t size){
     assert(size<=MaxSize);
     total_size+=size;
-    chunks.emplace_back(data,size);
+    chunks.emplace_back(data, size);
 }
 
 void* message_meta::alloc(uint32_t size){
