@@ -61,4 +61,5 @@ using cq=moodycamel::ConcurrentQueue<T>; // todo: use token feature to further s
 }
 
 #define WJP_DEBUG
+#define USE_ARENA
 

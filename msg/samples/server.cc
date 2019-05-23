@@ -201,8 +201,7 @@ void recvmulti_server(){
     }
 }
 
-                           
-int main() {  
+void test_message(){
     message what;
     const char* duh="~~basic~~~";
     for(int i=0;i<1000;i++){
@@ -210,6 +209,9 @@ int main() {
         what.append((const uint8_t*)tmp.data(), tmp.size());
     }
     what.print();
+}
+                           
+int main() {  
     //recvmulti_server();
     while(true){}
     return 0;

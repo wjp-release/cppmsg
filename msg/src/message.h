@@ -3,12 +3,23 @@
 #include "def.h"
 
 namespace msg{ 
+// Arena needed!
+class arena{
+public:
+
+
+private:
+
+
+};
+
 // A message_chunk a single unit of message data container.
 struct message_chunk{
     message_chunk(){}
-    message_chunk(const message_chunk& x){
-
-    }
+    message_chunk& operator=(const message_chunk& x)=delete;
+    message_chunk& operator=(message_chunk&& x)=delete;
+    message_chunk(message_chunk&& x)=delete;
+    message_chunk(const message_chunk& x)=delete;
     // After creating empty chunks, recvmsg will immediately fill it with exact size bytes
     message_chunk(uint32_t size):size(size){
         data=new uint8_t[size];
@@ -18,7 +29,7 @@ struct message_chunk{
         memcpy(data, d, size);
     }
     ~message_chunk(){
-        logdebug("message  chunk released! ~~~~~\n~~~~~\n~~~~!!");
+        logdebug("message chunk released!");
         if(data) delete [] data;
     }
     uint32_t size=0;
@@ -58,7 +69,7 @@ public:
     void append_to_iovs(std::vector<iovec>& iov)const noexcept;
     void convert_to_iovs(std::vector<iovec>& iov)const noexcept;
     uint32_t total_size=0;
-    std::vector<message_chunk> chunks;
+    std::list<message_chunk> chunks; // vector will cause stupid copy reallocation
 };
 
 // Note that message objects can be copied, stored and passed as an integral value, without causing data replication of its underlying message_meta object. 
