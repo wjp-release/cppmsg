@@ -4,14 +4,27 @@
 
 namespace msg{ 
 
-// create large messages from existing freelist 
-class arena_message_freelist{
-
-
-};
-
-
+// Efficient and cache-friendly memory allocation for building very large messages. 
 class arena{
+protected:
+    inline uint32_t align_offset(){
+        uint32_t off = 8-(uint64_t)curpos&7;
+        if(off==8) off = 0;
+        return off;
+    }
+    inline uint32_t remaining_bytes(){
+        return arena_chunk_size-(curpos-curchunk);
+    } 
+    uint8_t* create_chunk(uint32_t bytes){
+        auto c=new uint8_t[bytes];
+        arena_chunks.push_back(c);
+        return c;
+    }
+    uint8_t* alloc_overflow(uint32_t bytes){
+        curchunk=create_chunk(arena_chunk_size);
+        curpos=curchunk+bytes; 
+        return curchunk;
+    }
 public:
     arena(){}
     arena(const arena&) = delete;
@@ -23,57 +36,141 @@ public:
             delete[]c;
         }
     }
-
-//  Arena::AllocateNewBlock(size_t block_bytes) {
-//   char* result = new char[block_bytes];
-//   blocks_.push_back(result);
-//   memory_usage_.fetch_add(block_bytes + sizeof(char*),
-//                           std::memory_order_relaxed);
-//   return result;
-// }
-
-
-// char* Arena::AllocateFallback(size_t bytes) {
-//   if (bytes > kBlockSize / 4) {
-//     // Object is more than a quarter of our block size.  Allocate it separately
-//     // to avoid wasting too much space in leftover bytes.
-//     char* result = AllocateNewBlock(bytes);
-//     return result;
-//   }
-
-//   // We waste the remaining space in the current block.
-//   alloc_ptr_ = AllocateNewBlock(kBlockSize);
-//   alloc_bytes_remaining_ = kBlockSize;
-
-//   char* result = alloc_ptr_;
-//   alloc_ptr_ += bytes;
-//   alloc_bytes_remaining_ -= bytes;
-//   return result;
-// }
-
-
-    uint8_t* alloc(uint32_t bytes){
-        const int align = 8;
-        size_t current_mod = reinterpret_cast<uintptr_t>(ptr) & (align - 1);
-        size_t slop = (current_mod == 0 ? 0 : align - current_mod);
-        size_t needed = bytes + slop;
-        uint8_t* result;
-        if (needed <= remaining_bytes) {
-            result = ptr + slop;
-            ptr += needed;
-            remaining_bytes -= needed;
-        } else {
-           // result = AllocateFallback(bytes);
+    // reset state to newly constructed 
+    void reset(){
+        for(auto i=std::next(arena_chunks.begin());i!=arena_chunks.end();i++){
+            delete [] (*i);
         }
-        assert((reinterpret_cast<uintptr_t>(result) & (align - 1)) == 0);
-        return result;
-
-    } 
+        curchunk=*arena_chunks.begin();
+        curpos=curchunk;
+    }
+    uint8_t* alloc(uint32_t bytes){
+        if(bytes>=arena_chunk_size){
+            return create_chunk(bytes);
+        }
+        uint32_t aligned_bytes=bytes+align_offset();
+        if(aligned_bytes <= remaining_bytes()){
+            curpos += aligned_bytes;
+            return curpos-bytes;
+        }else{
+            return alloc_overflow(bytes);
+        }
+    }
 private:
-    uint8_t*              ptr = 0;
-    uint32_t              remaining_bytes = 4096;
-    std::vector<uint8_t*> arena_chunks; 
+    uint8_t* curpos = 0;
+    uint8_t* curchunk = 0;
+    std::list<uint8_t*> arena_chunks; //overflow list
 };
+
+//Thread-safe arena pool for faster arena acquisition and background arena recycling.
+class arena_pool{
+protected:
+    void claim_memory(int poolsize){
+        std::lock_guard<std::mutex> lk(freemtx);
+        for(int i=0;i<poolsize;i++){
+            freelist.push_back(new arena{});
+        }
+    }
+    void release_memory(){
+        // release unreferred arenas
+        {
+            std::lock_guard<std::mutex> lk(freemtx);
+            for(auto a:freelist) delete a;
+            freelist.clear();
+        }
+        {
+            std::lock_guard<std::mutex> lk(reapmtx);
+            for(auto a:reaplist) delete a;
+            reaplist.clear();
+        }
+    }
+    void recycle(arena* a){
+        a->reset(); // The reaper thread is the sole owner of a when recycle() is called. There is no race condition here.
+        {
+            std::lock_guard<std::mutex> lk(freemtx);
+            freelist.push_back(a);
+        }
+    }
+public:
+    arena_pool(){
+        // A background thread that recycles arenas
+        std::thread([this]{
+            std::unique_lock<std::mutex> lk(reapmtx);
+            while(true){
+                if(reaplist.empty()){
+                    reapcv.wait(lk);
+                }else{
+                    auto a=reaplist.back();
+                    reaplist.pop_back();
+                    lk.unlock(); // now it's possible to insert new reaped arenas
+                    recycle(a); 
+                    lk.lock(); 
+                }
+            }
+        }).detach();
+    }
+    static arena_pool& instance(){
+        static arena_pool pool;
+        return pool;
+    }
+    // Enabling arena pooling consumes 4MB memory.
+    void enable(int poolsize=arena_pool_size){
+        std::lock_guard<std::mutex> lk(enabledmtx);
+        if(enabled) return;
+        enabled=true;
+        claim_memory(poolsize);
+    }
+    // Disabling arena pooling releases 4MB memory. 
+    void disable(){
+        std::lock_guard<std::mutex> lk(enabledmtx);
+        if(!enabled) return;
+        enabled=false;
+        release_memory();
+    }
+    bool exists_free_arena(){
+        std::lock_guard<std::mutex> lk(freemtx);
+        return !freelist.empty(); 
+    }
+    // Note that ref() still works even if pooling disabled.
+    arena* ref(){
+        arena* a;
+        {
+            std::lock_guard<std::mutex> lk(freemtx);
+            if(!freelist.empty()){
+                a=freelist.back();
+                freelist.pop_back();
+            }else{
+                auto a=new arena(); 
+            }
+        }
+        return a;
+    }
+    // Note that deref() does not recycle arenas if pooling disabled. 
+    void deref(arena* a){
+        {
+            std::lock_guard<std::mutex> lk(enabledmtx);
+            if(!enabled){
+                delete a;
+                return;
+            }
+        }
+        {
+            std::lock_guard<std::mutex> lk(reapmtx);
+            reaplist.push_back(a);    
+        }
+        reapcv.notify_all();
+    }
+private:
+    mutable std::mutex enabledmtx;
+    bool              enabled=false;
+    mutable std::mutex freemtx;
+    std::list<arena*> freelist;
+    mutable std::mutex reapmtx;
+    mutable std::condition_variable reapcv;
+    std::list<arena*> reaplist; 
+};
+
+
 
 // A message_chunk a single unit of message data container.
 struct message_chunk{
@@ -106,10 +203,10 @@ public:
     message_meta(const char* data);
     message_meta(const uint8_t* data, uint32_t size);
     ~message_meta(){
-        if(a) delete a;
+        if(a) arena_pool::instance().deref(a);
     }
     void use_arena(){ //for building large messages
-        if(!a) a = new arena();
+        if(!a) a = arena_pool::instance().ref();
     }
     void append(const uint8_t* data, uint32_t size);
     void* alloc(uint32_t size);
@@ -146,8 +243,17 @@ public:
 // It also ensures even if client mistakenly destroys the message which is taken as recvmsg() function's argument, the function can still function properly without referring to an already destroyed object.
 class message{
 public:
+    // Create messages for recvmsg() via this method.
+    static message create_message_for_recv(int expected_size=0){
+        message msg;
+        if(expected_size>=large_message_size){
+            msg.use_arena();
+        }
+        return msg;
+    }
     static const int MaxSize=message_meta::MaxSize; //64MB
     message():meta(std::make_shared<message_meta>()){}
+    // Create messages to send directly by calling constructors
     message(const std::string& data):meta(std::make_shared<message_meta>(data)){}
     message(const char* data):meta(std::make_shared<message_meta>(data)){}
     message(const uint8_t* data, uint32_t size):meta(std::make_shared<message_meta>(data,size)){}
@@ -158,6 +264,9 @@ public:
     message& operator=(const message&) noexcept;
     bool operator==(const message& other) const noexcept;
     bool operator!=(const message& other) const noexcept;
+    void use_arena(){ //for building large messages
+        meta->use_arena();
+    }
     void append(const uint8_t* data, uint32_t size){
         meta->append(data,size);
     }

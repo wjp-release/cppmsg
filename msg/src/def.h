@@ -35,8 +35,10 @@
 // msg:: definitions
 namespace msg{
 
-// 256*4KB = 1MB 
-const static int msg_freelist_size = 256;
+// 1024*4KB = 4MB 
+const static int arena_pool_size = 256;
+const static int arena_chunk_size = 4096;
+const static int large_message_size = 2048;
 
 // The send/recv retry backoff time can increases to at most 5 seconds
 const static int backoff_max=5120; //ms
