@@ -193,7 +193,7 @@ void recvmulti_server(){
     std::cout<<"accept "<<s.str()<<", connfd="<<connfd<<std::endl;
     auto c=basic_connection::make(connfd);
     for(uint64_t i=0;i<100;i++){
-        message what;
+        message what=message::create_message_for_recv(100);
         std::cout<<"try to recv multi msg"<<i<<std::endl;
         c->recv_multipart_msg(what);
         std::cout<<"msg"<<i<<" recved! ";
@@ -210,7 +210,17 @@ void test_message(){
     }
     what.print();
 }
-                           
+
+void arena_test(){
+    message x = message::create_message_for_recv(100);
+    logdebug("message x created, expected size=100");
+    for(int i=0;i<1000;i++){
+        std::string tmp="arena message "+star(rand()%1000)+std::to_string(i)+"!";
+        x.append((const uint8_t*)tmp.data(), tmp.size());
+    }
+//    x.print();
+}   
+
 int main() {  
     recvmulti_server();
     while(true){}

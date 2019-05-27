@@ -27,19 +27,19 @@ static status set_keepalive(int fd, int keepalive){
 }
 
 status pipe::enable_nagle(){
-    set_nodelay(e->fd, 0);
+    return set_nodelay(e->fd, 0);
 }
 
 status pipe::disable_nagle(){
-    set_nodelay(e->fd, 1); 
+    return set_nodelay(e->fd, 1); 
 }
 
 status pipe::enable_keepalive(){
-    set_keepalive(e->fd, 1);
+    return set_keepalive(e->fd, 1);
 }
 
 status pipe::disable_keepalive(){
-    set_keepalive(e->fd, 0);
+    return set_keepalive(e->fd, 0);
 }
 
 pipe::pipe(int fd){

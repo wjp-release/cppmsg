@@ -3,14 +3,24 @@
 namespace msg{
 
 message_meta::message_meta(const std::string& data){
+    if(data.size()>large_message_size){
+        use_arena();
+    } 
     append((const uint8_t*)data.data(), data.size());
 }
 
 message_meta::message_meta(const char* data){
-    append((const uint8_t*)data, strlen(data));
+    uint32_t datalen=strlen(data);
+    if(datalen>large_message_size){
+        use_arena();
+    } 
+    append((const uint8_t*)data, datalen);
 }
 
 message_meta::message_meta(const uint8_t* data, uint32_t size){
+    if(size>large_message_size){
+        use_arena();
+    } 
     append(data, size); 
 }
 
@@ -25,13 +35,13 @@ std::string message_meta::str()const{
 void message_meta::append(const uint8_t* data, uint32_t size){
     assert(size<=MaxSize);
     total_size+=size;
-    chunks.emplace_back(data, size);
+    chunks.emplace_back(data, size, a);
 }
 
 void* message_meta::alloc(uint32_t size){
     assert(size<=MaxSize);
     total_size+=size;
-    chunks.emplace_back(size);
+    chunks.emplace_back(size, a);
     return reinterpret_cast<void*>(chunks.back().data);
 }
 

@@ -1,14 +1,16 @@
 #pragma once
 
 #include "def.h"
+#include <condition_variable>
 
 namespace msg{ 
 
 // Efficient and cache-friendly memory allocation for building very large messages. 
 class arena{
 protected:
+    //According to my experiment, pointers that needs alignment is around 13% of all pointers. 
     inline uint32_t align_offset(){
-        uint32_t off = 8-(uint64_t)curpos&7;
+        uint32_t off = 8-(((uint64_t)curpos)&7);
         if(off==8) off = 0;
         return off;
     }
@@ -26,7 +28,10 @@ protected:
         return curchunk;
     }
 public:
-    arena(){}
+    arena(){
+        curchunk=create_chunk(arena_chunk_size);
+        curpos=curchunk;
+    }
     arena(const arena&) = delete;
     arena& operator=(const arena&) = delete;
     arena(arena&&) = delete;
@@ -140,7 +145,7 @@ public:
                 a=freelist.back();
                 freelist.pop_back();
             }else{
-                auto a=new arena(); 
+                a=new arena(); 
             }
         }
         return a;
@@ -171,7 +176,6 @@ private:
 };
 
 
-
 // A message_chunk a single unit of message data container.
 struct message_chunk{
     message_chunk(){}
@@ -180,16 +184,17 @@ struct message_chunk{
     message_chunk(message_chunk&& x)=delete;
     message_chunk(const message_chunk& x)=delete;
     // After creating empty chunks, recvmsg will immediately fill it with exact size bytes
-    message_chunk(uint32_t size):size(size){
-        data=new uint8_t[size];
+    message_chunk(uint32_t size, arena* a):size(size){
+        if(a) data=a->alloc(size);
+        else data=new uint8_t[size];
     }
-    message_chunk(const uint8_t* d, uint32_t size):size(size){
-        data=new uint8_t[size];
+    message_chunk(const uint8_t* d, uint32_t size, arena* a):size(size){
+        if(a) data=a->alloc(size);
+        else data=new uint8_t[size];
         memcpy(data, d, size);
     }
-    ~message_chunk(){
-        logdebug("message chunk released!");
-        if(data) delete [] data;
+    ~message_chunk(){ 
+        //logdebug("message chunk released!");
     }
     uint32_t size=0;
     uint8_t* data=nullptr;
@@ -203,7 +208,13 @@ public:
     message_meta(const char* data);
     message_meta(const uint8_t* data, uint32_t size);
     ~message_meta(){
-        if(a) arena_pool::instance().deref(a);
+        if(a){ // deref arena for large messages
+            arena_pool::instance().deref(a);
+        }else{ // free data one by one for small ones
+            for(auto& c : chunks){
+                delete [] c.data;
+            }
+        }
     }
     void use_arena(){ //for building large messages
         if(!a) a = arena_pool::instance().ref();
@@ -239,7 +250,7 @@ public:
 };
 
 
-// Note that message objects can be copied, stored and passed as an integral value, without causing data replication of its underlying message_meta object. 
+// Note that message objects can be copied, stored and passed as an integral value, without causing replication of its underlying message_meta object. 
 // It also ensures even if client mistakenly destroys the message which is taken as recvmsg() function's argument, the function can still function properly without referring to an already destroyed object.
 class message{
 public:
