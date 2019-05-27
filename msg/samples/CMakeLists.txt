@@ -12,3 +12,6 @@ target_link_libraries(perfcli msg)
 
 add_executable(perfsvr perfsvr.cc)
 target_link_libraries(perfsvr msg)
+
+add_executable(arenaperf arenaperf.cc)
+target_link_libraries(arenaperf msg)

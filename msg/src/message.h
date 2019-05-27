@@ -98,6 +98,7 @@ protected:
     }
 public:
     arena_pool(){
+        claim_memory(arena_pool_size);
         // A background thread that recycles arenas
         std::thread([this]{
             std::unique_lock<std::mutex> lk(reapmtx);
@@ -209,7 +210,11 @@ public:
     message_meta(const uint8_t* data, uint32_t size);
     ~message_meta(){
         if(a){ // deref arena for large messages
+            #ifdef ENABLE_ARENA_POOLING
             arena_pool::instance().deref(a);
+            #else
+            //delete a;
+            #endif
         }else{ // free data one by one for small ones
             for(auto& c : chunks){
                 delete [] c.data;
@@ -217,7 +222,11 @@ public:
         }
     }
     void use_arena(){ //for building large messages
+        #ifdef ENABLE_ARENA_POOLING
         if(!a) a = arena_pool::instance().ref();
+        #else
+        if(!a) a = new arena();
+        #endif
     }
     void append(const uint8_t* data, uint32_t size);
     void* alloc(uint32_t size);
@@ -241,6 +250,7 @@ public:
     void clear(){
         total_size=0;
         chunks.clear();
+        a->reset();
     }
     void append_to_iovs(std::vector<iovec>& iov)const noexcept;
     void convert_to_iovs(std::vector<iovec>& iov)const noexcept;

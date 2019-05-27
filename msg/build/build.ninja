@@ -12,7 +12,7 @@
 
 # =============================================================================
 # Project: msg
-# Configuration: Release
+# Configuration: Debug
 # =============================================================================
 
 #############################################
@@ -73,169 +73,169 @@ build src/rebuild_cache: phony src/CMakeFiles/rebuild_cache.util
 build cmake_object_order_depends_target_msg: phony
 build src/CMakeFiles/msg.dir/message.cc.o: CXX_COMPILER__msg ../src/message.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/message.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir
 build src/CMakeFiles/msg.dir/channel/ack_connection.cc.o: CXX_COMPILER__msg ../src/channel/ack_connection.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/channel/ack_connection.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
 build src/CMakeFiles/msg.dir/channel/basic_connection.cc.o: CXX_COMPILER__msg ../src/channel/basic_connection.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/channel/basic_connection.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
 build src/CMakeFiles/msg.dir/channel/checksum_connection.cc.o: CXX_COMPILER__msg ../src/channel/checksum_connection.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/channel/checksum_connection.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
 build src/CMakeFiles/msg.dir/channel/connection.cc.o: CXX_COMPILER__msg ../src/channel/connection.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/channel/connection.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
 build src/CMakeFiles/msg.dir/channel/healthcheck_connection.cc.o: CXX_COMPILER__msg ../src/channel/healthcheck_connection.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/channel/healthcheck_connection.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
 build src/CMakeFiles/msg.dir/channel/iotask.cc.o: CXX_COMPILER__msg ../src/channel/iotask.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/channel/iotask.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
 build src/CMakeFiles/msg.dir/channel/pingpong_connection.cc.o: CXX_COMPILER__msg ../src/channel/pingpong_connection.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/channel/pingpong_connection.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
 build src/CMakeFiles/msg.dir/channel/pipe.cc.o: CXX_COMPILER__msg ../src/channel/pipe.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/channel/pipe.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
 build src/CMakeFiles/msg.dir/connector/connect_task.cc.o: CXX_COMPILER__msg ../src/connector/connect_task.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/connector/connect_task.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/connector
 build src/CMakeFiles/msg.dir/connector/connector.cc.o: CXX_COMPILER__msg ../src/connector/connector.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/connector/connector.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/connector
 build src/CMakeFiles/msg.dir/connector/reconnector.cc.o: CXX_COMPILER__msg ../src/connector/reconnector.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/connector/reconnector.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/connector
 build src/CMakeFiles/msg.dir/listener/listener.cc.o: CXX_COMPILER__msg ../src/listener/listener.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/listener/listener.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/listener
 build src/CMakeFiles/msg.dir/system/addr.cc.o: CXX_COMPILER__msg ../src/system/addr.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/system/addr.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/system
 build src/CMakeFiles/msg.dir/system/event.cc.o: CXX_COMPILER__msg ../src/system/event.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/system/event.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/system
 build src/CMakeFiles/msg.dir/system/fd.cc.o: CXX_COMPILER__msg ../src/system/fd.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/system/fd.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/system
 build src/CMakeFiles/msg.dir/system/reactor.cc.o: CXX_COMPILER__msg ../src/system/reactor.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/system/reactor.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/system
 build src/CMakeFiles/msg.dir/system/resolv.cc.o: CXX_COMPILER__msg ../src/system/resolv.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/system/resolv.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/system
 build src/CMakeFiles/msg.dir/system/timer.cc.o: CXX_COMPILER__msg ../src/system/timer.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/system/timer.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/system
 build src/CMakeFiles/msg.dir/common/clock.cc.o: CXX_COMPILER__msg ../src/common/clock.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/common/clock.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/common
 build src/CMakeFiles/msg.dir/common/log.cc.o: CXX_COMPILER__msg ../src/common/log.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/common/log.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/common
 build src/CMakeFiles/msg.dir/common/status.cc.o: CXX_COMPILER__msg ../src/common/status.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/common/status.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/common
 build src/CMakeFiles/msg.dir/common/taskpool.cc.o: CXX_COMPILER__msg ../src/common/taskpool.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/common/taskpool.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/common
 build src/CMakeFiles/msg.dir/session/client_session.cc.o: CXX_COMPILER__msg ../src/session/client_session.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/session/client_session.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/session
 build src/CMakeFiles/msg.dir/session/logical_session.cc.o: CXX_COMPILER__msg ../src/session/logical_session.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/session/logical_session.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/session
 build src/CMakeFiles/msg.dir/session/session.cc.o: CXX_COMPILER__msg ../src/session/session.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/session/session.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/session
 build src/CMakeFiles/msg.dir/session/stateful_server_session.cc.o: CXX_COMPILER__msg ../src/session/stateful_server_session.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/session/stateful_server_session.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/session
 build src/CMakeFiles/msg.dir/session/stateless_server_session.cc.o: CXX_COMPILER__msg ../src/session/stateless_server_session.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/session/stateless_server_session.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/session
@@ -248,7 +248,7 @@ build src/CMakeFiles/msg.dir/session/stateless_server_session.cc.o: CXX_COMPILER
 # Link the static library src/libmsg.a
 
 build src/libmsg.a: CXX_STATIC_LIBRARY_LINKER__msg src/CMakeFiles/msg.dir/message.cc.o src/CMakeFiles/msg.dir/channel/ack_connection.cc.o src/CMakeFiles/msg.dir/channel/basic_connection.cc.o src/CMakeFiles/msg.dir/channel/checksum_connection.cc.o src/CMakeFiles/msg.dir/channel/connection.cc.o src/CMakeFiles/msg.dir/channel/healthcheck_connection.cc.o src/CMakeFiles/msg.dir/channel/iotask.cc.o src/CMakeFiles/msg.dir/channel/pingpong_connection.cc.o src/CMakeFiles/msg.dir/channel/pipe.cc.o src/CMakeFiles/msg.dir/connector/connect_task.cc.o src/CMakeFiles/msg.dir/connector/connector.cc.o src/CMakeFiles/msg.dir/connector/reconnector.cc.o src/CMakeFiles/msg.dir/listener/listener.cc.o src/CMakeFiles/msg.dir/system/addr.cc.o src/CMakeFiles/msg.dir/system/event.cc.o src/CMakeFiles/msg.dir/system/fd.cc.o src/CMakeFiles/msg.dir/system/reactor.cc.o src/CMakeFiles/msg.dir/system/resolv.cc.o src/CMakeFiles/msg.dir/system/timer.cc.o src/CMakeFiles/msg.dir/common/clock.cc.o src/CMakeFiles/msg.dir/common/log.cc.o src/CMakeFiles/msg.dir/common/status.cc.o src/CMakeFiles/msg.dir/common/taskpool.cc.o src/CMakeFiles/msg.dir/session/client_session.cc.o src/CMakeFiles/msg.dir/session/logical_session.cc.o src/CMakeFiles/msg.dir/session/session.cc.o src/CMakeFiles/msg.dir/session/stateful_server_session.cc.o src/CMakeFiles/msg.dir/session/stateless_server_session.cc.o
-  LANGUAGE_COMPILE_FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall
+  LANGUAGE_COMPILE_FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2
   OBJECT_DIR = src/CMakeFiles/msg.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -288,7 +288,7 @@ build samples/rebuild_cache: phony samples/CMakeFiles/rebuild_cache.util
 build cmake_object_order_depends_target_server: phony || cmake_object_order_depends_target_msg
 build samples/CMakeFiles/server.dir/server.cc.o: CXX_COMPILER__server ../samples/server.cc || cmake_object_order_depends_target_server
   DEP_FILE = samples/CMakeFiles/server.dir/server.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = samples/CMakeFiles/server.dir
   OBJECT_FILE_DIR = samples/CMakeFiles/server.dir
@@ -301,7 +301,7 @@ build samples/CMakeFiles/server.dir/server.cc.o: CXX_COMPILER__server ../samples
 # Link the executable samples/server
 
 build samples/server: CXX_EXECUTABLE_LINKER__server samples/CMakeFiles/server.dir/server.cc.o | src/libmsg.a || src/libmsg.a
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2
   LINK_LIBRARIES = -Wl,-rpath,/mnt/d/wjp/cppmsg/msg/./src src/libmsg.a -lpthread
   LINK_PATH = -L/mnt/d/wjp/cppmsg/msg/./src
   OBJECT_DIR = samples/CMakeFiles/server.dir
@@ -319,7 +319,7 @@ build samples/server: CXX_EXECUTABLE_LINKER__server samples/CMakeFiles/server.di
 build cmake_object_order_depends_target_basic: phony || cmake_object_order_depends_target_msg
 build samples/CMakeFiles/basic.dir/basic.cc.o: CXX_COMPILER__basic ../samples/basic.cc || cmake_object_order_depends_target_basic
   DEP_FILE = samples/CMakeFiles/basic.dir/basic.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = samples/CMakeFiles/basic.dir
   OBJECT_FILE_DIR = samples/CMakeFiles/basic.dir
@@ -332,7 +332,7 @@ build samples/CMakeFiles/basic.dir/basic.cc.o: CXX_COMPILER__basic ../samples/ba
 # Link the executable samples/basic
 
 build samples/basic: CXX_EXECUTABLE_LINKER__basic samples/CMakeFiles/basic.dir/basic.cc.o | src/libmsg.a || src/libmsg.a
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2
   LINK_LIBRARIES = -Wl,-rpath,/mnt/d/wjp/cppmsg/msg/./src src/libmsg.a -lpthread
   LINK_PATH = -L/mnt/d/wjp/cppmsg/msg/./src
   OBJECT_DIR = samples/CMakeFiles/basic.dir
@@ -350,7 +350,7 @@ build samples/basic: CXX_EXECUTABLE_LINKER__basic samples/CMakeFiles/basic.dir/b
 build cmake_object_order_depends_target_client: phony || cmake_object_order_depends_target_msg
 build samples/CMakeFiles/client.dir/client.cc.o: CXX_COMPILER__client ../samples/client.cc || cmake_object_order_depends_target_client
   DEP_FILE = samples/CMakeFiles/client.dir/client.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = samples/CMakeFiles/client.dir
   OBJECT_FILE_DIR = samples/CMakeFiles/client.dir
@@ -363,7 +363,7 @@ build samples/CMakeFiles/client.dir/client.cc.o: CXX_COMPILER__client ../samples
 # Link the executable samples/client
 
 build samples/client: CXX_EXECUTABLE_LINKER__client samples/CMakeFiles/client.dir/client.cc.o | src/libmsg.a || src/libmsg.a
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2
   LINK_LIBRARIES = -Wl,-rpath,/mnt/d/wjp/cppmsg/msg/./src src/libmsg.a -lpthread
   LINK_PATH = -L/mnt/d/wjp/cppmsg/msg/./src
   OBJECT_DIR = samples/CMakeFiles/client.dir
@@ -390,7 +390,7 @@ build samples/edit_cache: phony samples/CMakeFiles/edit_cache.util
 build cmake_object_order_depends_target_perfcli: phony || cmake_object_order_depends_target_msg
 build samples/CMakeFiles/perfcli.dir/perfcli.cc.o: CXX_COMPILER__perfcli ../samples/perfcli.cc || cmake_object_order_depends_target_perfcli
   DEP_FILE = samples/CMakeFiles/perfcli.dir/perfcli.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = samples/CMakeFiles/perfcli.dir
   OBJECT_FILE_DIR = samples/CMakeFiles/perfcli.dir
@@ -403,7 +403,7 @@ build samples/CMakeFiles/perfcli.dir/perfcli.cc.o: CXX_COMPILER__perfcli ../samp
 # Link the executable samples/perfcli
 
 build samples/perfcli: CXX_EXECUTABLE_LINKER__perfcli samples/CMakeFiles/perfcli.dir/perfcli.cc.o | src/libmsg.a || src/libmsg.a
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2
   LINK_LIBRARIES = -Wl,-rpath,/mnt/d/wjp/cppmsg/msg/./src src/libmsg.a -lpthread
   LINK_PATH = -L/mnt/d/wjp/cppmsg/msg/./src
   OBJECT_DIR = samples/CMakeFiles/perfcli.dir
@@ -411,6 +411,37 @@ build samples/perfcli: CXX_EXECUTABLE_LINKER__perfcli samples/CMakeFiles/perfcli
   PRE_LINK = :
   TARGET_FILE = samples/perfcli
   TARGET_PDB = perfcli.dbg
+# =============================================================================
+# Object build statements for EXECUTABLE target arenaperf
+
+
+#############################################
+# Order-only phony target for arenaperf
+
+build cmake_object_order_depends_target_arenaperf: phony || cmake_object_order_depends_target_msg
+build samples/CMakeFiles/arenaperf.dir/arenaperf.cc.o: CXX_COMPILER__arenaperf ../samples/arenaperf.cc || cmake_object_order_depends_target_arenaperf
+  DEP_FILE = samples/CMakeFiles/arenaperf.dir/arenaperf.cc.o.d
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
+  INCLUDES = -I.././src
+  OBJECT_DIR = samples/CMakeFiles/arenaperf.dir
+  OBJECT_FILE_DIR = samples/CMakeFiles/arenaperf.dir
+
+# =============================================================================
+# Link build statements for EXECUTABLE target arenaperf
+
+
+#############################################
+# Link the executable samples/arenaperf
+
+build samples/arenaperf: CXX_EXECUTABLE_LINKER__arenaperf samples/CMakeFiles/arenaperf.dir/arenaperf.cc.o | src/libmsg.a || src/libmsg.a
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2
+  LINK_LIBRARIES = -Wl,-rpath,/mnt/d/wjp/cppmsg/msg/./src src/libmsg.a -lpthread
+  LINK_PATH = -L/mnt/d/wjp/cppmsg/msg/./src
+  OBJECT_DIR = samples/CMakeFiles/arenaperf.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = samples/arenaperf
+  TARGET_PDB = arenaperf.dbg
 # =============================================================================
 # Object build statements for EXECUTABLE target perfsvr
 
@@ -421,7 +452,7 @@ build samples/perfcli: CXX_EXECUTABLE_LINKER__perfcli samples/CMakeFiles/perfcli
 build cmake_object_order_depends_target_perfsvr: phony || cmake_object_order_depends_target_msg
 build samples/CMakeFiles/perfsvr.dir/perfsvr.cc.o: CXX_COMPILER__perfsvr ../samples/perfsvr.cc || cmake_object_order_depends_target_perfsvr
   DEP_FILE = samples/CMakeFiles/perfsvr.dir/perfsvr.cc.o.d
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = samples/CMakeFiles/perfsvr.dir
   OBJECT_FILE_DIR = samples/CMakeFiles/perfsvr.dir
@@ -434,7 +465,7 @@ build samples/CMakeFiles/perfsvr.dir/perfsvr.cc.o: CXX_COMPILER__perfsvr ../samp
 # Link the executable samples/perfsvr
 
 build samples/perfsvr: CXX_EXECUTABLE_LINKER__perfsvr samples/CMakeFiles/perfsvr.dir/perfsvr.cc.o | src/libmsg.a || src/libmsg.a
-  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall
+  FLAGS = -std=c++14 -fPIC -Wno-reorder  -O0 -Wall -g2
   LINK_LIBRARIES = -Wl,-rpath,/mnt/d/wjp/cppmsg/msg/./src src/libmsg.a -lpthread
   LINK_PATH = -L/mnt/d/wjp/cppmsg/msg/./src
   OBJECT_DIR = samples/CMakeFiles/perfsvr.dir
@@ -445,6 +476,7 @@ build samples/perfsvr: CXX_EXECUTABLE_LINKER__perfsvr samples/CMakeFiles/perfsvr
 # =============================================================================
 # Target aliases.
 
+build arenaperf: phony samples/arenaperf
 build basic: phony samples/basic
 build client: phony samples/client
 build libmsg.a: phony src/libmsg.a
@@ -461,7 +493,7 @@ build server: phony samples/server
 #############################################
 # Folder: /mnt/d/wjp/cppmsg/msg/build/samples
 
-build  samples/all: phony server basic client perfcli perfsvr
+build  samples/all: phony server basic client perfcli arenaperf perfsvr
 # =============================================================================
 
 #############################################
@@ -475,7 +507,7 @@ build  src/all: phony msg
 #############################################
 # The main all target.
 
-build all: phony src/libmsg.a samples/server samples/basic samples/client samples/perfcli samples/perfsvr
+build all: phony src/libmsg.a samples/server samples/basic samples/client samples/perfcli samples/arenaperf samples/perfsvr
 
 #############################################
 # Make the all target the default.

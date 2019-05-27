@@ -31,6 +31,7 @@
 // compilation options for reliablility test
 #define ENABLE_CHAOS_MONKEY_TEST // change successful results to random failures randomly
 #define ENABLE_ADVERSARY_TEST // change successful results to a certain failure deterministicly
+// #define ENABLE_ARENA_POOLING
 
 // msg:: definitions
 namespace msg{
@@ -38,7 +39,7 @@ namespace msg{
 // 1024*4KB = 4MB 
 const static int arena_pool_size = 256;
 const static int arena_chunk_size = 4096;
-const static int large_message_size = 0; 
+const static int large_message_size = 8000; 
 
 // The send/recv retry backoff time can increases to at most 5 seconds
 const static int backoff_max=5120; //ms
