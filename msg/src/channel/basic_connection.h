@@ -44,7 +44,7 @@ public:
     // We do not support recvmsg_async for good reason. In order to create recvhdr_task and recvbody_task one by one we have to keep track of every async recvmsg operations, which makes the connection fatter than it should be. Furthermore, it doesn't make too much sense to recv sequential messages asynchronously.
 
     // However we do support recv multipart msg though, since it is more efficient to read as much as we can in one recvbody_task.
-    virtual status    recv_multipart_msg(message& msg);
+    virtual status    recv_multipart_msg(message& msg, bool reuse_msg=false);
 
     uint64_t          hdr(){
         return *reinterpret_cast<uint64_t*>(hdrbuf);

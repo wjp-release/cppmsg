@@ -15,14 +15,6 @@
 using namespace std;
 using namespace msg;
 
-/*
-    Batch send & recv: 
-    We will repeatedly create and free large messages to simulate batch data transmission.
-
-    Many send & multipart recv : 
-    We will append many small message parts to build large messages to simulate large numbers of small messages.
-*/
-//12KB 
 static uint8_t tmpbuf[12345]; 
 
 static void init_tmpbuf(){
@@ -36,37 +28,47 @@ static void init_tmpbuf(){
 
 static const char* hello="hello";
 
+#define nr_msg_parts 500000
+#define nr_forge 30
+
 static void new_forge(){
-    auto start = now();
-    for(int i=0;i<30;i++){
+    double avgtime=0;
+    int nr=nr_forge;
+    for(int i=0;i<nr;i++){
+        auto startx = now();
         message x; 
-        for(int i=0;i<100000;i++){
+        for(int i=0;i<nr_msg_parts;i++){
             x.append((const uint8_t*)hello, 5);
         }
+        auto e=ms_elapsed(startx);
+        logdebug("new_forge takes once %f ms", e);
+        avgtime+=e;
     }
-    auto elapsed=ms_elapsed(start);
-    logdebug("new_forge takes %d ms", elapsed);
+    avgtime/=nr;
+    logdebug("new_forge takes %f ms in avg", avgtime);
 }   
 
 static void arena_forge(){
-    arena_pool::instance(); // init pool
-    auto start = now();
-    for(int i=0;i<30;i++){
-        message x = message::create_message_for_recv(50000);
-        for(int i=0;i<100000;i++){
+    // arena_pool::instance(); // init pool
+    double avgtime=0;
+    int nr=nr_forge;
+    for(int i=0;i<nr;i++){
+        auto startx = now();
+        message x = message::create_message_for_recv(nr_msg_parts);
+        for(int i=0;i<nr_msg_parts;i++){
             x.append((const uint8_t*)hello, 5);
         }
+        avgtime+=ms_elapsed(startx);
     }
-    auto elapsed=ms_elapsed(start);
-    logdebug("arena_forge takes %d ms", elapsed);
+    avgtime/=nr;
+    logdebug("new_forge takes %f ms in avg", avgtime);
 }   
 
-// 169 ms
 static void new_forge_once(){
     auto start = now();
 {
     message x; 
-    for(int i=0;i<500000;i++){
+    for(int i=0;i<nr_msg_parts;i++){
         x.append((const uint8_t*)hello, 5);
     }
 }
@@ -74,13 +76,12 @@ static void new_forge_once(){
     logdebug("new_forge takes %d ms", elapsed);
 }   
 
-// 169ms --> 64 ms; significant improvement for recv large number of small messages
 static void arena_forge_once(){
-    arena_pool::instance(); // init pool
+    //arena_pool::instance(); // init pool
     auto start = now();
 {
-    message x = message::create_message_for_recv(50000);
-    for(int i=0;i<500000;i++){
+    message x = message::create_message_for_recv(nr_msg_parts);
+    for(int i=0;i<nr_msg_parts;i++){
         x.append((const uint8_t*)hello, 5);
     }
 }
@@ -88,9 +89,27 @@ static void arena_forge_once(){
     logdebug("arena_forge takes %d ms", elapsed);
 }   
 
+#ifdef ENABLE_ARENA
+static void try_alloc(){
+    arena* a=new arena();
+    auto start=now_spec();
+    for(int i=0;i<100;i++) auto x=a->alloc(1024);
+    auto diff=ns_elapsed(start);
+    std::cout<<"try alloc "<<diff.first<<"s "<<diff.second<<"ns elapsed!"<<std::endl;
+}
+static void try_new(){
+    arena* a=new arena();
+    auto start=now_spec();
+    for(int i=0;i<100;i++) auto x=new uint8_t[1024];
+    auto diff=ns_elapsed(start);
+    std::cout<<"try new "<<diff.first<<"s "<<diff.second<<"ns elapsed!"<<std::endl;
+}
+#endif
+
+// Conclusion: arena cannot outperform modern new/malloc by large margin, at least for single-threaded programs. 
+
 int main() {  
-    new_forge();
-    arena_forge();
+    // 
     while(true){}
     return 0;
 }

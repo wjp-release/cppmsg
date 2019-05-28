@@ -170,7 +170,7 @@ status basic_connection::recvmsg(message& msg){
 
 
 // read all pending data in one readv syscall
-status basic_connection::recv_multipart_msg(message& msg){
+status basic_connection::recv_multipart_msg(message& msg, bool reuse_msg){
     char recvbuf[1024*1024]; // 1MB > 256KB buffer, won't overflow
     class bulk_read_task : public oneiov_read_task, public blockable{
     private:
@@ -209,7 +209,7 @@ status basic_connection::recv_multipart_msg(message& msg){
     };
     // Try to drain recv buffer!
     try{
-        if(!msg.empty()){msg.clear();}
+        if(!reuse_msg &&!msg.empty()){msg.clear();}
         std::weak_ptr<basic_connection> cptr=shared_from_this();
         auto task=std::make_shared<bulk_read_task>(recvbuf, msg, cptr);
         c->add_read(task);
@@ -234,6 +234,7 @@ status basic_connection::recv_multipart_msg(message& msg){
         return status::fault("unknown exception");
     }
 }
+
 
 
 

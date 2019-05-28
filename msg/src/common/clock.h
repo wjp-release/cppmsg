@@ -6,6 +6,11 @@
 
 namespace msg{
 
+// nanosec measurement
+struct timespec now_spec();
+std::pair<uint32_t,uint32_t> ns_elapsed(timespec& start);
+
+
 struct timespec parse_ms(int ms);
 uint64_t        now();
 uint64_t        now_depreciated();

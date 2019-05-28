@@ -19,6 +19,20 @@ uint64_t now(){
     return 1000*spec.tv_sec+ round(spec.tv_nsec / 1.0e6);
 }
 
+struct timespec now_spec(){
+    struct timespec spec;
+    clock_gettime(CLOCK_MONOTONIC, &spec);
+    return spec;
+}
+
+std::pair<uint32_t,uint32_t> ns_elapsed(timespec& start){
+    struct timespec spec;
+    clock_gettime(CLOCK_MONOTONIC, &spec);
+    uint32_t sdiff=spec.tv_sec-start.tv_sec;
+    uint32_t nsdiff=spec.tv_nsec-start.tv_nsec;
+    return std::make_pair(sdiff,nsdiff);
+}
+
 // In the current version of POSIX, gettimeofday is marked obsolete. 
 uint64_t now_depreciated(){
     struct timeval tv;

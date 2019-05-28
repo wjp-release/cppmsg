@@ -32,6 +32,7 @@
 #define ENABLE_CHAOS_MONKEY_TEST // change successful results to random failures randomly
 #define ENABLE_ADVERSARY_TEST // change successful results to a certain failure deterministicly
 // #define ENABLE_ARENA_POOLING
+// #define ENABLE_ARENA
 
 // msg:: definitions
 namespace msg{
