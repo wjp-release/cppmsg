@@ -181,7 +181,7 @@ status basic_connection::recv_multipart_msg(message& msg, bool reuse_msg){
         bulk_read_task(char* buf, message& msg, const connptr& c): 
         oneiov_read_task(buf, 1024*1024, c), msg(msg), buf((uint8_t*)buf){}
         virtual void on_success(int bytes, std::unique_lock<std::mutex>& lk){
-            logdebug("now we recv %d bytes", bytes);
+            //logdebug("now we recv %d bytes", bytes);
             // parse buf into separate message chunks
             for(const uint8_t* p=buf;p<buf+bytes;){
                 auto size=*reinterpret_cast<const uint64_t*>(p);
@@ -192,7 +192,7 @@ status basic_connection::recv_multipart_msg(message& msg, bool reuse_msg){
                 }
                 p+=8;
                 if(p>=buf+bytes) break;
-                std::cout<<"append chunk "<<std::string((const char*)p, size)<<std::endl;
+                //std::cout<<"append chunk "<<std::string((const char*)p, size)<<std::endl;
                 msg.append((const uint8_t*)p, (uint32_t)size);
                 p+=size;
             }

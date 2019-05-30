@@ -160,7 +160,7 @@ void pipe::dosubmit_both(){
     if(!reads.empty()) flag |= EPOLLIN; //1
     if(!writes.empty()) flag |= EPOLLOUT; //4
     if(flag!=0){
-        logdebug("now we submit %d", flag); 
+        //logdebug("now we submit %d", flag); 
         e->submit(flag);
     }
 }
@@ -177,7 +177,7 @@ void pipe::dosubmit_write(){
 
 void pipe::doread(std::unique_lock<std::mutex>& lk){
     if(closed) return ; 
-    logdebug("read events over listener");
+    //logdebug("read events over listener");
     while(!reads.empty()) {
         auto& cur=reads.front();
         lk.unlock();
@@ -201,7 +201,7 @@ void pipe::doread(std::unique_lock<std::mutex>& lk){
 
 void pipe::dowrite(std::unique_lock<std::mutex>& lk){
     if(closed) return;
-    logdebug("write events over listener");
+    //logdebug("write events over listener");
     while(!writes.empty()) {
         auto& cur=writes.front();
         lk.unlock();

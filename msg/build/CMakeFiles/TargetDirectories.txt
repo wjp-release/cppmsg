@@ -6,8 +6,7 @@
 /mnt/d/wjp/cppmsg/msg/build/samples/CMakeFiles/rebuild_cache.dir
 /mnt/d/wjp/cppmsg/msg/build/samples/CMakeFiles/server.dir
 /mnt/d/wjp/cppmsg/msg/build/samples/CMakeFiles/basic.dir
-/mnt/d/wjp/cppmsg/msg/build/samples/CMakeFiles/client.dir
 /mnt/d/wjp/cppmsg/msg/build/samples/CMakeFiles/edit_cache.dir
-/mnt/d/wjp/cppmsg/msg/build/samples/CMakeFiles/perfcli.dir
+/mnt/d/wjp/cppmsg/msg/build/samples/CMakeFiles/client.dir
+/mnt/d/wjp/cppmsg/msg/build/samples/CMakeFiles/wjpperf.dir
 /mnt/d/wjp/cppmsg/msg/build/samples/CMakeFiles/arenaperf.dir
-/mnt/d/wjp/cppmsg/msg/build/samples/CMakeFiles/perfsvr.dir

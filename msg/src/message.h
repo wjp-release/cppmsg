@@ -143,8 +143,14 @@ public:
         meta->use_arena();
     }
     #endif
-    bool is_reusable(){
+    // bool is_reusable(){
         
+    // }
+    std::list<message_chunk>& get_chunks(){
+        return meta->chunks;
+    }
+    message_chunk& first(int i){
+        return *(meta->chunks.begin());
     }
     void append(const uint8_t* data, uint32_t size){
         meta->append(data,size);

@@ -37,8 +37,7 @@ static void die(const char *fmt, ...)
 	exit(2);
 }
 
-static int
-parse_int(const char *arg, const char *what)
+static int parse_int(const char *arg, const char *what)
 {
 	long  val;
 	char *eptr;
@@ -141,12 +140,17 @@ void latency_client(const char* IP, size_t msgsize, int trips){
     //[5] Send and receive multiple messages.
     auto start=now();
     for(int i=0;i<trips;i++){
-        c->sendmsg_async("");
-
+        c->sendmsg(msg);
+		c->recvmsg(msg);
     }
-
-
-
+    auto end=now();
+	//[6] Statistics
+    auto total   = (float) ((end - start)) / 1000;
+	auto latency = ((float) ((total * 1000000)) / (trips * 2));
+	printf("total time: %.3f [s]\n", total);
+	printf("message size: %d [B]\n", (int) msgsize);
+	printf("round trip count: %d\n", trips);
+	printf("average latency: %.3f [us]\n", latency);
 }
 
 void latency_client_async(const char* IP, size_t msgsize, int trips){
@@ -171,11 +175,13 @@ void latency_client_async(const char* IP, size_t msgsize, int trips){
     for(int i=0;i<trips;i++){
         c->sendmsg_async(msg);
     }
-    for(int i=0;recv.nr_chunks()<=trips && i<trips;i++){
-        c->recv_multipart_msg(recv);
+	int total_bytes=trips*msgsize;
+    for(int i=0;recv.size()<total_bytes;i++){
+        c->recv_multipart_msg(recv,true);
+		//logdebug("now we have received %d bytes", total_bytes);
     }
     auto end=now();
-
+	//[6] Statistics
     auto total   = (float) ((end - start)) / 1000;
 	auto latency = ((float) ((total * 1000000)) / (trips * 2));
 	printf("total time: %.3f [s]\n", total);
@@ -184,21 +190,80 @@ void latency_client_async(const char* IP, size_t msgsize, int trips){
 	printf("average latency: %.3f [us]\n", latency);
 }
 
-void latency_server(const char *addr, size_t msgsize, int trips)
+void latency_server(const char * IP, size_t msgsize, int trips)
 {
-
+    reactor::instance().start_eventloop();
+    addr address;
+    auto s=resolv_ipv4_sync(address, IP, DEFAULT_PORT, 1000);
+    if(!s.is_success()) logerr(s.str().c_str());
+    int listenfd;
+    s=bind_listen(address, listenfd);
+    int connfd;
+    s=sync_accept(listenfd, connfd);
+    auto c=basic_connection::make(connfd);
+    message what;
+	int bytes_left=msgsize*trips;
+    for(uint64_t i=0; bytes_left>0 ;i++){
+        c->recv_multipart_msg(what); // not reused
+		bytes_left-=what.size();
+        c->sendmsg_async(what); // send back
+		//logdebug("%d bytes left", bytes_left);
+    }
+	while(true){} // ensure async ops finishes
 }
 
-void throughput_server(const char *addr, size_t msgsize, int count){
-
+void throughput_server(const char *IP, size_t msgsize, int count){
+    reactor::instance().start_eventloop();
+    addr address;
+    auto s=resolv_ipv4_sync(address, IP, DEFAULT_PORT, 1000);
+    if(!s.is_success()) logerr(s.str().c_str());
+    int listenfd;
+    s=bind_listen(address, listenfd);
+    int connfd;
+    s=sync_accept(listenfd, connfd);
+    auto c=basic_connection::make(connfd);
+	message what;
+	auto start=now();
+	uint64_t bytes_left=msgsize*count;
+	// recv all the data
+    for(uint64_t i=0; bytes_left>0 ;i++){
+        c->recv_multipart_msg(what); // not reused
+		bytes_left-=what.size();
+		//logdebug("%d bytes left", bytes_left);
+    }
+	auto end=now();
+	auto total     = (float) ((end - start)) / 1000;
+	auto msgpersec = (float) (count) / total;
+	auto mbps      = (float) (msgpersec * 8 * msgsize) / (1024 * 1024);
+	printf("total time: %.3f [s]\n", total);
+	printf("message size: %d [B]\n", (int) msgsize);
+	printf("message count: %d\n", count);
+	printf("throughput: %.f [msg/s]\n", msgpersec);
+	printf("throughput: %.3f [Mb/s]\n", mbps);
 }
 
-void throughput_client(const char *addr, size_t msgsize, int count){
-
+void throughput_client(const char *IP, size_t msgsize, int count){
+	//[0] Kicks off eventloop
+    reactor::reactor::instance().start_eventloop();
+    //[1] Resolve address synchronously
+    addr address;
+    auto s=resolv_ipv4_sync(address, IP, DEFAULT_PORT);
+    if(!s.is_success()) logerr(s.str().c_str());
+    //[2] Create a tcp connection fd
+    int connfd;
+    s=sync_connect(address,connfd);
+    if(!s.is_success()) logerr(s.str().c_str());
+    //[3] Create a cppmsg basic connection 
+    auto c=basic_connection::make(connfd);
+    //[4] Create and send messages for count times
+    for(int i=0;i<count;i++){
+		message msg; 
+    	msg.alloc(msgsize);
+        c->sendmsg_async(msg);
+		//logdebug("%d bytes sent", (i+1)*msgsize);
+    }
+	while(true){}
 }
-
-
-
 
 // perf implements the same performance tests found in the standard nng, nanomsg & mangos performance tests. 
 // Options are:
@@ -236,8 +301,8 @@ bool matches(const char *arg, const char *name)
 	}
 }
 
-int
-main(int argc, char **argv)
+// rename the excutable to following names
+int main(int argc, char **argv)
 {
 	char *prog;
 	// Allow -m <remote_lat> or whatever to override argv[0].
@@ -250,22 +315,22 @@ main(int argc, char **argv)
 		argc--;
 		argv++;
 	}
-	if (matches(prog, "remote_lat") || matches(prog, "latency_client")) {
+	if 		  ( matches(prog, "remote_lat") ||
+				matches(prog, "latency_client")) {
 		do_remote_lat(argc, argv);
-	} else if (matches(prog, "local_lat") ||
-	    matches(prog, "latency_server")) {
+	} else if (	matches(prog, "local_lat") ||
+	    		matches(prog, "latency_server")) {
 		do_local_lat(argc, argv);
-	} else if (matches(prog, "local_thr") ||
-	    matches(prog, "throughput_server")) {
+	} else if (	matches(prog, "local_thr") ||
+	    		matches(prog, "throughput_server")) {
 		do_local_thr(argc, argv);
-	} else if (matches(prog, "remote_thr") ||
-	    matches(prog, "throughput_client")) {
+	} else if (	matches(prog, "remote_thr") ||
+	    		matches(prog, "throughput_client")) {
 		do_remote_thr(argc, argv);
-	} else if(matches(prog, "remote_lat_async") ||
-        matches(prog, "latency_client_async")){
+	} else if(	matches(prog, "remote_lat_async") ||
+        		matches(prog, "latency_client_async")){
         do_remote_lat_async(argc, argv);
     } 
-    
     else {
 		die("Unknown program mode? Use -m <mode>.");
 	}
