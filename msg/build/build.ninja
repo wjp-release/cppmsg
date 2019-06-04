@@ -77,168 +77,224 @@ build src/CMakeFiles/msg.dir/message.cc.o: CXX_COMPILER__msg ../src/message.cc |
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/channel/ack_connection.cc.o: CXX_COMPILER__msg ../src/channel/ack_connection.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/channel/ack_connection.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/channel/basic_connection.cc.o: CXX_COMPILER__msg ../src/channel/basic_connection.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/channel/basic_connection.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/channel/checksum_connection.cc.o: CXX_COMPILER__msg ../src/channel/checksum_connection.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/channel/checksum_connection.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/channel/connection.cc.o: CXX_COMPILER__msg ../src/channel/connection.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/channel/connection.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/channel/healthcheck_connection.cc.o: CXX_COMPILER__msg ../src/channel/healthcheck_connection.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/channel/healthcheck_connection.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/channel/iotask.cc.o: CXX_COMPILER__msg ../src/channel/iotask.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/channel/iotask.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/channel/pingpong_connection.cc.o: CXX_COMPILER__msg ../src/channel/pingpong_connection.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/channel/pingpong_connection.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/channel/pipe.cc.o: CXX_COMPILER__msg ../src/channel/pipe.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/channel/pipe.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/channel
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/connector/connect_task.cc.o: CXX_COMPILER__msg ../src/connector/connect_task.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/connector/connect_task.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/connector
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/connector/connector.cc.o: CXX_COMPILER__msg ../src/connector/connector.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/connector/connector.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/connector
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/connector/reconnector.cc.o: CXX_COMPILER__msg ../src/connector/reconnector.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/connector/reconnector.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/connector
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/listener/listener.cc.o: CXX_COMPILER__msg ../src/listener/listener.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/listener/listener.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/listener
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/system/addr.cc.o: CXX_COMPILER__msg ../src/system/addr.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/system/addr.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/system
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/system/event.cc.o: CXX_COMPILER__msg ../src/system/event.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/system/event.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/system
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/system/fd.cc.o: CXX_COMPILER__msg ../src/system/fd.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/system/fd.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/system
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/system/reactor.cc.o: CXX_COMPILER__msg ../src/system/reactor.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/system/reactor.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/system
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/system/resolv.cc.o: CXX_COMPILER__msg ../src/system/resolv.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/system/resolv.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/system
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/system/timer.cc.o: CXX_COMPILER__msg ../src/system/timer.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/system/timer.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/system
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/common/clock.cc.o: CXX_COMPILER__msg ../src/common/clock.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/common/clock.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/common
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/common/log.cc.o: CXX_COMPILER__msg ../src/common/log.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/common/log.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/common
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/common/status.cc.o: CXX_COMPILER__msg ../src/common/status.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/common/status.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/common
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/common/taskpool.cc.o: CXX_COMPILER__msg ../src/common/taskpool.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/common/taskpool.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/common
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/session/client_session.cc.o: CXX_COMPILER__msg ../src/session/client_session.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/session/client_session.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/session
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/session/logical_session.cc.o: CXX_COMPILER__msg ../src/session/logical_session.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/session/logical_session.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/session
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/session/session.cc.o: CXX_COMPILER__msg ../src/session/session.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/session/session.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/session
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/session/stateful_server_session.cc.o: CXX_COMPILER__msg ../src/session/stateful_server_session.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/session/stateful_server_session.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/session
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 build src/CMakeFiles/msg.dir/session/stateless_server_session.cc.o: CXX_COMPILER__msg ../src/session/stateless_server_session.cc || cmake_object_order_depends_target_msg
   DEP_FILE = src/CMakeFiles/msg.dir/session/stateless_server_session.cc.o.d
   FLAGS = -std=c++14 -fPIC -Wno-reorder  -O2 -Wall   -std=gnu++14
   INCLUDES = -I.././src
   OBJECT_DIR = src/CMakeFiles/msg.dir
   OBJECT_FILE_DIR = src/CMakeFiles/msg.dir/session
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
+  TARGET_PDB = src/libmsg.pdb
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target msg
@@ -252,8 +308,9 @@ build src/libmsg.a: CXX_STATIC_LIBRARY_LINKER__msg src/CMakeFiles/msg.dir/messag
   OBJECT_DIR = src/CMakeFiles/msg.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = src/CMakeFiles/msg.dir/msg.pdb
   TARGET_FILE = src/libmsg.a
-  TARGET_PDB = msg.a.dbg
+  TARGET_PDB = src/libmsg.pdb
 
 #############################################
 # Utility command for edit_cache
@@ -292,6 +349,8 @@ build samples/CMakeFiles/server.dir/server.cc.o: CXX_COMPILER__server ../samples
   INCLUDES = -I.././src
   OBJECT_DIR = samples/CMakeFiles/server.dir
   OBJECT_FILE_DIR = samples/CMakeFiles/server.dir
+  TARGET_COMPILE_PDB = samples/CMakeFiles/server.dir/
+  TARGET_PDB = samples/server.pdb
 
 # =============================================================================
 # Link build statements for EXECUTABLE target server
@@ -307,8 +366,9 @@ build samples/server: CXX_EXECUTABLE_LINKER__server samples/CMakeFiles/server.di
   OBJECT_DIR = samples/CMakeFiles/server.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = samples/CMakeFiles/server.dir/
   TARGET_FILE = samples/server
-  TARGET_PDB = server.dbg
+  TARGET_PDB = samples/server.pdb
 # =============================================================================
 # Object build statements for EXECUTABLE target basic
 
@@ -323,6 +383,8 @@ build samples/CMakeFiles/basic.dir/basic.cc.o: CXX_COMPILER__basic ../samples/ba
   INCLUDES = -I.././src
   OBJECT_DIR = samples/CMakeFiles/basic.dir
   OBJECT_FILE_DIR = samples/CMakeFiles/basic.dir
+  TARGET_COMPILE_PDB = samples/CMakeFiles/basic.dir/
+  TARGET_PDB = samples/basic.pdb
 
 # =============================================================================
 # Link build statements for EXECUTABLE target basic
@@ -338,8 +400,9 @@ build samples/basic: CXX_EXECUTABLE_LINKER__basic samples/CMakeFiles/basic.dir/b
   OBJECT_DIR = samples/CMakeFiles/basic.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = samples/CMakeFiles/basic.dir/
   TARGET_FILE = samples/basic
-  TARGET_PDB = basic.dbg
+  TARGET_PDB = samples/basic.pdb
 
 #############################################
 # Utility command for edit_cache
@@ -363,6 +426,8 @@ build samples/CMakeFiles/client.dir/client.cc.o: CXX_COMPILER__client ../samples
   INCLUDES = -I.././src
   OBJECT_DIR = samples/CMakeFiles/client.dir
   OBJECT_FILE_DIR = samples/CMakeFiles/client.dir
+  TARGET_COMPILE_PDB = samples/CMakeFiles/client.dir/
+  TARGET_PDB = samples/client.pdb
 
 # =============================================================================
 # Link build statements for EXECUTABLE target client
@@ -378,8 +443,9 @@ build samples/client: CXX_EXECUTABLE_LINKER__client samples/CMakeFiles/client.di
   OBJECT_DIR = samples/CMakeFiles/client.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = samples/CMakeFiles/client.dir/
   TARGET_FILE = samples/client
-  TARGET_PDB = client.dbg
+  TARGET_PDB = samples/client.pdb
 # =============================================================================
 # Object build statements for EXECUTABLE target wjpperf
 
@@ -394,6 +460,8 @@ build samples/CMakeFiles/wjpperf.dir/perf.cc.o: CXX_COMPILER__wjpperf ../samples
   INCLUDES = -I.././src
   OBJECT_DIR = samples/CMakeFiles/wjpperf.dir
   OBJECT_FILE_DIR = samples/CMakeFiles/wjpperf.dir
+  TARGET_COMPILE_PDB = samples/CMakeFiles/wjpperf.dir/
+  TARGET_PDB = samples/wjpperf.pdb
 
 # =============================================================================
 # Link build statements for EXECUTABLE target wjpperf
@@ -409,8 +477,9 @@ build samples/wjpperf: CXX_EXECUTABLE_LINKER__wjpperf samples/CMakeFiles/wjpperf
   OBJECT_DIR = samples/CMakeFiles/wjpperf.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = samples/CMakeFiles/wjpperf.dir/
   TARGET_FILE = samples/wjpperf
-  TARGET_PDB = wjpperf.dbg
+  TARGET_PDB = samples/wjpperf.pdb
 # =============================================================================
 # Object build statements for EXECUTABLE target arenaperf
 
@@ -425,6 +494,8 @@ build samples/CMakeFiles/arenaperf.dir/arenaperf.cc.o: CXX_COMPILER__arenaperf .
   INCLUDES = -I.././src
   OBJECT_DIR = samples/CMakeFiles/arenaperf.dir
   OBJECT_FILE_DIR = samples/CMakeFiles/arenaperf.dir
+  TARGET_COMPILE_PDB = samples/CMakeFiles/arenaperf.dir/
+  TARGET_PDB = samples/arenaperf.pdb
 
 # =============================================================================
 # Link build statements for EXECUTABLE target arenaperf
@@ -440,8 +511,9 @@ build samples/arenaperf: CXX_EXECUTABLE_LINKER__arenaperf samples/CMakeFiles/are
   OBJECT_DIR = samples/CMakeFiles/arenaperf.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = samples/CMakeFiles/arenaperf.dir/
   TARGET_FILE = samples/arenaperf
-  TARGET_PDB = arenaperf.dbg
+  TARGET_PDB = samples/arenaperf.pdb
 # =============================================================================
 # Target aliases.
 
@@ -485,13 +557,13 @@ default all
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../samples/CMakeLists.txt ../src/CMakeLists.txt /usr/share/cmake-3.10/Modules/CMakeCInformation.cmake /usr/share/cmake-3.10/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.10/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.10/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.10/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.10/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.10/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.10/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU.cmake /usr/share/cmake-3.10/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.10/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.10/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.10/Modules/Platform/Linux.cmake /usr/share/cmake-3.10/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.10.2/CMakeCCompiler.cmake CMakeFiles/3.10.2/CMakeCXXCompiler.cmake CMakeFiles/3.10.2/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../samples/CMakeLists.txt ../src/CMakeLists.txt /usr/share/cmake-3.10/Modules/CMakeCCompiler.cmake.in /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c /usr/share/cmake-3.10/Modules/CMakeCInformation.cmake /usr/share/cmake-3.10/Modules/CMakeCXXCompiler.cmake.in /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp /usr/share/cmake-3.10/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.10/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.10/Modules/CMakeCompilerIdDetection.cmake /usr/share/cmake-3.10/Modules/CMakeDetermineCCompiler.cmake /usr/share/cmake-3.10/Modules/CMakeDetermineCXXCompiler.cmake /usr/share/cmake-3.10/Modules/CMakeDetermineCompileFeatures.cmake /usr/share/cmake-3.10/Modules/CMakeDetermineCompiler.cmake /usr/share/cmake-3.10/Modules/CMakeDetermineCompilerABI.cmake /usr/share/cmake-3.10/Modules/CMakeDetermineCompilerId.cmake /usr/share/cmake-3.10/Modules/CMakeDetermineSystem.cmake /usr/share/cmake-3.10/Modules/CMakeFindBinUtils.cmake /usr/share/cmake-3.10/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.10/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.10/Modules/CMakeNinjaFindMake.cmake /usr/share/cmake-3.10/Modules/CMakeParseImplicitLinkInfo.cmake /usr/share/cmake-3.10/Modules/CMakeSystem.cmake.in /usr/share/cmake-3.10/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.10/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.10/Modules/CMakeTestCCompiler.cmake /usr/share/cmake-3.10/Modules/CMakeTestCXXCompiler.cmake /usr/share/cmake-3.10/Modules/CMakeTestCompilerCommon.cmake /usr/share/cmake-3.10/Modules/Compiler/ADSP-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/ARMCC-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/AppleClang-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/Borland-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.10/Modules/Compiler/Clang-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /usr/share/cmake-3.10/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/Cray-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/GHS-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU-C-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU-C-FeatureTests.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU-CXX-FeatureTests.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU-FindBinUtils.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU.cmake /usr/share/cmake-3.10/Modules/Compiler/HP-C-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/HP-CXX-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/IAR-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /usr/share/cmake-3.10/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake /usr/share/cmake-3.10/Modules/Compiler/Intel-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/MIPSpro-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/MSVC-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/PGI-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/PathScale-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/SCO-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/TI-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/Watcom-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/XL-C-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/XL-CXX-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/zOS-C-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Internal/FeatureTesting.cmake /usr/share/cmake-3.10/Modules/Platform/Linux-Determine-CXX.cmake /usr/share/cmake-3.10/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.10/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.10/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.10/Modules/Platform/Linux.cmake /usr/share/cmake-3.10/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.10.2/CMakeCCompiler.cmake CMakeFiles/3.10.2/CMakeCXXCompiler.cmake CMakeFiles/3.10.2/CMakeSystem.cmake CMakeFiles/feature_tests.c CMakeFiles/feature_tests.cxx
   pool = console
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ../CMakeLists.txt ../samples/CMakeLists.txt ../src/CMakeLists.txt /usr/share/cmake-3.10/Modules/CMakeCInformation.cmake /usr/share/cmake-3.10/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.10/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.10/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.10/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.10/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.10/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.10/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU.cmake /usr/share/cmake-3.10/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.10/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.10/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.10/Modules/Platform/Linux.cmake /usr/share/cmake-3.10/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.10.2/CMakeCCompiler.cmake CMakeFiles/3.10.2/CMakeCXXCompiler.cmake CMakeFiles/3.10.2/CMakeSystem.cmake: phony
+build ../CMakeLists.txt ../samples/CMakeLists.txt ../src/CMakeLists.txt /usr/share/cmake-3.10/Modules/CMakeCCompiler.cmake.in /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c /usr/share/cmake-3.10/Modules/CMakeCInformation.cmake /usr/share/cmake-3.10/Modules/CMakeCXXCompiler.cmake.in /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp /usr/share/cmake-3.10/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.10/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.10/Modules/CMakeCompilerIdDetection.cmake /usr/share/cmake-3.10/Modules/CMakeDetermineCCompiler.cmake /usr/share/cmake-3.10/Modules/CMakeDetermineCXXCompiler.cmake /usr/share/cmake-3.10/Modules/CMakeDetermineCompileFeatures.cmake /usr/share/cmake-3.10/Modules/CMakeDetermineCompiler.cmake /usr/share/cmake-3.10/Modules/CMakeDetermineCompilerABI.cmake /usr/share/cmake-3.10/Modules/CMakeDetermineCompilerId.cmake /usr/share/cmake-3.10/Modules/CMakeDetermineSystem.cmake /usr/share/cmake-3.10/Modules/CMakeFindBinUtils.cmake /usr/share/cmake-3.10/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.10/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.10/Modules/CMakeNinjaFindMake.cmake /usr/share/cmake-3.10/Modules/CMakeParseImplicitLinkInfo.cmake /usr/share/cmake-3.10/Modules/CMakeSystem.cmake.in /usr/share/cmake-3.10/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.10/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.10/Modules/CMakeTestCCompiler.cmake /usr/share/cmake-3.10/Modules/CMakeTestCXXCompiler.cmake /usr/share/cmake-3.10/Modules/CMakeTestCompilerCommon.cmake /usr/share/cmake-3.10/Modules/Compiler/ADSP-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/ARMCC-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/AppleClang-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/Borland-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.10/Modules/Compiler/Clang-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /usr/share/cmake-3.10/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/Cray-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/GHS-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU-C-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU-C-FeatureTests.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU-CXX-FeatureTests.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU-FindBinUtils.cmake /usr/share/cmake-3.10/Modules/Compiler/GNU.cmake /usr/share/cmake-3.10/Modules/Compiler/HP-C-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/HP-CXX-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/IAR-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /usr/share/cmake-3.10/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake /usr/share/cmake-3.10/Modules/Compiler/Intel-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/MIPSpro-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/MSVC-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/PGI-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/PathScale-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/SCO-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/TI-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/Watcom-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/XL-C-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/XL-CXX-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/zOS-C-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake /usr/share/cmake-3.10/Modules/Internal/FeatureTesting.cmake /usr/share/cmake-3.10/Modules/Platform/Linux-Determine-CXX.cmake /usr/share/cmake-3.10/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.10/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.10/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.10/Modules/Platform/Linux.cmake /usr/share/cmake-3.10/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.10.2/CMakeCCompiler.cmake CMakeFiles/3.10.2/CMakeCXXCompiler.cmake CMakeFiles/3.10.2/CMakeSystem.cmake CMakeFiles/feature_tests.c CMakeFiles/feature_tests.cxx: phony
 
 #############################################
 # Clean all the built files.

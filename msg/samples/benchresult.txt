@@ -1,0 +1,233 @@
+## nng throughput 
+#### 100bytes * 10000trips
+throughput: 20833 [msg/s]
+throughput: 15.895 [Mb/s]
+
+throughput: 17857 [msg/s]
+throughput: 13.624 [Mb/s]
+
+throughput: 17241 [msg/s]
+throughput: 13.154 [Mb/s]
+
+throughput: 17544 [msg/s]
+throughput: 13.385 [Mb/s]
+
+throughput: 19608 [msg/s]
+throughput: 14.960 [Mb/s]
+
+throughput: 13699 [msg/s]
+throughput: 10.451 [Mb/s]
+
+throughput: 19608 [msg/s]
+throughput: 14.960 [Mb/s]
+
+throughput: 22727 [msg/s]
+throughput: 17.340 [Mb/s]
+
+#### 1000bytes * 1000trips 
+throughput: 19608 [msg/s]
+throughput: 149.596 [Mb/s]
+
+throughput: 24390 [msg/s]
+throughput: 186.083 [Mb/s]
+
+throughput: 18519 [msg/s]
+throughput: 141.285 [Mb/s]
+
+throughput: 22222 [msg/s]
+throughput: 169.542 [Mb/s]
+
+throughput: 19231 [msg/s]
+throughput: 146.719 [Mb/s]
+
+throughput: 21739 [msg/s]
+throughput: 165.856 [Mb/s]
+
+throughput: 21277 [msg/s]
+throughput: 162.328 [Mb/s]
+
+throughput: 16667 [msg/s]
+throughput: 127.157 [Mb/s]
+
+#### 10000bytes * 1000trips 
+throughput: 11765 [msg/s]
+throughput: 897.576 [Mb/s]
+
+throughput: 8130 [msg/s]
+throughput: 620.276 [Mb/s]
+
+throughput: 14493 [msg/s]
+throughput: 1105.709 [Mb/s]
+
+throughput: 13333 [msg/s]
+throughput: 1017.253 [Mb/s]
+
+throughput: 14286 [msg/s]
+throughput: 1089.913 [Mb/s]
+
+throughput: 12500 [msg/s]
+throughput: 953.674 [Mb/s]
+
+throughput: 10989 [msg/s]
+throughput: 838.395 [Mb/s]
+
+throughput: 11236 [msg/s]
+throughput: 857.235 [Mb/s]
+
+#### 100000bytes * 1000trips
+throughput: 1767 [msg/s]
+throughput: 1347.950 [Mb/s]
+
+throughput: 1531 [msg/s]
+throughput: 1168.361 [Mb/s]
+
+throughput: 1351 [msg/s]
+throughput: 1030.999 [Mb/s]
+
+throughput: 1789 [msg/s]
+throughput: 1364.829 [Mb/s]
+
+throughput: 1661 [msg/s]
+throughput: 1267.341 [Mb/s]
+
+throughput: 1905 [msg/s]
+throughput: 1453.218 [Mb/s]
+
+throughput: 1558 [msg/s]
+throughput: 1188.379 [Mb/s]
+
+throughput: 1828 [msg/s]
+throughput: 1394.771 [Mb/s]
+
+
+## nng latency
+#### 1000 bytes * 1000 trips
+average latency: 76.000 [us]
+average latency: 80.000 [us]
+average latency: 86.500 [us]
+average latency: 76.500 [us]
+average latency: 83.000 [us]
+average latency: 87.500 [us]
+average latency: 95.500 [us]
+average latency: 97.500 [us]
+
+
+3. cppmsg::basic_connection throughput
+Given that basic_connection is not actually tuned for best-performance(For example, virtual functions and smart pointers are heavily used), it still beats nng in small message throughput benchmarks. 
+I think it's mostly due to basic_connection's recv_multiple_msg interface that drains OS buffer in one syscall.
+
+#### 100bytes * 10000trips
+message count: 10000
+throughput: 113636 [msg/s]
+throughput: 86.698 [Mb/s]
+
+throughput: 98039 [msg/s]
+throughput: 74.798 [Mb/s]
+
+throughput: 90090 [msg/s]
+throughput: 68.733 [Mb/s]
+
+throughput: 86207 [msg/s]
+throughput: 65.771 [Mb/s]
+
+throughput: 82645 [msg/s]
+throughput: 63.053 [Mb/s]
+
+throughput: 109890 [msg/s]
+throughput: 83.840 [Mb/s]
+
+throughput: 78740 [msg/s]
+throughput: 60.074 [Mb/s]
+
+throughput: 89286 [msg/s]
+throughput: 68.120 [Mb/s]
+
+#### 1000bytes * 1000trips
+throughput: 33333 [msg/s]
+throughput: 254.313 [Mb/s]
+
+throughput: 50000 [msg/s]
+throughput: 381.470 [Mb/s]
+
+throughput: 41667 [msg/s]
+throughput: 317.891 [Mb/s]
+
+throughput: 41667 [msg/s]
+throughput: 317.891 [Mb/s]
+
+throughput: 41667 [msg/s]
+throughput: 317.891 [Mb/s]
+
+throughput: 31250 [msg/s]
+throughput: 238.419 [Mb/s]
+
+throughput: 35714 [msg/s]
+throughput: 272.478 [Mb/s]
+
+throughput: 43478 [msg/s]
+throughput: 331.713 [Mb/s]
+
+#### 10000bytes * 1000trips
+throughput: 15385 [msg/s]
+throughput: 1173.753 [Mb/s]
+
+throughput: 13889 [msg/s]
+throughput: 1059.638 [Mb/s]
+
+throughput: 16949 [msg/s]
+throughput: 1293.118 [Mb/s]
+
+throughput: 17857 [msg/s]
+throughput: 1362.392 [Mb/s]
+
+throughput: 16393 [msg/s]
+throughput: 1250.720 [Mb/s]
+
+throughput: 17544 [msg/s]
+throughput: 1338.490 [Mb/s]
+
+throughput: 16667 [msg/s]
+throughput: 1271.566 [Mb/s]
+
+throughput: 17241 [msg/s]
+throughput: 1315.413 [Mb/s]
+
+#### 100000bytes * 1000trips
+Throughput is slightly lower probably due to the basic_connection's usage of default C++ new operation to allocate message space. 
+
+throughput: 1311 [msg/s]
+throughput: 999.921 [Mb/s]
+
+throughput: 1232 [msg/s]
+throughput: 939.581 [Mb/s]
+
+throughput: 1175 [msg/s]
+throughput: 896.521 [Mb/s]
+
+throughput: 1183 [msg/s]
+throughput: 902.887 [Mb/s]
+
+throughput: 1211 [msg/s]
+throughput: 923.656 [Mb/s]
+
+throughput: 1189 [msg/s]
+throughput: 907.181 [Mb/s]
+
+throughput: 1376 [msg/s]
+throughput: 1049.435 [Mb/s]
+
+throughput: 1435 [msg/s]
+throughput: 1094.605 [Mb/s]
+
+
+## cppmsg::basic_connection send_async latency
+#### 1000 bytes * 1000 trips
+average latency: 102.500 [us]
+average latency: 100.500 [us]
+average latency: 107.500 [us]
+average latency: 97.500 [us]
+average latency: 97.500 [us]
+average latency: 95.000 [us]
+average latency: 99.500 [us]
+average latency: 116.500 [us]
+

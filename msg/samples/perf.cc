@@ -206,7 +206,7 @@ void latency_server(const char * IP, size_t msgsize, int trips)
     for(uint64_t i=0; bytes_left>0 ;i++){
         c->recv_multipart_msg(what); // not reused
 		bytes_left-=what.size();
-        c->sendmsg_async(what); // send back
+        c->sendmsg(what); // send back
 		//logdebug("%d bytes left", bytes_left);
     }
 	while(true){} // ensure async ops finishes
